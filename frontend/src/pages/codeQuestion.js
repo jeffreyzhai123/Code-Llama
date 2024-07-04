@@ -18,6 +18,7 @@ const CodeQuestion = () =>{
     //element for second attempt
     const [generatedCode, setGC] = useState("");
     const [failedTestCase, setTestCase] = useState("");
+    const [reasonOfChange, setReason] = useState("");
 
     //go to other page
     let navigate = useNavigate();
@@ -84,17 +85,40 @@ const CodeQuestion = () =>{
 
             <div>
                 <form className='answer' onSubmit={handleAnsSubmit}>
-                    <input 
-                        type="text" 
-                        name='Answer' 
-                        placeholder='Type your answer here'
-                        value = {answer} 
-                        onChange = { (e) =>
-                        {
-                            setAns(e.target.value)
-                        }
-                        }>  
-                    </input>
+                    <label>
+                        Answer
+                        <input 
+                            type="text" 
+                            name='Answer' 
+                            placeholder='Type your answer here'
+                            value = {answer} 
+                            onChange = { (e) =>
+                            {
+                                setAns(e.target.value)
+                            }}>  
+                        </input>
+                    </label>
+
+                    <br></br>
+                    
+           
+                    {(attempt_num === 2) && 
+                    <label>
+                        Reason for changing your answer
+                        <input type="text" 
+                            name='Reason of Change' 
+                            placeholder='Type your reason for changing the answer here'
+                            value = {reasonOfChange} 
+                            onChange = { (e) =>
+                            {
+                                setReason(e.target.value)
+                            }}>
+                        </input>
+                    </label>
+                    }
+                    
+                    <br></br>
+                    
                     <button className='submitButton' type = "submit">Submit</button>
                 </form>
                 
