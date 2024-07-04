@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { SignedIn, SignedOut, SignInButton, SignOutButton, useUser } from '@clerk/clerk-react'
 import ConsentForm from '../components/consent_form'
 import { useState } from 'react';
@@ -20,6 +21,16 @@ const Home = (props) => {
             <div>Welcome!</div>
           </div>
           <div>This is the home page.</div>
+
+          {/* temporary button to help seeing code exercise pages */}
+          {user && 
+          <div>
+          <Link to ="/codeQuestion">
+            <button className='exercise'>Exercise</button>
+          </Link>
+          </div> 
+          }
+           
           {/* The children of the SignedOut component are rendered only when the user is signed out from the app. In this case, the app will render a SignInButton */}
           {isChecked &&
             <SignedOut>
