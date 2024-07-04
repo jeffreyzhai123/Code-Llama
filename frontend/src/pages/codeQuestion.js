@@ -36,10 +36,29 @@ const CodeQuestion = () =>{
     //incorrect + first attempt (last question): update attemp_num to 2 + display additional component related to the second attempt
 
     //correct + first attempt (last question) & correct/incorrect + second attempt (last question): redirect to the quiz result page
-    function handleAnsSubmit(event) {
+    async function handleAnsSubmit(event) {
         event.preventDefault();
         //assure the answer is fetched correctly; will be deleted
         // alert("your input is " + answer);
+
+        try{
+            const res = await fetch('http://localhost:3080/answer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({answer})
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setAns(data.message);
+                console.log(answer);
+            } else {
+                console.error('Failed to get response from backend');
+            }
+        } catch (error) {
+            console.error('ERROR: ', error);
+        }
 
         //will be replace by a API call to backend to check correctness
         const correctness = false;
