@@ -23,11 +23,13 @@ const Home = (props) => {
           <div>This is the home page.</div>
 
           {/* temporary button to help seeing code exercise pages */}
+          {user && 
           <div>
           <Link to ="/codeQuestion">
             <button className='exercise'>Exercise</button>
           </Link>
           </div> 
+          }
            
           {/* The children of the SignedOut component are rendered only when the user is signed out from the app. In this case, the app will render a SignInButton */}
           {isChecked &&
