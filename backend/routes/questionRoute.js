@@ -7,6 +7,7 @@ router.get('/questions', async (req, res) => {
     let quesCollection = await db.collection("problembank");
     let questionItems = quesCollection.find().toArray({});
     console.log(questionItems);
+    console.log("Test some change");
 });
 
 router.get('/questions/:id', async (req, res) => {
