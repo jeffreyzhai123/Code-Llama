@@ -1,12 +1,18 @@
 import React from 'react'
 import { SignedIn, SignedOut, SignInButton, SignOutButton, useUser } from '@clerk/clerk-react'
-
+import ConsentForm from '../components/consent_form'
+import { useState } from 'react';
 
 //the code in this file is taken from: https://clerk.com/blog/building-a-react-login-page-template
 const Home = (props) => {
 
     //use useUser hook to get details about the logged in user
-    const { user } = useUser()
+    const { user } = useUser();
+    const [isChecked, setIsChecked] = useState(false);
+
+    const onCheckboxChange = (checked) => {
+      setIsChecked(checked);
+    }
 
     return (
         <div className="mainContainer">
@@ -15,12 +21,19 @@ const Home = (props) => {
           </div>
           <div>This is the home page.</div>
           {/* The children of the SignedOut component are rendered only when the user is signed out from the app. In this case, the app will render a SignInButton */}
-          <SignedOut>
-            <SignInButton>
-              <input className={'inputButton'} type="button" value={'Log in'} />
-            </SignInButton>
-          </SignedOut>
-    
+          {isChecked &&
+            <SignedOut>
+              <SignInButton>
+                <input className={'inputButton'} type="button" value={'Log in'} />
+              </SignInButton>
+            </SignedOut>
+          }
+
+          {/* displays consentform if user is not signed in */}
+          {!user && 
+            <ConsentForm checked={isChecked} onCheckboxChange={onCheckboxChange} />
+          }
+
           {/* The children of the SignedIn component are rendered only when the user is signed in. In this case, the app will render the SignOutButton */}
           <SignedIn>
             <SignOutButton>

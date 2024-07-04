@@ -15,7 +15,7 @@ function CheckBox({checked, onCheckboxChange}) {
             type={type}
             id={`default-${type}`}
             label={`Agree`}
-            //sets checked to default value (which is false initially)
+            //sets checked to default value and updates it when onChange is called 
             checked={checked}
             onChange={handleChange}
           />
