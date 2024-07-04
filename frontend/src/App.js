@@ -1,5 +1,6 @@
 import Home from './pages/home';
 import CodeQuestion from './pages/codeQuestion';
+import QuizResult from './pages/quizResult';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Home/>}/>
           {/* if url path is "/codeQuestion" render the codeQuestion component */}
           <Route path="/codeQuestion" element={<CodeQuestion/>}/>
+          <Route path="/result" element={<QuizResult/>}/>
 
         </Routes>
       </BrowserRouter>
