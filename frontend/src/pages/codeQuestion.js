@@ -4,6 +4,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 const CodeQuestion = () =>{
 
     //communicate with the backend to get all questions as a json array
@@ -22,6 +23,7 @@ const CodeQuestion = () =>{
 
     //go to other page
     let navigate = useNavigate();
+    
 
     //function that handle submit=> ask banckend right or wrong and decide what to do next
 
@@ -42,14 +44,16 @@ const CodeQuestion = () =>{
         //will be replace by a API call to backend to check correctness
         const correctness = false;
         
+
         if(question_num < 8) {
             if(attempt_num === 2 || correctness){
                 setGC("");
                 setTestCase("");
                 setQuestion("this is the next question");
                 setAttemptNum(1);
-                setQuestionNumber(question_num + 1);
-            } else{
+                setQuestionNumber(question_num+1);
+                
+            } else {
                 setAttemptNum(2);
                 setGC("This is the generated Code");
                 setTestCase("This are failed test cases");
@@ -116,7 +120,7 @@ const CodeQuestion = () =>{
                         </input>
                     </label>
                     }
-                    
+
                     <br></br>
                     
                     <button className='submitButton' type = "submit">Submit</button>
@@ -140,6 +144,9 @@ const CodeQuestion = () =>{
 function generateNext(problems, prev_result) {
     return "func sum(a, b){a+b}";
 }
+
+
+
 
 
 export default CodeQuestion
