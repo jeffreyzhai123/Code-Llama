@@ -1,7 +1,6 @@
-import express from 'express'
+/* import express from 'express'
 const router = express.Router();
-import QuestionModel from "../models/QuestionModel.js"
-import db from "../config/db_connection.js"
+
 
 router.get('/questions', async (req, res) => {
     let quesCollection = await db.collection("problembank");
@@ -15,4 +14,4 @@ router.get('/questions/:id', async (req, res) => {
     let question = await db.collection("problembank");
 });
 
-export default router;
+export default router; */
