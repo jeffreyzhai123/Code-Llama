@@ -7,7 +7,7 @@ import { questionRouter } from './routes/question.js'
 const app = express(); //create express app
 const port = 3080; //set port number
 
-app.use(cors); //allows for cross origin resource sharing
+app.use(cors()); //allows for cross origin resource sharing
 app.use(express.json()); //middleware used to parse incoming JSON requests
 
 app.use('/answer', answerRouter);
