@@ -40,25 +40,29 @@ const CodeQuestion = () =>{
         event.preventDefault();
         //assure the answer is fetched correctly; will be deleted
         // alert("your input is " + answer);
-
-        try{
+        try {
+            const answerObject = { ans: answer, roc: reasonOfChange };
+            console.log("ready to fetch");
+        
             const res = await fetch('http://localhost:3080/answer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({answer})
+                mode: "cors",
+                body: JSON.stringify(answerObject)
             });
-            const data = await res.json();
+        
             if (res.ok) {
-                setAns(data.message);
-                console.log(answer);
+                const data = await res.json();
+                console.log(data.message);
             } else {
                 console.error('Failed to get response from backend');
             }
         } catch (error) {
             console.error('ERROR: ', error);
         }
+         
 
         //will be replace by a API call to backend to check correctness
         const correctness = false;
