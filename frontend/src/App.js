@@ -3,6 +3,7 @@ import CodeQuestion from './pages/codeQuestion';
 import QuizResult from './pages/quizResult';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import PerformanceReview from './pages/performanceReview';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           {/* if url path is "/codeQuestion" render the codeQuestion component */}
           <Route path="/codeQuestion" element={<CodeQuestion/>}/>
           <Route path="/result" element={<QuizResult/>}/>
+          <Route path="/performanceReview" element={<PerformanceReview/>}/>
 
         </Routes>
       </BrowserRouter>

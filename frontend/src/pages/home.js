@@ -30,6 +30,15 @@ const Home = (props) => {
           </Link>
           </div> 
           }
+
+          {/* temporary button to help seeing performance review page */}
+          {user && 
+          <div>
+          <Link to ="/performanceReview">
+            <button className='performance'>Performance Review</button>
+          </Link>
+          </div> 
+          }
            
           {/* The children of the SignedOut component are rendered only when the user is signed out from the app. In this case, the app will render a SignInButton */}
           {isChecked &&
