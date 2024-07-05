@@ -7,8 +7,10 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     //do backend api magic stuff
     
-    //send back result 
-    res.json({})
+    console.log(req.body); // Check if request body is correctly received
+
+    // Send back result 
+    res.json({ message: "Success" });
 });
 
 export { router as answerRouter};
