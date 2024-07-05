@@ -28,6 +28,6 @@ try {
 }
 
 //creating a MongoDB object to be exported
-let db = client.db("database");
+// let db = client.db("database");
 
-export default db;
+export default client;
