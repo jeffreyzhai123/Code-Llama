@@ -9,6 +9,7 @@ router.post('/', async (req, res) => {
     
     console.log(req.body); // Check if request body is correctly received
 
+    
     // Send back result 
     res.json({ message: "Success" });
 });
