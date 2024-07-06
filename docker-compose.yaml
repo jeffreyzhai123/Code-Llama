@@ -1,0 +1,23 @@
+
+version: '2'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    environment:
+      - REACT_APP_CLERK_PUBLISHABLE_KEY=pk_test_ZW5hYmxpbmctbGlvbmZpc2gtODQuY2xlcmsuYWNjb3VudHMuZGV2JA
+    
+  backend: 
+    build: ./backend
+    ports:
+      - '3080:3080'
+    depends_on:
+      - ollama
+    environment:
+      - ATLAS_URI=mongodb+srv://jeffreygxzhai:xicufLKyrtDAINru@cluster0.4crtqpq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - '11434:11434'
