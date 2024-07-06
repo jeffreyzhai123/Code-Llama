@@ -9,6 +9,9 @@ const CodeQuestion = () => {
 
     //go to other page
     let navigate = useNavigate();
+    //diable the double submission while waiting
+    const [submitDisabled, setSubmitDisabled] = useState(false);
+
     //const problem_bank = null;
     const [questionBank, setQuestionBank] = useState([]);
     const [loading, setLoading] = useState(true); //to prevent app from running before questions are pulled
@@ -49,6 +52,9 @@ const CodeQuestion = () => {
     //correct + first attempt (last question) & correct/incorrect + second attempt (last question): redirect to the quiz result page
     async function handleAnsSubmit(event) {
         event.preventDefault();
+
+        //disable submit while waiting for answers
+        setSubmitDisabled(true);
 
         //to check if questions are being pulled successfully. (use inspect elements to see)
         console.log(questionBank);
@@ -104,6 +110,13 @@ const CodeQuestion = () => {
                 navigate("/result");
             }
         }
+
+        //empty the input box for the next question
+        setAns("");
+        setReason("");
+
+        //re-able submit
+        setSubmitDisabled(false);
     }
 
     return (
@@ -158,7 +171,7 @@ const CodeQuestion = () => {
                     }
 
                     <br></br>
-                        <button className='submitButton' type = "submit">Submit</button>
+                        <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
                     </form>
                 
                 </div>
@@ -177,6 +190,7 @@ const CodeQuestion = () => {
 }
 
 //generate the next question (the prev_result will be used for the unique feature and is always set to null for now)
+//not in use in this sprint
 function generateNext(problems, prev_question_num) {
     let curr = prev_question_num + 1;
     if (problems[curr]?.question) {
