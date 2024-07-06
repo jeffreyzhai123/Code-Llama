@@ -4,6 +4,7 @@ import QuizResult from './pages/quizResult';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import PerformanceReview from './pages/performanceReview';
+import PrivateRoute from './components/Auth/PrivateRoute';
 
 function App() {
 
@@ -16,13 +17,11 @@ function App() {
           {/* if url path is "/" render the Home component */}
           <Route path="/" element={<Home/>}/>
           {/* if url path is "/codeQuestion" render the codeQuestion component */}
-          <Route path="/codeQuestion" element={<CodeQuestion/>}/>
-          <Route path="/result" element={<QuizResult/>}/>
-          <Route path="/performanceReview" element={<PerformanceReview/>}/>
-
+          <Route path="/codeQuestion" element={<PrivateRoute element={CodeQuestion}/>}/>
+          <Route path="/result" element={<PrivateRoute element={QuizResult}/>}/>
+          <Route path="/performanceReview" element={<PrivateRoute element={PerformanceReview}/>}/>
         </Routes>
       </BrowserRouter>
-      
     </div>
   );
 }

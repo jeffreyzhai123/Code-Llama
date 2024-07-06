@@ -1,14 +1,16 @@
 //dispaly code questions
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const CodeQuestion = () =>{
+const CodeQuestion = () => {
 
-    //communicate with the backend to get all questions as a json array
+    //go to other page
+    let navigate = useNavigate();
     const problem_bank = null;
+    const [questionBank, setQuestionBank] = useState([]);
 
     //get first question and question number; initialize attempt number to 1st attempt
     const [question_num, setQuestionNumber] = useState(1);
@@ -21,20 +23,33 @@ const CodeQuestion = () =>{
     const [failedTestCase, setTestCase] = useState("");
     const [reasonOfChange, setReason] = useState("");
 
-    //go to other page
-    let navigate = useNavigate();
-    
+    useEffect( () => {
+        const fetchQuestions = async () => {
+            try {
+                const response = await fetch('http://localhost:3080/question');
+                if(response.ok) {
+                    const questions = await response.json();
+                    setQuestionBank(questions);
+                }
+            } catch (err) {
+                console.error("Error: ", err);
+            }
+        };
+        fetchQuestions();
+    }); 
 
-    //function that handle submit=> ask banckend right or wrong and decide what to do next
+    
+    //function that handle submit=> ask backend right or wrong and decide what to do next
     //correct + first attempt: update the question variable + update question number + attemp_num stay at 1
     //incorrect + first attempt: update attemp_num to 2 + display additional component related to the second attempt
     //correct/incorrect + second attempt: update the question variable + reset attemp_num to 1 + update question number
     //incorrect + first attempt (last question): update attemp_num to 2 + display additional component related to the second attempt
     //correct + first attempt (last question) & correct/incorrect + second attempt (last question): redirect to the quiz result page
     async function handleAnsSubmit(event) {
-
         event.preventDefault();
 
+        //to check if questions are being pulled successfully. (use inspect elements to see)
+        console.log(questionBank);
         let correctness;
         try {
             //sending API requestion to the backend
@@ -45,9 +60,9 @@ const CodeQuestion = () =>{
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                mode: "cors",
                 body: JSON.stringify(answerObject)
             });
+
             //check the result giving back from the backend
             if (res.ok) {
                 const data = await res.json();
@@ -68,9 +83,6 @@ const CodeQuestion = () =>{
             console.error('ERROR: ', error);
         }
 
-     
-         
-
         if(question_num < 8) {
             if(attempt_num === 2 || correctness){
                 setQuestion("this is the next question");
@@ -80,6 +92,7 @@ const CodeQuestion = () =>{
             } else {
                 setAttemptNum(2);
             }
+
         } else {
             if(!correctness && attempt_num === 1){
                 setAttemptNum(2);
@@ -87,7 +100,6 @@ const CodeQuestion = () =>{
                 alert("navigate!");
                 navigate("/result");
             }
-
         }
     }
 
@@ -96,7 +108,6 @@ const CodeQuestion = () =>{
             <div className='header'>
                 <h>CodeLlamaAcademy</h>
             </div>
-
 
             <div className='question'>
                 <p>Question {question_num}</p>
@@ -123,8 +134,7 @@ const CodeQuestion = () =>{
                     </label>
 
                     <br></br>
-                    
-           
+                       
                     {(attempt_num === 2) && 
                     <label>
                         Reason for changing your answer
@@ -149,16 +159,13 @@ const CodeQuestion = () =>{
 
             {(attempt_num === 2) && 
             <div>
-                
                 <p>{generatedCode}</p>
                 <br></br>
                 <p>{failedTestCase}</p>
             </div>
             }
 
-
         </div>
-
     )
 }
 
