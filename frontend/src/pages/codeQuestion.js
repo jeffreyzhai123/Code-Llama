@@ -9,12 +9,13 @@ const CodeQuestion = () => {
 
     //go to other page
     let navigate = useNavigate();
-    const problem_bank = null;
+    //const problem_bank = null;
     const [questionBank, setQuestionBank] = useState([]);
+    const [loading, setLoading] = useState(true); //to prevent app from running before questions are pulled
 
     //get first question and question number; initialize attempt number to 1st attempt
     const [question_num, setQuestionNumber] = useState(1);
-    const [question, setQuestion] = useState(generateNext(problem_bank, null));
+    const [question, setQuestion] = useState("");
     const [attempt_num, setAttemptNum] = useState(1);
     //user answer
     const [answer, setAns] = useState("");
@@ -30,15 +31,16 @@ const CodeQuestion = () => {
                 if(response.ok) {
                     const questions = await response.json();
                     setQuestionBank(questions);
+                    setQuestion(questions[0]?.question || '');
+                    setLoading(false);
                 }
             } catch (err) {
                 console.error("Error: ", err);
             }
         };
         fetchQuestions();
-    }); 
+    }, []); 
 
-    
     //function that handle submit=> ask backend right or wrong and decide what to do next
     //correct + first attempt: update the question variable + update question number + attemp_num stay at 1
     //incorrect + first attempt: update attemp_num to 2 + display additional component related to the second attempt
@@ -83,9 +85,10 @@ const CodeQuestion = () => {
             console.error('ERROR: ', error);
         }
 
-        if(question_num < 8) {
+        //set limit to 6 as there are only 6 questions thus far
+        if(question_num < 6) {
             if(attempt_num === 2 || correctness){
-                setQuestion("this is the next question");
+                setQuestion(questionBank[question_num].question);
                 setAttemptNum(1);
                 setQuestionNumber(question_num+1);
                 
@@ -109,15 +112,19 @@ const CodeQuestion = () => {
                 <h>CodeLlamaAcademy</h>
             </div>
 
-            <div className='question'>
-                <p>Question {question_num}</p>
-                <br></br>
-                <p>Please describe the following code in plain English: </p>
-                <br></br>
-                <p>{question}</p>
-            </div>
+            {loading ? (
+                <p>Loading...</p>
+            ) : ( 
+                <>
+                <div className='question'>
+                    <p>Question {question_num}</p>
+                    <br></br>
+                    <p>Please describe the following code in plain English: </p>
+                    <br></br>
+                    <p>{question}</p>
+                </div>
 
-            <div>
+                <div>
                 <form className='answer' onSubmit={handleAnsSubmit}>
                     <label>
                         Answer
@@ -151,31 +158,33 @@ const CodeQuestion = () => {
                     }
 
                     <br></br>
-                    
-                    <button className='submitButton' type = "submit">Submit</button>
-                </form>
+                        <button className='submitButton' type = "submit">Submit</button>
+                    </form>
                 
-            </div>
+                </div>
 
-            {(attempt_num === 2) && 
-            <div>
-                <p>{generatedCode}</p>
-                <br></br>
-                <p>{failedTestCase}</p>
-            </div>
-            }
-
+                {(attempt_num === 2) && 
+                <div>
+                    <p>{generatedCode}</p>
+                    <br></br>
+                    <p>{failedTestCase}</p>
+                </div>
+                }
+                </>
+            )}
         </div>
     )
 }
 
 //generate the next question (the prev_result will be used for the unique feature and is always set to null for now)
-function generateNext(problems, prev_result) {
-    return "func sum(a, b){a+b}";
+function generateNext(problems, prev_question_num) {
+    let curr = prev_question_num + 1;
+    if (problems[curr]?.question) {
+        return problems[curr].question;
+    } else {
+        return "uh-oh"; // or any fallback value if question is not found
+    }
 }
-
-
-
 
 
 export default CodeQuestion
