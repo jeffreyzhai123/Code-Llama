@@ -26,24 +26,20 @@ const CodeQuestion = () =>{
     
 
     //function that handle submit=> ask banckend right or wrong and decide what to do next
-
     //correct + first attempt: update the question variable + update question number + attemp_num stay at 1
     //incorrect + first attempt: update attemp_num to 2 + display additional component related to the second attempt
-
     //correct/incorrect + second attempt: update the question variable + reset attemp_num to 1 + update question number
-
-    
     //incorrect + first attempt (last question): update attemp_num to 2 + display additional component related to the second attempt
-
     //correct + first attempt (last question) & correct/incorrect + second attempt (last question): redirect to the quiz result page
     async function handleAnsSubmit(event) {
+
         event.preventDefault();
-        //assure the answer is fetched correctly; will be deleted
-        // alert("your input is " + answer);
+
+        let correctness;
         try {
-            const answerObject = { ans: answer, roc: reasonOfChange };
+            //sending API requestion to the backend
+            const answerObject = { ans: answer };
             console.log("ready to fetch");
-        
             const res = await fetch('http://localhost:3080/answer', {
                 method: 'POST',
                 headers: {
@@ -52,41 +48,41 @@ const CodeQuestion = () =>{
                 mode: "cors",
                 body: JSON.stringify(answerObject)
             });
-        
+            //check the result giving back from the backend
             if (res.ok) {
                 const data = await res.json();
                 console.log(data.message);
+                console.log(data.correctness);
+                console.log(data.failedTests);
+                console.log(data.generatedCode);
+                correctness = data.correctness;
+                setTestCase(data.failedTests)
+                setGC(data.generatedCode);
+
             } else {
                 console.error('Failed to get response from backend');
             }
+
         } catch (error) {
+            //handle network error or other errors 
             console.error('ERROR: ', error);
         }
-         
 
-        //will be replace by a API call to backend to check correctness
-        const correctness = false;
-        
+     
+         
 
         if(question_num < 8) {
             if(attempt_num === 2 || correctness){
-                setGC("");
-                setTestCase("");
                 setQuestion("this is the next question");
                 setAttemptNum(1);
                 setQuestionNumber(question_num+1);
                 
             } else {
                 setAttemptNum(2);
-                setGC("This is the generated Code");
-                setTestCase("This are failed test cases");
-
             }
         } else {
             if(!correctness && attempt_num === 1){
                 setAttemptNum(2);
-                setGC("This is the generated Code");
-                setTestCase("This are failed test cases");
             } else{
                 alert("navigate!");
                 navigate("/result");
@@ -151,11 +147,14 @@ const CodeQuestion = () =>{
                 
             </div>
 
+            {(attempt_num === 2) && 
             <div>
+                
                 <p>{generatedCode}</p>
                 <br></br>
                 <p>{failedTestCase}</p>
             </div>
+            }
 
 
         </div>
