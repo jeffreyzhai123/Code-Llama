@@ -60,3 +60,39 @@
   border: 1px solid grey;
   padding-left: 8px;
 }
+
+.Score-header {
+  background-color: black;
+  padding: 20px;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.results {
+  padding: 20px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  border: 2px solid black;
+}
+
+th, td, tr {
+  padding: 8px;
+  border: 2px solid black;
+}
+
+th {
+  background-color: wheat;
+}
+
+tr:hover{
+  background-color: #ddd;
+}
