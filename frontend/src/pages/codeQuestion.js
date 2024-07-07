@@ -91,8 +91,8 @@ const CodeQuestion = () => {
             console.error('ERROR: ', error);
         }
 
-        //set limit to 6 as there are only 6 questions thus far
-        if(question_num < 6) {
+        //set limit to 8 as there are only 8 questions thus far - all easy
+        if(question_num < 8) {
             if(attempt_num === 2 || correctness){
                 setQuestion(questionBank[question_num].question);
                 setAttemptNum(1);
@@ -200,5 +200,36 @@ function generateNext(problems, prev_question_num) {
     }
 }
 
+// Result variable exported to quizResult
+// export let results_var = [{"questionNum": {"$numberInt":"1"},
+//     "question":"def foo(a,b): return a+b",
+//     "answer":"Add two integers",
+//     "reasonofchange":"",
+//     "passfail": true,
+//     "attemptNum": {"$numberInt":"1"},},
+//     {"questionNum": {"$numberInt":"2"},
+//         "question":"def foo(a,b): return a-b",
+//         "answer":"Add two integers",
+//         "reasonofchange":"",
+//         "passfail":false,
+//         "attemptNum": {"$numberInt":"1"}},
+//     {"questionNum":{"$numberInt":"2"},
+//         "question":"def foo(a,b): return a-b",
+//         "answer":"Subtract two integers",
+//         "reasonofchange":"Changed add to subtract",
+//         "passfail":true,
+//         "attemptNum":{"$numberInt":"2"}},
+//     {"questionNum":{"$numberInt":"3"},
+//         "question":"def foo(a,b): return ab",
+//         "answer":"Subtract two integers",
+//         "reasonofchange":"Subtract two integers",
+//         "passfail":false,
+//         "attemptNum":{"$numberInt":"1"}},
+//     {"questionNum":{"$numberInt":"3"},
+//         "question":"def foo(a,b): return ab",
+//         "answer":"Subtract two integers",
+//         "reasonofchange":"I don't get it",
+//         "passfail":false,
+//         "attemptNum":{"$numberInt":"2"}}];
 
 export default CodeQuestion
