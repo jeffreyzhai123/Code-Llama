@@ -22,6 +22,14 @@ const QuizResult =()=>{
     let total = score/8;
 
     return (
+    <div> 
+        <h1 className = "congrats">You have completed the quiz! Congrats!</h1> 
+        <br></br>
+        <Link to="/">
+        <button className='backtoMain'> Go to the Main Page </button>
+        </Link>
+        
+    </div>
         <div className='ScoreBoard'>
             <div className='Score-header'>
                 <h1>CodeLlamaAcademy</h1>

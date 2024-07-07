@@ -3,9 +3,17 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '@clerk/clerk-react';
 
 
 const CodeQuestion = () => {
+    //get user info
+    const {user} = useUser();
+    //can be used to identify users when storing to database
+    const userEmail = user.primaryEmailAddress.emailAddress;
+
+    //quiz result
+    const [quizResult, setQuizResult] = useState([]);
 
     //go to other page
     let navigate = useNavigate();
@@ -43,6 +51,10 @@ const CodeQuestion = () => {
         };
         fetchQuestions();
     }, []); 
+
+    useEffect(() => {
+
+    },[question_num, attempt_num])
 
     //function that handle submit=> ask backend right or wrong and decide what to do next
     //correct + first attempt: update the question variable + update question number + attemp_num stay at 1
@@ -91,12 +103,27 @@ const CodeQuestion = () => {
             console.error('ERROR: ', error);
         }
 
-        //set limit to 8 as there are only 8 questions thus far - all easy
-        if(question_num < 8) {
+        //update current quiz results and view them in the console
+        const quizJSon = {
+            questionNum : question_num, 
+            question: question,
+            answer: answer,
+            reasonofchange: reasonOfChange,
+            passfail: correctness,
+            attemptNum: attempt_num
+        };
+        const temporaryArray = quizResult;
+        temporaryArray.push(quizJSon);
+        console.log(temporaryArray);
+        setQuizResult(temporaryArray);
+        
+
+        //set limit to 6 as there are only 6 questions thus far
+        if(question_num < 6) {
             if(attempt_num === 2 || correctness){
                 setQuestion(questionBank[question_num].question);
-                setAttemptNum(1);
                 setQuestionNumber(question_num+1);
+                setAttemptNum(1);
                 
             } else {
                 setAttemptNum(2);
@@ -106,7 +133,10 @@ const CodeQuestion = () => {
             if(!correctness && attempt_num === 1){
                 setAttemptNum(2);
             } else{
-                alert("navigate!");
+                //end of the quiz
+                //TODO: send the quizResult to page that needs it and store the result in database 
+
+                alert("navigate!" + userEmail);
                 navigate("/result");
             }
         }
@@ -121,27 +151,30 @@ const CodeQuestion = () => {
 
     return (
         <div className='mainCodeQuestion'>
-            <div className='header'>
-                <h>CodeLlamaAcademy</h>
+            <div className='Score-header'>
+                <h1>CodeLlamaAcademy</h1>
             </div>
-
+           
             {loading ? (
                 <p>Loading...</p>
             ) : ( 
                 <>
                 <div className='question'>
-                    <p>Question {question_num}</p>
-                    <br></br>
+                    <h2>Question {question_num}</h2>
+                 
                     <p>Please describe the following code in plain English: </p>
                     <br></br>
                     <p>{question}</p>
                 </div>
 
-                <div>
-                <form className='answer' onSubmit={handleAnsSubmit}>
+                <div className='answer'>
+                <form onSubmit={handleAnsSubmit}>
+                    <br></br>
                     <label>
                         Answer
-                        <input 
+                        <br></br>
+                        <input
+                            className='input' 
                             type="text" 
                             name='Answer' 
                             placeholder='Type your answer here'
@@ -158,7 +191,10 @@ const CodeQuestion = () => {
                     {(attempt_num === 2) && 
                     <label>
                         Reason for changing your answer
-                        <input type="text" 
+                        <br></br>
+                        <input
+                            className='input' 
+                            type="text" 
                             name='Reason of Change' 
                             placeholder='Type your reason for changing the answer here'
                             value = {reasonOfChange} 
@@ -171,14 +207,18 @@ const CodeQuestion = () => {
                     }
 
                     <br></br>
+                    <br></br>
                         <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
                     </form>
                 
                 </div>
 
                 {(attempt_num === 2) && 
-                <div>
-                    <p>{generatedCode}</p>
+                <div className='secondAttempt'>
+                    <br></br>
+                    <p>Here is the generated code: </p>
+                    <br></br>
+                    <p id='generatedCode'>{generatedCode}</p>
                     <br></br>
                     <p>{failedTestCase}</p>
                 </div>
