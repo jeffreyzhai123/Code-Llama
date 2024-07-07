@@ -5,6 +5,7 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import PerformanceReview from './pages/performanceReview';
 import PrivateRoute from './components/Auth/PrivateRoute';
+import { QuizResultProvider } from './context/QuizResultContext';
 
 
 function App() {
@@ -14,15 +15,16 @@ function App() {
     <div className="App">
       {/* use BrowserRouter to enable client side routing */}
       <BrowserRouter>
-        <Routes>
-
-          {/* if url path is "/" render the Home component */}
-          <Route path="/" element={<Home/>}/>
-          {/* if url path is "/codeQuestion" render the codeQuestion component */}
-          <Route path="/codeQuestion" element={<PrivateRoute element={CodeQuestion}/>}/>
-          <Route path="/result" element={<PrivateRoute element={QuizResult}/>}/>
-          <Route path="/performanceReview" element={<PrivateRoute element={PerformanceReview}/>}/>
-        </Routes>
+      <QuizResultProvider>
+          <Routes>
+            {/* if url path is "/" render the Home component */}
+            <Route path="/" element={<Home/>}/>
+            {/* if url path is "/codeQuestion" render the codeQuestion component */}
+            <Route path="/codeQuestion" element={<PrivateRoute element={CodeQuestion}/>}/>
+            <Route path="/result" element={<PrivateRoute element={QuizResult}/>}/>
+            <Route path="/performanceReview" element={<PrivateRoute element={PerformanceReview}/>}/>
+          </Routes>
+        </QuizResultProvider>
       </BrowserRouter>
     </div>
   );

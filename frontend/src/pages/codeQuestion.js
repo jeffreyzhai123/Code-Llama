@@ -1,12 +1,14 @@
 //dispaly code questions
 
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
-
+import { QuizContext } from '../context/QuizResultContext';
 
 const CodeQuestion = () => {
+
+    const { setSharedResult } = useContext(QuizContext);
     //get user info
     const {user} = useUser();
     //can be used to identify users when storing to database
@@ -50,11 +52,8 @@ const CodeQuestion = () => {
             }
         };
         fetchQuestions();
-    }, []); 
+    }, []); //empty dependency array to make sure question bank is only fetched once
 
-    useEffect(() => {
-
-    },[question_num, attempt_num])
 
     //function that handle submit=> ask backend right or wrong and decide what to do next
     //correct + first attempt: update the question variable + update question number + attemp_num stay at 1
@@ -135,7 +134,7 @@ const CodeQuestion = () => {
             } else{
                 //end of the quiz
                 //TODO: send the quizResult to page that needs it and store the result in database 
-
+                setSharedResult(quizResult);
                 alert("navigate!" + userEmail);
                 navigate("/result");
             }
