@@ -96,3 +96,51 @@ th {
 tr:hover{
   background-color: #ddd;
 }
+
+.question, .secondAttempt{
+  float: left;
+  width: 50%;
+  font-size: 20pt;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 20px;
+  
+}
+
+.answer{
+  float: left;
+  font-size: 20pt;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 20px;
+  
+}
+
+
+
+#generatedCode{
+  color: rgb(100, 149, 237);
+}
+
+.input{
+  height: 2cm;
+  width: 15cm;
+}
+
+.submitButton{
+  background-color: rgb(100, 149, 237);
+  color:white;
+  border-radius: 10px;
+
+}
+
+.submitButton:hover{
+  background-color: rgb(85, 124, 196);
+  color:white;
+  border-radius: 10px;
+}
+
+
+.submitButton:disabled{
+  background-color: rgb(181, 199, 231);
+  color:white;
+  border-radius: 10px;
+}

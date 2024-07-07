@@ -6,8 +6,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import PerformanceReview from './pages/performanceReview';
 import PrivateRoute from './components/Auth/PrivateRoute';
 
-function App() {
 
+function App() {
+ 
+  
   return (
     <div className="App">
       {/* use BrowserRouter to enable client side routing */}

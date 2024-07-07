@@ -1,7 +1,9 @@
-import ollama from 'ollama'
+import { Ollama } from 'ollama'
 
 //calls Ollama's api using the chat method
 //we can give users options to what LLM they want to use (just pass in additional param)
+const ollama = new Ollama({host:"http://localhost:11434"});
+
 export async function callOllama(input) {
     try {
         //makes async call to ollama and store result in response
