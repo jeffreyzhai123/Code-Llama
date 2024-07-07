@@ -5,7 +5,7 @@ const QuizResult =()=>{
 
     return (
     <div> 
-        <h>You have completed the quiz! Congrats!</h> 
+        <h1 className = "congrats">You have completed the quiz! Congrats!</h1> 
         <br></br>
         <Link to="/">
         <button className='backtoMain'> Go to the Main Page </button>
