@@ -3,9 +3,12 @@ import { Ollama } from 'ollama'
 //const ollama = new Ollama({ host: 'http://ollama:11434' });
 //calls Ollama's api using the chat method
 //we can give users options to what LLM they want to use (just pass in additional param)
-const ollama = new Ollama({host:"http://localhost:11434"});
+const APIHOST = process.env.OLLAMA_HOST_NAME || "localhost";
+const APIURL = "http://" + APIHOST + ":11434";
+const ollama = new Ollama({host:APIURL});
 
 export async function callOllama(input) {
+    console.log(APIURL);
     try {
         //makes async call to ollama and store result in response
         const response = await ollama.chat({
