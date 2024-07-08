@@ -1,5 +1,6 @@
 import { Ollama } from 'ollama'
 
+//const ollama = new Ollama({ host: 'http://ollama:11434' });
 //calls Ollama's api using the chat method
 //we can give users options to what LLM they want to use (just pass in additional param)
 const ollama = new Ollama({host:"http://localhost:11434"});

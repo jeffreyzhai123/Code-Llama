@@ -1,8 +1,16 @@
 // Display performance review
 import { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const PerformanceReview = () => {
+
+    const navigate = useNavigate();
+    const mainButton = () => {
+        navigate("/");
+    } 
+    const backButton = () => {
+        navigate("/performanceReview");
+    }
 
     //TODO: GET SCORES
     const scores = [
@@ -56,14 +64,22 @@ const PerformanceReview = () => {
                         </tbody>
                     </table>
                 }
-                {scoreboardVisible &&
-                <Link to="/">
-                    <button className="backtoMain">Go to the Main Page</button>
-                </Link>}
+                {scoreboardVisible && (
+                    <div className={'buttonContainer'}>
+                        <input
+                            className={'inputButton'}
+                            type="button"
+                            onClick={mainButton}
+                            value="Go to the Main Page"
+                        />
+                    </div>
+                )}
 
                 {selectedScore && (
                     <div className="details-table">
-                        <button onClick={handleBackButtonClick}>Go to Performance Review</button>
+                        <div className={'buttonContainer'}>
+                            <button onClick={handleBackButtonClick}>Go to Performance Review</button>
+                        </div>
                         <h2>Details for {selectedScore.date} {selectedScore.time}</h2>
                         <table>
                             <thread>
