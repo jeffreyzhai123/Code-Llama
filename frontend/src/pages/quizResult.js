@@ -1,9 +1,21 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { QuizContext } from '../context/QuizResultContext'
 
 const QuizResult =()=>{
     const { sharedResult } = useContext(QuizContext);
+
+    const navigate = useNavigate();
+    const mainButton = () => {
+        navigate("/");
+    }
+
+    let results = sharedResult;
+    let score = 0;
+    results.forEach((result) => {
+        let pass = result.passfail;
+        if (pass == true) score++;
+    })
 
     return (
     <div> 
@@ -23,32 +35,17 @@ const QuizResult =()=>{
                 ))}
         </div>
         <br></br>
-        <Link to="/">
-        <button className='backtoMain'> Go to the Main Page </button>
-        </Link>
+        <h1>Quiz Results: {score}/8</h1>
+                <div className={'buttonContainer'}>
+                    <input
+                        className={'inputButton'}
+                        type="button"
+                        onClick={mainButton}
+                        value="Go to the Main Page"
+                    />
+                </div>
         
     </div>
-        <div className='ScoreBoard'>
-            <div className='Score-header'>
-                <h1>CodeLlamaAcademy</h1>
-            </div>
-
-            <div>
-                <h2>You have completed the quiz! Congrats!</h2>
-                <br></br>
-                <h3>Questions and Answers will be displayed here</h3>
-                <br></br>
-                <h1>Quiz Results: {score}/8</h1>
-                    <div className={'buttonContainer'}>
-                        <input
-                            className={'inputButton'}
-                            type="button"
-                            onClick={mainButton}
-                            value="Go to the Main Page"
-                        />
-                    </div>
-            </div>
-        </div>
     )
 }
 
