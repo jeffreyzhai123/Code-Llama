@@ -14,7 +14,7 @@ const QuizResult =()=>{
     let score = 0;
     results.forEach((result) => {
         let pass = result.passfail;
-        if (pass == true) score++;
+        if (pass === true) score++;
     })
 
     return (
@@ -29,7 +29,7 @@ const QuizResult =()=>{
                         <p>Question: {quizItem.question}</p>
                         <p>Answer: {quizItem.answer}</p>
                         <p>Reason of Change: {quizItem.reasonofchange}</p>
-                        <p>Pass/Fail: {quizItem.passfail}</p>
+                        <p>Pass/Fail: {quizItem.passfail ? "pass" : "fail"}</p>
                         <p>Attempt Number: {quizItem.attemptNum}</p>
                     </div>
                 ))}

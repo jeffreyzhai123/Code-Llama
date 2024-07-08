@@ -7,6 +7,8 @@ services:
       - '3000:3000'
     environment:
       - REACT_APP_CLERK_PUBLISHABLE_KEY=pk_test_ZW5hYmxpbmctbGlvbmZpc2gtODQuY2xlcmsuYWNjb3VudHMuZGV2JA
+
+
     
   backend: 
     build: ./backend
@@ -16,8 +18,14 @@ services:
       - ollama
     environment:
       - ATLAS_URI=mongodb+srv://jeffreygxzhai:xicufLKyrtDAINru@cluster0.4crtqpq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - OLLAMA_HOST_NAME=host.docker.internal
+ 
 
   ollama:
     image: ollama/ollama:latest
     ports:
       - '11434:11434'
+
+
+   
+
