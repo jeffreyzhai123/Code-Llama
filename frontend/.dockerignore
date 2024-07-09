@@ -5,4 +5,4 @@ build
 *.md
 .gitignore
 
-#need to be checked with the TA
+#reference: https://www.geeksforgeeks.org/how-to-dockerize-an-expressjs-app/ 
