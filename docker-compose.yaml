@@ -15,17 +15,26 @@ services:
     ports:
       - '3080:3080'
     depends_on:
-      - ollama
+      ollama-pull:
+        condition: service_completed_successfully
     environment:
       - ATLAS_URI=mongodb+srv://jeffreygxzhai:xicufLKyrtDAINru@cluster0.4crtqpq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       - OLLAMA_HOST_NAME=host.docker.internal
  
+ #inspired by https://docs.docker.com/guides/use-case/genai-pdf-bot/develop/ and https://github.com/docker/genai-stack 
 
   ollama:
     image: ollama/ollama:latest
     ports:
       - '11434:11434'
 
+
+  ollama-pull:
+    image: docker/genai:ollama-pull
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - LLM=mistral
+    
 
    
 

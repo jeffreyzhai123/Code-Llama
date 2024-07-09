@@ -1,12 +1,13 @@
 import { Ollama } from 'ollama'
 
-//const ollama = new Ollama({ host: 'http://ollama:11434' });
+//partly inspired by documentation from https://github.com/ollama/ollama-js
 //calls Ollama's api using the chat method
 //we can give users options to what LLM they want to use (just pass in additional param)
 const APIHOST = process.env.OLLAMA_HOST_NAME || "localhost";
 const APIURL = "http://" + APIHOST + ":11434";
 const ollama = new Ollama({host:APIURL});
 
+//Require: this funtion should not be called with an empty input
 export async function callOllama(input) {
     console.log(APIURL);
     try {
