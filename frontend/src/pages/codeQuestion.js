@@ -11,6 +11,9 @@ const CodeQuestion = () => {
     const { setSharedResult } = useContext(QuizContext);
     //get user info
     const {user} = useUser();
+    //get user data 
+    const user_id = user.id;
+
     //can be used to identify users when storing to database
     const userEmail = user.primaryEmailAddress.emailAddress;
 
@@ -21,6 +24,7 @@ const CodeQuestion = () => {
     let navigate = useNavigate();
     //diable the double submission while waiting
     const [submitDisabled, setSubmitDisabled] = useState(false);
+    const [userExistence, setUserExistence] = useState(false);
 
     //const problem_bank = null;
     const [questionBank, setQuestionBank] = useState([]);
@@ -51,8 +55,148 @@ const CodeQuestion = () => {
                 console.error("Error: ", err);
             }
         };
+
+        const fetchUser = async () => {
+            try {
+                const response = await fetch(`http://localhost:3080/results/${user_id}`)
+                if (response.ok) {
+                    await response.json();
+                    setUserExistence(true);
+                    console.log("user exist");
+                } else {
+                    throw new Error('Failed to fetch userid');
+                }
+            } catch (error) {
+                console.log("user does not exist");
+                setUserExistence(false);
+            }
+        };
+        fetchUser()
         fetchQuestions();
-    }, []); //empty dependency array to make sure question bank is only fetched once
+    }, [user_id, userExistence]); //empty dependency array to make sure question bank is only fetched once 
+
+    /* useEffect(() => {
+        const createResult = async () => {
+            try {
+                let newArray = [quizResult];
+                const response = await fetch('http://localhost:3080/results', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userid: user.id,
+                        quizResult: newArray
+                    })
+                });
+
+                if(!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message}`);
+                }
+
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        const updateResult = async () => {
+            try {
+                const response = await fetch(`http://localhost:3080/results/${user_id}`, {
+                    method: 'PATCH',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      quizResult: quizResult,
+                    }),
+                });
+
+                if(!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message}`);
+                }
+
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        const handleQuizEnd = async () => {
+            if (!userExistence) {
+                await createResult();
+            } else {
+                await updateResult();
+            }
+            alert("navigate!" + userEmail);
+            navigate("/result");
+        };
+
+        //if quiz completed and user doesn't exist create new user object
+
+        if (quizResult.length === 12) {
+            console.log("quiz ended");
+            handleQuizEnd();
+            if (!userExistence) {
+                createResult();
+            } else {
+                updateResult();
+            }
+        }
+    }, [question_num, user, quizResult, userExistence, user_id]); */
+
+    const createResult = async () => {
+        try {
+            const response = await fetch('http://localhost:3080/results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userid: user.id,
+                    quizResult: quizResult
+                })
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message}`);
+            }
+    
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+    
+    const updateResult = async () => {
+        try {
+            const response = await fetch(`http://localhost:3080/results/${user_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    quizResult: quizResult,
+                }),
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message}`);
+            }
+    
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
 
     //function that handle submit=> ask backend right or wrong and decide what to do next
@@ -131,13 +275,23 @@ const CodeQuestion = () => {
         } else {
             if(!correctness && attempt_num === 1){
                 setAttemptNum(2);
-            } else{
+            } else {
                 //end of the quiz
                 //TODO: send the quizResult to page that needs it and store the result in database 
                 setSharedResult(quizResult);
+                console.log(quizResult.length);
                 alert("navigate!" + userEmail);
+                console.log("before conditional " + userExistence);
+                if (!userExistence) {
+                    console.log("create user");
+                    await createResult();
+                } else {
+                    console.log("update user");
+                    await updateResult();
+                }
+    
                 navigate("/result");
-            }
+            } 
         }
 
         //empty the input box for the next question
