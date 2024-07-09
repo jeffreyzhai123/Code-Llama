@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mocha Chai Tests for CodeLlamaAcademy</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/mocha/mocha.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/8.0.1/mocha.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.2.0/chai.min.js"></script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    
+    <!-- file to test -->
+    <script src="extractor.js"></script>
+    <script src="answer.js"></script>
+    <script src="question.js"></script>
+    <!--
+    Cannot run ollama_helper test becasue we can't import Ollama
+    <script src="ollama_helper.js"></script>
+    -->
+    
+    
+    <!-- include mocha and chai -->
+    <script>
+        mocha.setup('bdd');
+        const expect = chai.expect;
+    </script>
+
+    <!-- file to test -->
+    <script src="unitTest/extractortest.js"></script>
+    <script src="unitTest/answertest.js"></script>
+    <script src="unitTest/questiontest.js"></script>
+    <!--
+    Cannot run ollama_helper test becasue we can't import Ollama
+    <script src="unitTest/ollamahelpertest.js"></script>
+    -->
+
+    <!-- run mocha -->
+    <script>mocha.run()</script>
+  </body>
+</html>
