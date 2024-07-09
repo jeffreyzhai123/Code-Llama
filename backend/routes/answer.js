@@ -20,22 +20,27 @@ router.post('/', async (req, res) => {
         });
 
     } else {
-        //send user's answer to Ollama and extract the code part
-        const ollamaResponse = await callOllama(answer);
-        const generatedCode = extract(ollamaResponse);
-        console.log(ollamaResponse);
-        console.log(generatedCode);
+        try {
+             //send user's answer to Ollama and extract the code part
+            const ollamaResponse = await callOllama(answer);
+            const generatedCode = extract(ollamaResponse);
+            console.log(ollamaResponse);
+            console.log(generatedCode);
 
-        //generated code should be run again tests somehow, but for experiementing purpose
-        //this return true/false all the time
-        
-        // Send back result 
-        res.json({
-            message: "Success", 
-            correctness : false,
-            failedTests : "some failed tests will be shown here",
-            generatedCode : generatedCode
-        });
+            //generated code should be run again tests somehow, but for experiementing purpose
+            //this return true/false all the time
+            
+            // Send back result 
+            res.json({
+                message: "Success", 
+                correctness : false,
+                failedTests : "some failed tests will be shown here",
+                generatedCode : generatedCode
+            });
+            
+        } catch (error) {
+            console.log(error.message);
+        }
     }
     
     
