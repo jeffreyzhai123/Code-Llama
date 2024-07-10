@@ -46,14 +46,14 @@ function runTests(code, testCases) {
 
                 //normalizing result because LLM is dumb (maybe we remove this have force user to specify return type)
                 if (result === 'true') result = true;
-                if (result === 'false') result = false;
+                if (result === 'false') result = false; 
 
                 results.push({ args: testArgs, result, expected });
   
                 //check if all tests have been executed
                 if (results.length == testCases.length) {
                     //creates new array with just failed tests (to be returned)
-                    const failedTests = results.filter((test) => test.result !== test.expected);
+                    const failedTests = results.filter((test) => test.result != test.expected);
                     //if no tests failed return all tests passed and resolve the promise
                     if (failedTests.length == 0) {
                         resolve("All tests passed");
