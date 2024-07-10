@@ -1,6 +1,7 @@
 import express from 'express';
 import { extract } from '../utils/extractor.js'
 import { callOllama } from '../utils/ollama_helper.js'
+import { testSelector } from '../utils/sandbox.js'
 
 const router = express.Router();
 
@@ -9,7 +10,9 @@ router.post('/', async (req, res) => {
     // Check if request body is correctly received
     console.log(req.body); 
     const answer = req.body.ans;
+    const num = req.body.no;
     console.log(answer);
+    console.log(num);
 
     if(answer === ""){
         res.json({ 
@@ -21,11 +24,22 @@ router.post('/', async (req, res) => {
 
     } else {
         try {
+            let correct = false;
              //send user's answer to Ollama and extract the code part
             const ollamaResponse = await callOllama(answer);
             const generatedCode = extract(ollamaResponse);
+            const selectedNum = parseInt(num);
+            console.log("testID: ", selectedNum);
+            const test_res = await testSelector(selectedNum, generatedCode);
             console.log(ollamaResponse);
             console.log(generatedCode);
+            console.log(test_res);
+
+            if(test_res.includes("passed")) {
+                correct = true;
+            } else {
+                correct = false;
+            }
 
             //generated code should be run again tests somehow, but for experiementing purpose
             //this return true/false all the time
@@ -33,8 +47,8 @@ router.post('/', async (req, res) => {
             // Send back result 
             res.json({
                 message: "Success", 
-                correctness : false,
-                failedTests : "some failed tests will be shown here",
+                correctness : correct,
+                failedTests : test_res,
                 generatedCode : generatedCode
             });
             

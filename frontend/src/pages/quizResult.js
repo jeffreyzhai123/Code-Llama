@@ -35,7 +35,7 @@ const QuizResult =()=>{
                 ))}
         </div>
         <br></br>
-        <h1>Quiz Results: {score}/8</h1>
+        <h1>Quiz Results: {score}/6</h1>
                 <div className={'buttonContainer'}>
                     <input
                         className={'inputButton'}

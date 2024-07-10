@@ -75,80 +75,6 @@ const CodeQuestion = () => {
         fetchQuestions();
     }, [user_id, userExistence]); //empty dependency array to make sure question bank is only fetched once 
 
-    /* useEffect(() => {
-        const createResult = async () => {
-            try {
-                let newArray = [quizResult];
-                const response = await fetch('http://localhost:3080/results', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        userid: user.id,
-                        quizResult: newArray
-                    })
-                });
-
-                if(!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message}`);
-                }
-
-                const data = await response.json();
-                console.log(data);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
-
-        const updateResult = async () => {
-            try {
-                const response = await fetch(`http://localhost:3080/results/${user_id}`, {
-                    method: 'PATCH',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                      quizResult: quizResult,
-                    }),
-                });
-
-                if(!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message}`);
-                }
-
-                const data = await response.json();
-                console.log(data);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
-
-        const handleQuizEnd = async () => {
-            if (!userExistence) {
-                await createResult();
-            } else {
-                await updateResult();
-            }
-            alert("navigate!" + userEmail);
-            navigate("/result");
-        };
-
-        //if quiz completed and user doesn't exist create new user object
-
-        if (quizResult.length === 12) {
-            console.log("quiz ended");
-            handleQuizEnd();
-            if (!userExistence) {
-                createResult();
-            } else {
-                updateResult();
-            }
-        }
-    }, [question_num, user, quizResult, userExistence, user_id]); */
-
     const createResult = async () => {
         try {
             const response = await fetch('http://localhost:3080/results', {
@@ -216,7 +142,8 @@ const CodeQuestion = () => {
         let correctness;
         try {
             //sending API requestion to the backend
-            const answerObject = { ans: answer };
+            //might also need to send in a third param called difficulty in the future
+            const answerObject = { ans: answer, no: question_num };
             console.log("ready to fetch");
             const res = await fetch('http://localhost:3080/answer', {
                 method: 'POST',
