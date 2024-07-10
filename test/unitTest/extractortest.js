@@ -27,32 +27,32 @@ describe('Extractor', () => {
                         either input is not a number, it throws an error to indicate incorrect 
                         usage.`;
 
-    describe("extract", () => {
+    describe("test the extract function", () => {
         
         it('nomessage should return empty string', () => {
             expect(extract(nomessage)).to.equal("");
         });
 
-        it('should return the TestFrunction', () => {
+        it('has javascript and backtick - should return the correct TestFrunction', () => {
             expect(extract(hasjavascriptandhasbacktick)).to.equal(" function TestFunction(a) returns a");
         });
 
-        it('should not return the TestFunction', () => {
+        it('does not have javascript but has backtick - should not return the correct TestFunction', () => {
             expect(extract(nojavascriptandhasbacktick)).to.not.include(" function TestFunction(a) returns a");
             expect(extract(nojavascriptandhasbacktick)).to.equal("t function: ");
         });
 
-        it('should not return the TestFunction', () => {
+        it('does not have javascript nor backtick - should not return the correct TestFunction', () => {
             expect(extract(nojavascriptandnobacktick)).to.not.include(" function TestFunction(a) returns a");
             expect(extract(nojavascriptandnobacktick)).to.equal("JavaScrip");
         })
 
-        it('should not return the TestFunction', () => {
+        it('has javascript but no backtick - should not return the correct TestFunction', () => {
             expect(extract(hasjavascriptandnobacktick)).to.not.include(" function TestFunction(a) returns a");
             expect(extract(hasjavascriptandnobacktick)).to.equal("JavaScript function: javascript");
         })
 
-        it('sumtwoint should return the code that sums two integers', () => {
+        it('sumtwoint should return the TestFunction that sums two integers', () => {
             expect(extract(sumtwoint)).to.include(`function TestFunction(a, b) {
                                     if (typeof a !== 'number' || typeof b !== 'number') {
                                         throw new Error('Both inputs must be numbers.');
