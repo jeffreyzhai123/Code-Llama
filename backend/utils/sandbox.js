@@ -53,7 +53,7 @@ function runTests(code, testCases) {
                 //check if all tests have been executed
                 if (results.length == testCases.length) {
                     //creates new array with just failed tests (to be returned)
-                    const failedTests = results.filter((test) => JSON.stringify(test.result) !== JSON.stringify(test.expected));
+                    const failedTests = results.filter((test) => test.result !== test.expected);
                     //if no tests failed return all tests passed and resolve the promise
                     if (failedTests.length == 0) {
                         resolve("All tests passed");
