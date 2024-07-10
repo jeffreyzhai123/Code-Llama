@@ -8,13 +8,17 @@ export async function testSelector(question_num, code) {
 
     switch(question_num) {
         case 0:
-            return await test0(code);
+            return await testAdd(code);
         case 1:
-            return await test1(code);
+            return await testSub(code);
         case 2: 
-            return await test2(code);
+            return await testMult(code);
         case 3:
-            return await test3(code);
+            return await testDiv(code);
+        case 4:
+            return await testEven(code);
+        case 5:
+            return await testOdd(code);
         default:
             return "Invalid Question Number";
     }
@@ -33,14 +37,23 @@ function runTests(code, testCases) {
             //call async function s.run to run code in sandboxed env
             //uses output object passed in by s.run to store result of the tests
             s.run(`${code} ${testName}`, (output) => {
-                const result = output.result;
+                let result = output.result;
                 //updates results arr 
+
+                // Debugging statements
+                console.log('Result:', result, 'Type:', typeof result);
+                console.log('Expected:', expected, 'Type:', typeof expected);
+
+                //normalizing result because LLM is dumb (maybe we remove this have force user to specify return type)
+                if (result === 'true') result = true;
+                if (result === 'false') result = false;
+
                 results.push({ args: testArgs, result, expected });
   
                 //check if all tests have been executed
                 if (results.length == testCases.length) {
                     //creates new array with just failed tests (to be returned)
-                    const failedTests = results.filter((test) => test.result != test.expected);
+                    const failedTests = results.filter((test) => JSON.stringify(test.result) !== JSON.stringify(test.expected));
                     //if no tests failed return all tests passed and resolve the promise
                     if (failedTests.length == 0) {
                         resolve("All tests passed");
@@ -61,12 +74,52 @@ function runTests(code, testCases) {
 }
 
 //example
-/* 
-function test0(code) {
+
+function testAdd(code) {
     const testCases = [
       { args: [2, 3], expected: 5 },
       { args: [3, 3], expected: 6 },
     ];
     return runTests(code, testCases);
 } 
-*/
+
+function testSub(code) {
+    const testCases = [
+      { args: [2, 3], expected: -1 },
+      { args: [3, 3], expected: 0 },
+    ];
+    return runTests(code, testCases);
+  }
+  
+function testMult(code) {
+    const testCases = [
+      { args: [3, 3], expected: 9 },
+      { args: [2, 4], expected: 8 },
+    ];
+    return runTests(code, testCases);
+  }
+  
+function testDiv(code) {
+    const testCases = [
+      { args: [6, 3], expected: 2 },
+      { args: [20, 5], expected: 4 },
+    ];
+    return runTests(code, testCases);
+  }
+
+function testEven(code) {
+    const testCases = [
+        { args: [4], expected: true },
+        { args: [7], expected: false }
+    ];
+    return runTests(code, testCases);
+}
+
+function testOdd(code) {
+    const testCases = [
+        { args: [4], expected: false },
+        { args: [7], expected: true }
+    ];
+    return runTests(code, testCases);
+}
+
