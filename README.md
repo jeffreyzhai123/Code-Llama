@@ -83,9 +83,8 @@ Using npm test, you will be able to see additional tests on "callOllama" compare
 
 
 # Important notes for troubleshooting
-- If you want to shift from running using Docker to running using npm command, please stop the Docker containers (i.e. all four relevant containers for this project need to be stopped) for the application before you run the npm command otherwise the port will not be freed for use. Also, after stopping the containers, please check that the ollama is running locally, and restart it if you somehow stopped it before. Similarly, if you want to shift from npm to Docker, please terminate everything first before starting the Docker container
-- It may take a long time (maxmimum time we experienced so far is about 5 min) when you first do Docker compose build.
-- When running using Docker, please start using the application only when the image for ollama, frontend, and backend all start running. The ollama-pull service will stopped after it finishes its job, so when the other three images is running, its status should (correctly) be exited. If the ollama-pull is still running, please wait for it to finish its work and do not start to use the application
+- If you want to shift from running using Docker to running using npm command, please stop the Docker containers (i.e. all four relevant containers for this project need to be stopped) for the application before you run the npm command otherwise the port will not be freed for use. Also, after stopping the containers, please check that the ollama is running locally, and restart it if you somehow stopped it before.
+- When running using Docker, please start using the application only when the image for ollama, frontend, and backend all start running. The ollama-pull service will stopped after it finishes its job, so when the other three images is running, its status should (correctly) be exited. If the ollama-pull is still running, please wait for it to finish its work and do not start to use the application.
 
 
 
