@@ -24,7 +24,7 @@ Please choose a way you want to run the application and follow the corresponding
 
 ## Docker Compose
 - Please start the Docker Desktop engine
-- Please download (https://ollama.com/) and run Ollama on your device. (We strongly recommend downloading and running Ollama on your device, because it can take up to 30 mins to start the applicaion using Docker for the first time without Ollama running locally)
+- Please download (https://ollama.com/) and run Ollama on your device.
 - Please navigate to the root folder of this project, which is Project-Groups-01-Lab-A
 - Please type "docker compose build" in the terminal and press enter, and the image will start to build. You should be able to see related information and progress in the terminal
 - After "docker compose build" command is finished, please type "docker-compose up -d" in the terminal (you should still be in Project-Groups-01-Lab-A directory) and press enter. You should be able to see the related information and progress in the terminal. After waiting for a while, if you see something like this: 
