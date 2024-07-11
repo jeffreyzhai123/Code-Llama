@@ -22,6 +22,7 @@ The users’ data will be displayed in the history summary page and can be seen 
 # Instruction on running this APP
 Please choose a way you want to run the application and follow the corresponding instructions below step by step
 ## Running using Docker
+- Please start the Docker Desktop engine
 - Please navigate to the root folder of this project, which is Project-Groups-01-Lab-A
 - Please type "docker compose build" in the terminal and press enter, and the image will start to build. You should be able to see related information and progress in the terminal
 - After "docker compose build" command is finished, please type "docker-compose up -d" in the terminal (you should still be in Project-Groups-01-Lab-A directory) and press enter. You should be able to see the related information and progress in the terminal. After waiting for a while, if you see something like this: 
@@ -45,7 +46,18 @@ If you want to have a try for each way of running it, please check the important
 
 
 # Instruction on using the application
-- If this is the first time you are using this application, the first page you see is this
+- If this is the first time you are using this application, the first page you see is this a term of service button. Please click it, read the term of service, click the checkbox at the bottom and then close it by clicking the close button at the top right corner. (if you didn't see the close button, please scroll up a bit to reach the top of the term of service)
+- Follow the instruction of the page to log in/sign-up. You can either do it through google account or email
+- After seeing the home page, please click on "Exercise" to if you want to start do a quiz
+- Please click submit to submit your answer, and note that the button will be diabled while waiting for result (which may take a while)
+- If the answer is right, you will directed to the next question; otherwise, you will have a second attempt, and be provided with failed test cases and generated code. You will also be able to enter the reason of changing the answer at the second attempt
+- If you enter empty answer, the question will be marked as wrong
+- You will be able to see the score and result for all your attempts at the end of the quiz
+- There are 6 questions in total 
+- The Result review button on home page will take you to the performance review page (currently the backend logic is not finished yet)
+- Clicking on rows of the table at the performance review page will take you to a page where detailed information about a quiz is displayed. If you want to go back to the performance review page, please click "Go to Performance Review"
+- Please click "Go to the Main Page" button at performance review page or the page showed up at the end of each quiz if you want to navigate to the home page
+- NOTE: if you refresh or quit at the middle of a quiz, no result is going to be recorded
 
 
 # Instruction on viewing tests for this APP through HTML
@@ -62,24 +74,14 @@ It may takes a while for some tests to finish executing because of the response 
 
 # Instruction on viewing tests for this APP through npm command at the backend
 Using npm test, you will be able to see additional tests on "callOllama" compared to the HTML test suite. This is because the HTML version of the test does not support export and import statement so we cannot present our tests for callOllama (this function is mostly provided by official Ollama documentation about how to make an API call to ollama). npm test can allow you to see the test on callOllama.
-## If you have ollama running locally and have model mistral pulled already to your local and want to run the test without Docker, please follow the steps below
+- Please have ollama running locally and have model mistral pulled already to your local 
 - Please navigate to the backend folder and type "npm run dev" into the terminal to start the backend server
 - At backend folder, please then type "npm test" at the terminal to run the tests
 - The tests result will be displayed in the terminal
-## If you don't have ollama running locally or/and do not have model mistral pulled locally, and wish to run it in Docker, please follow the stpes below
-- Follow the instructions in the above section (Instruction on using this APP--running using Docker) to run the application using Docker
-- Go to the terminal and navigate to the backend folder of this project and type "npm test" to run the tests
-- The test results will be displayed in the terminal
-## NOTE
-If you want to have a try for each way of running tests, please check the important notes section at the end of the README, which may be helpful for you to shift between the two ways successfully
-
-
-
-
 
 
 # Important notes (may be helpfule for troubleshooting)
-- If you want to shift from running using Docker to running using npm command, please stop the Docker containers (i.e. all four relevant containers for this project need to be stopped) for the application before you run the npm command otherwise the port will not be freed for use. Also, after stopping the containers, please check that the ollama is running locally, and restart it if you somehow stopped it before. Similarly, if you want to shift from npm to Docker, please terminate everything (backend, frontend, ollama) first before starting the Docker container
+- If you want to shift from running using Docker to running using npm command, please stop the Docker containers (i.e. all four relevant containers for this project need to be stopped) for the application before you run the npm command otherwise the port will not be freed for use. Also, after stopping the containers, please check that the ollama is running locally, and restart it if you somehow stopped it before. Similarly, if you want to shift from npm to Docker, please terminate everything first before starting the Docker container
 - It may take a long time (maxmimum time we experienced so far is about 5 min) when you first do Docker compose build.
 - When running using Docker, please start using the application only when the image for ollama, frontend, and backend all start running. The ollama-pull service will stopped after it finishes its job, so when the other three images is running, its status should (correctly) be exited. If the ollama-pull is still running, please wait for it to finish its work and do not start to use the application
 
