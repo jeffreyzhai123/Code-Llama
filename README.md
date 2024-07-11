@@ -21,9 +21,10 @@ The users’ data will be displayed in the history summary page and can be seen 
 
 # Instruction on running this APP
 Please choose a way you want to run the application and follow the corresponding instructions below step by step
-## Running using Docker
+
+## Docker Compose
 - Please start the Docker Desktop engine
-- Please download and run Ollama (https://ollama.com/) on your device. (We strongly recommend downloading and running Ollama on your device for the first time because, it can take up to 30 mins without Ollama running locally)
+- Please download (https://ollama.com/) and run Ollama on your device.
 - Please navigate to the root folder of this project, which is Project-Groups-01-Lab-A
 - Please type "docker compose build" in the terminal and press enter, and the image will start to build. You should be able to see related information and progress in the terminal
 - After "docker compose build" command is finished, please type "docker-compose up -d" in the terminal (you should still be in Project-Groups-01-Lab-A directory) and press enter. You should be able to see the related information and progress in the terminal. After waiting for a while, if you see something like this: 
@@ -67,7 +68,7 @@ If you want to have a try for each way of running it, please check the important
 - For backend tests, there are three sections as presented on HTML: Extractor (test for the function that extract the generated code from ollama response), answers (test for the API handling process when the frontend send to user results to the backend to trigger the process of calling ollama), question (test for the getting the problem bank from the database)
 - For the frontend, we did manual testing as listed in the HTML
 ## NOTE:
-It may takes a while for some tests to finish executing because of the response time of OLLAMA, so please wait for a while utill all tests show up (the coverage rate shows on that HTML will eventually reach 100%)
+It may takes a while for some tests to finish executing because of the response time of OLLAMA, so please wait for a while utill all tests show up.
 
 
 
