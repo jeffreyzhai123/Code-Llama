@@ -23,6 +23,7 @@ The users’ data will be displayed in the history summary page and can be seen 
 Please choose a way you want to run the application and follow the corresponding instructions below step by step
 ## Running using Docker
 - Please start the Docker Desktop engine
+- Please download and run Ollama (https://ollama.com/) on your device. (We strongly recommend downloading and running Ollama on your device for the first time because, it can take up to 30 mins without Ollama running locally)
 - Please navigate to the root folder of this project, which is Project-Groups-01-Lab-A
 - Please type "docker compose build" in the terminal and press enter, and the image will start to build. You should be able to see related information and progress in the terminal
 - After "docker compose build" command is finished, please type "docker-compose up -d" in the terminal (you should still be in Project-Groups-01-Lab-A directory) and press enter. You should be able to see the related information and progress in the terminal. After waiting for a while, if you see something like this: 
@@ -74,13 +75,14 @@ It may takes a while for some tests to finish executing because of the response 
 
 # Instruction on viewing tests for this APP through npm command at the backend
 Using npm test, you will be able to see additional tests on "callOllama" compared to the HTML test suite. This is because the HTML version of the test does not support export and import statement so we cannot present our tests for callOllama (this function is mostly provided by official Ollama documentation about how to make an API call to ollama). npm test can allow you to see the test on callOllama.
-- Please have ollama running locally and have model mistral pulled already to your local 
+- Please stop running docker
+- Please have ollama running locally and have model mistral pulled already to your local device
 - Please navigate to the backend folder and type "npm run dev" into the terminal to start the backend server
 - At backend folder, please then type "npm test" at the terminal to run the tests
 - The tests result will be displayed in the terminal
 
 
-# Important notes (may be helpfule for troubleshooting)
+# Important notes for troubleshooting
 - If you want to shift from running using Docker to running using npm command, please stop the Docker containers (i.e. all four relevant containers for this project need to be stopped) for the application before you run the npm command otherwise the port will not be freed for use. Also, after stopping the containers, please check that the ollama is running locally, and restart it if you somehow stopped it before. Similarly, if you want to shift from npm to Docker, please terminate everything first before starting the Docker container
 - It may take a long time (maxmimum time we experienced so far is about 5 min) when you first do Docker compose build.
 - When running using Docker, please start using the application only when the image for ollama, frontend, and backend all start running. The ollama-pull service will stopped after it finishes its job, so when the other three images is running, its status should (correctly) be exited. If the ollama-pull is still running, please wait for it to finish its work and do not start to use the application
