@@ -68,7 +68,7 @@ If you want to have a try for each way of running it, please check the important
 - For backend tests, there are three sections as presented on HTML: Extractor (test for the function that extract the generated code from ollama response), answers (test for the API handling process when the frontend send to user results to the backend to trigger the process of calling ollama), question (test for the getting the problem bank from the database)
 - For the frontend, we did manual testing as listed in the HTML
 ## NOTE:
-It may takes a while for some tests to finish executing because of the response time of OLLAMA, so please wait for a while utill all tests show up (the coverage rate shows on that HTML will eventually reach 100%)
+It may takes a while for some tests to finish executing because of the response time of OLLAMA, so please wait for a while utill all tests show up.
 
 
 
