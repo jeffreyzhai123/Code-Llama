@@ -16,7 +16,7 @@ export async function callOllama(input) {
             model: 'mistral', //placeholder
             messages: [{
                 role: 'user',
-                content: "Generate a javascript function with the provided description: " + input + ". Name this function TestFunction"
+                content: "Generate a single javascript function with the provided description: " + input + ". Name this function TestFunction. Your response should be as short as possible."
             }]
         })
         return response.message.content;
