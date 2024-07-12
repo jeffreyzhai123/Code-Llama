@@ -1,56 +1,63 @@
 // Display performance review
-import { useState, useContext, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { QuizContext } from '../context/QuizResultContext';
 import { useUser } from '@clerk/clerk-react';
 
 const PerformanceReview = () => {
 
     const qnum = 6; // Change it to the number of questions in the quiz
-    
+
     const navigate = useNavigate();
     const mainButton = () => {
         navigate("/");
     };
 
+    const [score, setScore] = useState([]);
+    const [result, setResult] = useState([]);
+
     const {user} = useUser();
     let user_id = user.id;
 
-    let score = 0;
-    let results = [];
-    let temporaryArray = [];
+    let grade = 0;
+    let scoreArray = [];
+    let resultArray = [];
+
     const fetchResults = async () => {
         try {
             const response = await fetch(`http:///localhost:3080/results/${user_id}`);
             if (response.ok) {
                 const data = await response.json();
-                if (data.userid == user.id) {
+                if (data.userid === user.id) {
                     data.results.forEach((array, index) => {
-                        array.forEach((quiz, quizIndex) => {
-                            let pass = quiz.passfail;
-                            if (pass === true) score++;
+                        array.forEach((quiz) => {
+                            let quizNumber = index + 1;
+                            let questionNumber = quiz.questionNum;
+                            let question = quiz.question;
+                            let answer = quiz.answer;
+                            let reasonofchange = quiz.reasonofchange;
+                            let passfail = quiz.passfail;
+                            if (passfail === true) grade++;
+                            passfail = passfail ? "PASS" : "FAIL";
+                            let attempNumber = quiz.attemptNum;
+                            resultArray.push({quizNumber, questionNumber, question, answer, reasonofchange, passfail, attempNumber});
                         })
-                        let date = index + 1;
-                        let result = ((score/qnum)*100).toFixed(0) + "%";
-                        temporaryArray.push({date,result});
-                        score = 0;
-                    })  
+                        let quizScore = ((grade/qnum)*100).toFixed(0) + "%";
+                        let quizNumber = index + 1;
+                        scoreArray.push({quizNumber,quizScore});
+                        grade = 0;
+                    })
                 }
-                //console.log(temporaryArray);
-                return temporaryArray;
+                return [scoreArray, resultArray];
             }
-            
         } catch (error) {
             console.log("Error: ", error);
         }
     };
 
-    let scoreArray = fetchResults();
-
-    const [result, setResult] = useState([]);
-    scoreArray.then(result =>{
-        setResult(result);
-    })
+    fetchResults().then(([scoreArray, resultArray]) => {
+        setScore(scoreArray);
+        setResult(resultArray);
+    });
     
     const[selectedScore, setSelectedScore] = useState(null);
     const[scoreboardVisible, setScoreboardVisible] = useState(true);
@@ -63,7 +70,17 @@ const PerformanceReview = () => {
     function handleBackButtonClick() {
         setSelectedScore(null);
         setScoreboardVisible(true); // show the scoreboard
-    }
+    };
+
+    function getDetailsForQuiz(quizID){
+        let details = [];
+        result.forEach((quiz) => {
+            if (quiz.quizNumber === quizID) {
+                details.push(quiz);
+            }
+        })
+        return details;
+    };
     
     return (
         <div className='ScoreBoard'>
@@ -77,16 +94,16 @@ const PerformanceReview = () => {
                     <table>
                         <thead>
                             <tr>
-                                <th>Date & Time</th>
+                                <th>Quiz Number</th>
                                 <th>Score</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {result.map((score, index) => (
+                            {score.map((score, index) => (
                                 <tr key={index} onClick={() => handleRowClick(score)} className="clickable-row">
-                                    <td>{score.date}</td>
-                                    <td>{score.result}</td>
+                                    <td>{score.quizNumber}</td>
+                                    <td>{score.quizScore}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -108,19 +125,28 @@ const PerformanceReview = () => {
                         <div className={'buttonContainer'}>
                             <button onClick={handleBackButtonClick}>Go to Performance Review</button>
                         </div>
-                        <h2>Details for {selectedScore.date} {selectedScore.time}</h2>
+                        <h2>Details for Quiz {selectedScore.quizNumber}</h2>
+                        <h3>Score: {selectedScore.quizScore}</h3>
                         <table>
-                            <thread>
+                            <thead>
                                 <tr>
+                                    <th>Question Number</th>
                                     <th>Questions</th>
+                                    <th>Answer</th>
+                                    <th>Reason of Change</th>
                                     <th>Pass/Fail</th>
+                                    <th>Attempt Number</th>
                                 </tr>
-                            </thread>
+                            </thead>
                             <tbody>
-                                {selectedScore.details.map((detail,index) => (
+                                {getDetailsForQuiz(selectedScore.quizNumber).map((detail,index) => (
                                     <tr key={index}>
+                                        <td>{detail.questionNumber}</td>
                                         <td>{detail.question}</td>
+                                        <td>{detail.answer}</td>
+                                        <td>{detail.reasonofchange}</td>
                                         <td>{detail.passfail}</td>
+                                        <td>{detail.attempNumber}</td>
                                     </tr>
                                 ))}
                             </tbody>
