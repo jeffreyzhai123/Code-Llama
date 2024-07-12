@@ -6,21 +6,16 @@ import { useUser } from '@clerk/clerk-react';
 
 const PerformanceReview = () => {
 
+    const qnum = 6; // Change it to the number of questions in the quiz
+    
     const navigate = useNavigate();
     const mainButton = () => {
         navigate("/");
     };
 
-    // const { sharedResult } = useContext(QuizContext);
-    const [scores, setScores] = useState("");
     const {user} = useUser();
     let user_id = user.id;
-    // let results = sharedResult;
-    // results.forEach((result) => {
-    //     let user_id = user.id;
-    //     let pass = result.passfail;
-    //     console.log(user_id);
-    // });
+
     let score = 0;
     let results = [];
     let temporaryArray = [];
@@ -36,7 +31,7 @@ const PerformanceReview = () => {
                             if (pass === true) score++;
                         })
                         let date = index + 1;
-                        let result = score;
+                        let result = ((score/qnum)*100).toFixed(0) + "%";
                         temporaryArray.push({date,result});
                         score = 0;
                     })  
@@ -49,33 +44,14 @@ const PerformanceReview = () => {
             console.log("Error: ", error);
         }
     };
-    
+
     let scoreArray = fetchResults();
 
-    useEffect(() => {
-        scoreArray.then(result => {
-            setScores(result);
-        })
-    }, [scoreArray]);
-
-    //let scorefinal;
-    // console.log(scoreArray);
-    // scoreArray.then(result =>{
-    //     console.log(result);
-    // })
-
-    // const final = scoreArray;
-    //console.log(final);
-    //TODO: GET SCORES
-    // const scores = [
-    //     { date: "2024-07-01", time: "8:30", score: results, 
-    //         details: [{question: "Add two integers", passfail: "Fail"}]},
-    //     { date: "2024-07-01", time: "14:30", score: "80%",
-    //         details: [{question: "Multiply two integers", passfail: "Fail"}]},
-    //     { date: "2024-07-02", time: "14:30", score: "100%",
-    //         details: [{question: "Find the difference of two integers", passfail: "PASS"}]},
-    // ];
-    //console.log(scores);
+    const [result, setResult] = useState([]);
+    scoreArray.then(result =>{
+        setResult(result);
+    })
+    
     const[selectedScore, setSelectedScore] = useState(null);
     const[scoreboardVisible, setScoreboardVisible] = useState(true);
 
@@ -107,10 +83,10 @@ const PerformanceReview = () => {
                         </thead>
 
                         <tbody>
-                            {scores.map((score, index) => (
+                            {result.map((score, index) => (
                                 <tr key={index} onClick={() => handleRowClick(score)} className="clickable-row">
                                     <td>{score.date}</td>
-                                    <td>{score.score}</td>
+                                    <td>{score.result}</td>
                                 </tr>
                             ))}
                         </tbody>
