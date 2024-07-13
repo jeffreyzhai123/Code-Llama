@@ -139,7 +139,7 @@ function testAvg(code){
 
 
 
-
+//Q5
 function testLongestString(code){
     const testCases =[
         {args: ["Tree"], expected: 4},
@@ -154,7 +154,7 @@ function testLongestString(code){
 
 
 
-
+//Q6
 function testDigitInSt(code){
     const testCases =[
         {args: ["Tree"], expected: 0},
@@ -167,6 +167,7 @@ function testDigitInSt(code){
 
 }
 
+//Q7
 function testNumberOfWords(code){
     const testCases =[
         {args: ["Tree"], expected: 1},
@@ -179,7 +180,7 @@ function testNumberOfWords(code){
     return runTests(code, testCases);
 }
 
-
+//Q8
 function testFibonacciNum(){
     const testCases =[
         {args: [0], expected: 0},
@@ -195,3 +196,42 @@ function testFibonacciNum(){
 
 //hard
 
+
+//Q4
+
+function testInsertionSort(){
+    const testCases =[
+        {args: [[]], expected: []},
+        {args: [[6, 5, 4]], expected: [4, 5, 6]},
+        {args: [[1,2]], expected: [1,2]},
+        {args: [[6, 3, 8]], expected: [3, 6, 8]},
+    ]
+
+    return runTests(code, testCases);
+}
+
+
+//Q5
+function testSelectionSort(){
+    const testCases =[
+        {args: [[]], expected: []},
+        {args: [[6, 5, 4]], expected: [4, 5, 6]},
+        {args: [[1,2]], expected: [1,2]},
+        {args: [[6, 3, 8]], expected: [3, 6, 8]},
+    ]
+
+    return runTests(code, testCases);
+}
+
+
+//Q6
+function testLongestPalindrome(){
+    const testCases =[
+        {args: [[]], expected: 0},
+        {args: [["ab", "abc"]], expected: 0},
+        {args: [["aba"]], expected: 3},
+        {args: [["ab", "abba", "abeba"]], expected: 5},
+    ]
+
+    return runTests(code, testCases);
+}
