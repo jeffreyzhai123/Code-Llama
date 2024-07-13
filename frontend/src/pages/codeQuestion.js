@@ -183,17 +183,21 @@ const CodeQuestion = () => {
     //correct/incorrect + second attempt: update the question variable + reset attemp_num to 1 + update question number
     //incorrect + first attempt (last question): update attemp_num to 2 + display additional component related to the second attempt
     //correct + first attempt (last question) & correct/incorrect + second attempt (last question): redirect to the quiz result page
-    async function handleAnsSubmit(event) {
+    async function handleAnsSubmit(event, skip) {
         event.preventDefault();
 
         //disable submit while waiting for answers
         setSubmitDisabled(true);
 
         let correctness;
+        let answerObject;
         try {
-            //sending API requestion to the backend
-            //might also need to send in a third param called difficulty in the future
-            const answerObject = { ans: answer, no: question_num };
+            //sending API request to the backend
+            if (skip) {
+                answerObject = {ans: "", no: question_num};
+            } else {
+                answerObject = { ans: answer, no: question_num };
+            }
             console.log("ready to fetch");
             const res = await fetch('http://localhost:3080/answer', {
                 method: 'POST',
@@ -238,8 +242,9 @@ const CodeQuestion = () => {
         setQuizResult(temporaryArray);
         
         //set limit to 6 as there are only 6 questions thus far
+        //if skip is true just jump to next question lol?
         if(question_num < 6) {
-            if(attempt_num === 2 || correctness){
+            if(attempt_num === 2 || correctness || skip){
 
                 setQuestionNumber(question_num+1);
                 setAttemptNum(1);
@@ -253,7 +258,7 @@ const CodeQuestion = () => {
             }
 
         } else {
-            if(!correctness && attempt_num === 1){
+            if(!correctness && attempt_num === 1 && !skip){
                 setAttemptNum(2);
             } else {
                 //end of the quiz
@@ -280,6 +285,10 @@ const CodeQuestion = () => {
 
         //re-able submit
         setSubmitDisabled(false);
+    };
+
+    function handleSkip(event) {
+        handleAnsSubmit(event, true);
     }
 
     return (
@@ -343,6 +352,7 @@ const CodeQuestion = () => {
                     <br></br>
                         <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
                     </form>
+                    <button className='skipButton' type = "button" onClick = {handleSkip}>Skip</button>
                 
                 </div>
 
