@@ -2,6 +2,7 @@ import Sandbox from "sandbox";
 const s = new Sandbox();
 
 //selects the right test set for the right question
+//TODO: pass in additional paramter "difficulty level" 
 export async function testSelector(question_num, code) {
     //so switch case can start a case 0
     question_num--;
@@ -122,4 +123,75 @@ function testOdd(code) {
     ];
     return runTests(code, testCases);
 }
+
+//empty array allowed?
+//double or integer
+function testAvg(code){
+    const testCases =[
+        {args: [[2, 4, 9]], expected: 5},
+        {args: [[2]], expected: 2},
+        {args: [[3, 4]], expected: 3}
+    ]
+    return runTests(code, testCases);
+}
+
+//Medium
+
+
+
+
+function testLongestString(code){
+    const testCases =[
+        {args: ["Tree"], expected: 4},
+        {args: [""], expected: 0},
+        {args: ["   "], expected: 0},
+        {args: ["The is a testttt"], expected: 7},
+        {args: ["such a beautiful weather!"], expected: 9}
+    ]
+
+    return runTests(code, testCases);
+}
+
+
+
+
+function testDigitInSt(code){
+    const testCases =[
+        {args: ["Tree"], expected: 0},
+        {args: [""], expected: 0},
+        {args: ["The is 1"], expected: 1},
+        {args: ["123"], expected: 3}
+    ]
+
+    return runTests(code, testCases);
+
+}
+
+function testNumberOfWords(code){
+    const testCases =[
+        {args: ["Tree"], expected: 1},
+        {args: [""], expected: 0},
+        {args: ["   "], expected: 0},
+        {args: ["The is a test"], expected: 4},
+        {args: [" I'm a test"], expected: 3}
+    ]
+
+    return runTests(code, testCases);
+}
+
+
+function testFibonacciNum(){
+    const testCases =[
+        {args: [0], expected: 0},
+        {args: [1], expected: 1},
+        {args: [2], expected: 1},
+        {args: [3], expected: 2},
+        {args: [10], expected: 55}
+    ]
+
+    return runTests(code, testCases);
+}
+
+
+//hard
 
