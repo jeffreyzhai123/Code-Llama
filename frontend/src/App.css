@@ -129,7 +129,12 @@ tr:hover{
   background-color: rgb(100, 149, 237);
   color:white;
   border-radius: 10px;
+}
 
+.skipButton{
+  background-color: rgb(100, 149, 237);
+  color:white;
+  border-radius: 10px;
 }
 
 .submitButton:hover{
@@ -138,8 +143,20 @@ tr:hover{
   border-radius: 10px;
 }
 
+.skipButton:hover{
+  background-color: rgb(85, 124, 196);
+  color:white;
+  border-radius: 10px;
+}
+
 
 .submitButton:disabled{
+  background-color: rgb(181, 199, 231);
+  color:white;
+  border-radius: 10px;
+}
+
+.skipButton:disabled{
   background-color: rgb(181, 199, 231);
   color:white;
   border-radius: 10px;

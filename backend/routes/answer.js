@@ -11,8 +11,10 @@ router.post('/', async (req, res) => {
     console.log(req.body); 
     const answer = req.body.ans;
     const num = req.body.no;
+    const diff = req.body.diff;
     console.log(answer);
     console.log(num);
+    console.log("backend answer.js diff: ", diff);
 
     if(answer === ""){
         res.json({ 
@@ -30,7 +32,7 @@ router.post('/', async (req, res) => {
             const generatedCode = extract(ollamaResponse);
             const selectedNum = parseInt(num);
             console.log("testID: ", selectedNum);
-            const test_res = await testSelector(selectedNum, generatedCode);
+            const test_res = await testSelector(selectedNum, generatedCode, diff);
             console.log(ollamaResponse);
             console.log(generatedCode);
             console.log(test_res);

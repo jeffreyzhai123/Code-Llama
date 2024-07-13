@@ -22,18 +22,41 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/easy/:id', async (req, res) => {
+router.get('/easy', async (req, res) => {
     try {
         await dbClient.connect();
-        let quesID = req.params.id;
         let problembank = dbClient.db('problembank');
         let easyQuestions = problembank.collection('easy');
-        let q = await easyQuestions.findOne({qNum: quesID});
-        res.status(200).send(q);
+        let questions = await easyQuestions.find().toArray();
+        res.status(200).send(questions);
     } catch (err) {
         res.status(500).send("Connecting Error!");
     }
-})
+});
+
+router.get('/medium', async (req, res) => {
+    try {
+        await dbClient.connect();
+        let problembank = dbClient.db('problembank');
+        let easyQuestions = problembank.collection('medium');
+        let questions = await easyQuestions.find().toArray();
+        res.status(200).send(questions);
+    } catch (err) {
+        res.status(500).send("Connecting Error!");
+    }
+});
+
+router.get('/hard', async (req, res) => {
+    try {
+        await dbClient.connect();
+        let problembank = dbClient.db('problembank');
+        let easyQuestions = problembank.collection('hard');
+        let questions = await easyQuestions.find().toArray();
+        res.status(200).send(questions);
+    } catch (err) {
+        res.status(500).send("Connecting Error!");
+    }
+});
 
 export { router as questionRouter }
 

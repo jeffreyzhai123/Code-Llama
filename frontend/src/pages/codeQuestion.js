@@ -19,6 +19,7 @@ const CodeQuestion = () => {
 
     //quiz result
     const [quizResult, setQuizResult] = useState([]);
+    const [currDifficulty, setCurrentDifficulty] = useState(1);
 
     //go to other page
     let navigate = useNavigate();
@@ -27,7 +28,9 @@ const CodeQuestion = () => {
     const [userExistence, setUserExistence] = useState(false);
 
     //const problem_bank = null;
-    const [questionBank, setQuestionBank] = useState([]);
+    const [easyQuestionBank, setEasyQuestionBank] = useState([]);
+    const [mediumQuestionBank, setMediumQuestionBank] = useState([]);
+    const [hardQuestionBank, setHardQuestionBank] = useState([]);
     const [loading, setLoading] = useState(true); //to prevent app from running before questions are pulled
 
     //get first question and question number; initialize attempt number to 1st attempt
@@ -42,14 +45,25 @@ const CodeQuestion = () => {
     const [reasonOfChange, setReason] = useState("");
 
     useEffect( () => {
-        const fetchQuestions = async () => {
+        
+        //could be refactored more by passing in the setter function 
+        //but my head hurts already
+        const fetchQuestions = async (type) => {
+
             try {
-                const response = await fetch('http://localhost:3080/question');
-                if(response.ok) {
+                const response = await fetch(`http://localhost:3080/question/${type}`);
+                if (response.ok) {
                     const questions = await response.json();
-                    setQuestionBank(questions);
-                    setQuestion(questions[0]?.question || '');
-                    setLoading(false);
+                    if (type === "easy") {
+                        setEasyQuestionBank(questions);
+                        setQuestion(questions[0].question || '');
+                    }
+                    if (type === "medium") {
+                        setMediumQuestionBank(questions);
+                    }
+                    if (type === "hard") {
+                        setHardQuestionBank(questions);
+                    }
                 }
             } catch (err) {
                 console.error("Error: ", err);
@@ -71,8 +85,13 @@ const CodeQuestion = () => {
                 setUserExistence(false);
             }
         };
-        fetchUser()
-        fetchQuestions();
+
+        fetchUser();
+        fetchQuestions('easy');
+        fetchQuestions('medium');
+        fetchQuestions('hard');
+        setLoading(false);
+
     }, [user_id, userExistence]); //empty dependency array to make sure question bank is only fetched once 
 
     const createResult = async () => {
@@ -124,6 +143,39 @@ const CodeQuestion = () => {
         }
     };
 
+    //key is to have a copy of the state variable, update it and use it to select questions
+    //then update the actual state variable with the value of the copy
+
+    //if try to update state variable first then use it
+    //unexpected behavior occurs due to the async nature of the useState update
+
+    const getNextQuestion = (correctness) => {
+        let nextQuestion;
+        let newDifficulty = currDifficulty;
+        
+        if(correctness) {
+            newDifficulty = Math.min(currDifficulty + 1, 3);
+        } else {
+            newDifficulty = Math.max(currDifficulty - 1, 1);
+        }
+
+        switch (newDifficulty) {
+            case 1:
+                nextQuestion = easyQuestionBank[question_num].question;
+                break;
+            case 2:
+                nextQuestion = mediumQuestionBank[question_num].question;
+                break;
+            case 3:
+                nextQuestion = hardQuestionBank[question_num].question;
+                break;
+            default:
+                nextQuestion = easyQuestionBank[question_num].question;
+        }
+        setCurrentDifficulty(newDifficulty);
+        return nextQuestion;
+    };
+
 
     //function that handle submit=> ask backend right or wrong and decide what to do next
     //correct + first attempt: update the question variable + update question number + attemp_num stay at 1
@@ -131,20 +183,25 @@ const CodeQuestion = () => {
     //correct/incorrect + second attempt: update the question variable + reset attemp_num to 1 + update question number
     //incorrect + first attempt (last question): update attemp_num to 2 + display additional component related to the second attempt
     //correct + first attempt (last question) & correct/incorrect + second attempt (last question): redirect to the quiz result page
-    async function handleAnsSubmit(event) {
+    async function handleAnsSubmit(event, skip) {
         event.preventDefault();
 
         //disable submit while waiting for answers
         setSubmitDisabled(true);
 
-        //to check if questions are being pulled successfully. (use inspect elements to see)
-        console.log(questionBank);
         let correctness;
+        let answerObject;
+        console.log(currDifficulty);
         try {
-            //sending API requestion to the backend
-            //might also need to send in a third param called difficulty in the future
-            const answerObject = { ans: answer, no: question_num };
+            console.log("Inside try block");
+            //sending API request to the backend
+            if (skip) {
+                answerObject = {ans: "", no: question_num, diff: currDifficulty};
+            } else {
+                answerObject = { ans: answer, no: question_num, diff: currDifficulty};
+            }
             console.log("ready to fetch");
+            console.log("frontend: ", answerObject);
             const res = await fetch('http://localhost:3080/answer', {
                 method: 'POST',
                 headers: {
@@ -187,20 +244,24 @@ const CodeQuestion = () => {
         console.log(temporaryArray);
         setQuizResult(temporaryArray);
         
-
         //set limit to 6 as there are only 6 questions thus far
+        //if skip is true just jump to next question lol?
         if(question_num < 6) {
-            if(attempt_num === 2 || correctness){
-                setQuestion(questionBank[question_num].question);
+            if(attempt_num === 2 || correctness || skip){
+
                 setQuestionNumber(question_num+1);
                 setAttemptNum(1);
+                setQuestion(getNextQuestion(correctness));
+
+                //default
+                //setQuestion(easyQuestionBank[question_num].question);
                 
             } else {
                 setAttemptNum(2);
             }
 
         } else {
-            if(!correctness && attempt_num === 1){
+            if(!correctness && attempt_num === 1 && !skip){
                 setAttemptNum(2);
             } else {
                 //end of the quiz
@@ -227,6 +288,10 @@ const CodeQuestion = () => {
 
         //re-able submit
         setSubmitDisabled(false);
+    };
+
+    function handleSkip(event) {
+        handleAnsSubmit(event, true);
     }
 
     return (
@@ -290,6 +355,7 @@ const CodeQuestion = () => {
                     <br></br>
                         <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
                     </form>
+                    <button className='skipButton' type = "button" disabled={submitDisabled} onClick = {handleSkip}>Skip</button>
                 
                 </div>
 
@@ -308,48 +374,5 @@ const CodeQuestion = () => {
         </div>
     )
 }
-
-//generate the next question (the prev_result will be used for the unique feature and is always set to null for now)
-//not in use in this sprint
-function generateNext(problems, prev_question_num) {
-    let curr = prev_question_num + 1;
-    if (problems[curr]?.question) {
-        return problems[curr].question;
-    } else {
-        return "uh-oh"; // or any fallback value if question is not found
-    }
-}
-
-// Result variable exported to quizResult
-// export let results_var = [{"questionNum": {"$numberInt":"1"},
-//     "question":"def foo(a,b): return a+b",
-//     "answer":"Add two integers",
-//     "reasonofchange":"",
-//     "passfail": true,
-//     "attemptNum": {"$numberInt":"1"},},
-//     {"questionNum": {"$numberInt":"2"},
-//         "question":"def foo(a,b): return a-b",
-//         "answer":"Add two integers",
-//         "reasonofchange":"",
-//         "passfail":false,
-//         "attemptNum": {"$numberInt":"1"}},
-//     {"questionNum":{"$numberInt":"2"},
-//         "question":"def foo(a,b): return a-b",
-//         "answer":"Subtract two integers",
-//         "reasonofchange":"Changed add to subtract",
-//         "passfail":true,
-//         "attemptNum":{"$numberInt":"2"}},
-//     {"questionNum":{"$numberInt":"3"},
-//         "question":"def foo(a,b): return ab",
-//         "answer":"Subtract two integers",
-//         "reasonofchange":"Subtract two integers",
-//         "passfail":false,
-//         "attemptNum":{"$numberInt":"1"}},
-//     {"questionNum":{"$numberInt":"3"},
-//         "question":"def foo(a,b): return ab",
-//         "answer":"Subtract two integers",
-//         "reasonofchange":"I don't get it",
-//         "passfail":false,
-//         "attemptNum":{"$numberInt":"2"}}];
 
 export default CodeQuestion
