@@ -155,3 +155,9 @@ tr:hover{
   color:white;
   border-radius: 10px;
 }
+
+.skipButton:disabled{
+  background-color: rgb(181, 199, 231);
+  color:white;
+  border-radius: 10px;
+}
