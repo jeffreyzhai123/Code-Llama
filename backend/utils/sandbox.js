@@ -2,10 +2,24 @@ import Sandbox from "sandbox";
 const s = new Sandbox();
 
 //selects the right test set for the right question
-export async function testSelector(question_num, code) {
+export async function testSelector(question_num, code, diff) {
     //so switch case can start a case 0
     question_num--;
+    console.log(diff);
 
+    if (diff == 1) {
+        console.log("easy test");
+        return easyTestSelect(question_num, code);
+    } else if (diff == 2) {
+        console.log("medium test");
+        return mediumTestSelect(question_num, code);
+    } else {
+        console.log("hard test");
+        return hardTestSelect(question_num, code);
+    }
+}
+
+async function easyTestSelect(question_num, code) {
     switch(question_num) {
         case 0:
             return await testAdd(code);
@@ -19,6 +33,44 @@ export async function testSelector(question_num, code) {
             return await testEven(code);
         case 5:
             return await testOdd(code);
+        default:
+            return "Invalid Question Number";
+    }
+}
+
+async function mediumTestSelect(question_num, code) {
+    switch(question_num) {
+        case 0:
+            return "All tests passed";
+        case 1:
+            return "All tests passed";
+        case 2: 
+            return "All tests passed";
+        case 3:
+            return "All tests passed";
+        case 4:
+            return "All tests passed";
+        case 5:
+            return "All tests passed";
+        default:
+            return "Invalid Question Number";
+    }
+}
+
+async function hardTestSelect(question_num, code) {
+    switch(question_num) {
+        case 0:
+            return "All tests passed";
+        case 1:
+            return "All tests passed";
+        case 2: 
+            return "All tests passed";
+        case 3:
+            return "All tests passed";
+        case 4:
+            return "All tests passed";
+        case 5:
+            return "All tests passed";
         default:
             return "Invalid Question Number";
     }

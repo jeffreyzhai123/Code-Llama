@@ -191,14 +191,17 @@ const CodeQuestion = () => {
 
         let correctness;
         let answerObject;
+        console.log(currDifficulty);
         try {
+            console.log("Inside try block");
             //sending API request to the backend
             if (skip) {
-                answerObject = {ans: "", no: question_num};
+                answerObject = {ans: "", no: question_num, diff: currDifficulty};
             } else {
-                answerObject = { ans: answer, no: question_num };
+                answerObject = { ans: answer, no: question_num, diff: currDifficulty};
             }
             console.log("ready to fetch");
+            console.log("frontend: ", answerObject);
             const res = await fetch('http://localhost:3080/answer', {
                 method: 'POST',
                 headers: {
@@ -352,7 +355,7 @@ const CodeQuestion = () => {
                     <br></br>
                         <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
                     </form>
-                    <button className='skipButton' type = "button" onClick = {handleSkip}>Skip</button>
+                    <button className='skipButton' type = "button" disabled={submitDisabled} onClick = {handleSkip}>Skip</button>
                 
                 </div>
 
@@ -370,17 +373,6 @@ const CodeQuestion = () => {
             )}
         </div>
     )
-}
-
-//generate the next question (the prev_result will be used for the unique feature and is always set to null for now)
-//not in use in this sprint
-function generateNext(problems, prev_question_num) {
-    let curr = prev_question_num + 1;
-    if (problems[curr]?.question) {
-        return problems[curr].question;
-    } else {
-        return "uh-oh"; // or any fallback value if question is not found
-    }
 }
 
 export default CodeQuestion
