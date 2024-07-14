@@ -49,9 +49,9 @@ async function mediumTestSelect(question_num, code) {
         case 3:
             return "All tests passed";
         case 4:
-            return "All tests passed";
+            return testLongestString(code);
         case 5:
-            return "All tests passed";
+            return testDigitInSt(code);
         default:
             return "Invalid Question Number";
     }
@@ -66,11 +66,11 @@ async function hardTestSelect(question_num, code) {
         case 2: 
             return "All tests passed";
         case 3:
-            return "All tests passed";
+            return testInsertionSort(code);
         case 4:
-            return "All tests passed";
+            return testSelectionSort(code);
         case 5:
-            return "All tests passed";
+            return testLongestPalindrome(code);
         default:
             return "Invalid Question Number";
     }
@@ -232,7 +232,7 @@ function testNumberOfWords(code){
 }
 
 //Q8
-function testFibonacciNum(){
+function testFibonacciNum(code){
     const testCases =[
         {args: [0], expected: 0},
         {args: [1], expected: 1},
@@ -250,7 +250,7 @@ function testFibonacciNum(){
 
 //Q4
 
-function testInsertionSort(){
+function testInsertionSort(code){
     const testCases =[
         {args: [[]], expected: []},
         {args: [[6, 5, 4]], expected: [4, 5, 6]},
@@ -263,7 +263,7 @@ function testInsertionSort(){
 
 
 //Q5
-function testSelectionSort(){
+function testSelectionSort(code){
     const testCases =[
         {args: [[]], expected: []},
         {args: [[6, 5, 4]], expected: [4, 5, 6]},
@@ -276,7 +276,7 @@ function testSelectionSort(){
 
 
 //Q6
-function testLongestPalindrome(){
+function testLongestPalindrome(code){
     const testCases =[
         {args: [[]], expected: 0},
         {args: [["ab", "abc"]], expected: 0},
