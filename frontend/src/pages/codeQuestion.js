@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
 import { QuizContext } from '../context/QuizResultContext';
 
+const quizStart = new Date().toLocaleString();
+
 const CodeQuestion = () => {
 
     const { setSharedResult } = useContext(QuizContext);
@@ -43,6 +45,9 @@ const CodeQuestion = () => {
     const [generatedCode, setGC] = useState("");
     const [failedTestCase, setTestCase] = useState("");
     const [reasonOfChange, setReason] = useState("");
+
+    //quiz start time
+    
 
     useEffect( () => {
         
@@ -237,8 +242,11 @@ const CodeQuestion = () => {
             answer: answer,
             reasonofchange: reasonOfChange,
             passfail: correctness,
-            attemptNum: attempt_num
+            attemptNum: attempt_num,
+            startTime: quizStart,
+            endTime: new Date().toLocaleString()
         };
+
         const temporaryArray = quizResult;
         temporaryArray.push(quizJSon);
         console.log(temporaryArray);
