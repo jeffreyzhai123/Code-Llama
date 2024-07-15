@@ -87,12 +87,12 @@ function runTests(code, testCases) {
   
         //for loop to run each test case with the arguments and function properly formatted 
         testCases.forEach(({ args, expected }) => {
-            const testArgs = args.join(', '); //converts array of args [2, 3] into comma-separated string 2, 3
-            const testName = `TestFunction(${testArgs})`; //creates the string TestFunction(testArgs)
+            const formattedArgs = args.map(arg => JSON.stringify(arg));
+            const functionCall = `TestFunction(${formattedArgs.join(', ')})`; //creates the string TestFunction(testArgs)
         
             //call async function s.run to run code in sandboxed env
             //uses output object passed in by s.run to store result of the tests
-            s.run(`${code} ${testName}`, (output) => {
+            s.run(`${code} ${functionCall}`, (output) => {
                 let result = output.result;
                 //updates results arr 
 
@@ -106,7 +106,7 @@ function runTests(code, testCases) {
                 if (result === 'null') result = null; 
                 
 
-                results.push({ args: testArgs, result, expected });
+                results.push({ args: formattedArgs, result, expected });
   
                 //check if all tests have been executed
                 if (results.length == testCases.length) {
@@ -183,10 +183,10 @@ function testOdd(code) {
 
 function testGetLength(code) {
     const testCases = [
-        {args: [["a"]], expected: 1},
-        {args: [], expected: 0},
+        {args: ["a"], expected: 1},
+        {args: [""], expected: 0},
         {args: ["abc"], expected: 3}
-    ]
+    ];
     return runTests(code, testCases);
 }
 
