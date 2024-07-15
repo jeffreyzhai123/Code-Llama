@@ -33,6 +33,10 @@ async function easyTestSelect(question_num, code) {
             return await testEven(code);
         case 5:
             return await testOdd(code);
+        case 6:
+            return await testGetLength(code);
+        case 7:
+            return await testAvg(code);
         default:
             return "Invalid Question Number";
     }
@@ -100,6 +104,7 @@ function runTests(code, testCases) {
                 if (result === 'true') result = true;
                 if (result === 'false') result = false;
                 if (result === 'null') result = null; 
+                
 
                 results.push({ args: testArgs, result, expected });
   
@@ -176,13 +181,11 @@ function testOdd(code) {
     return runTests(code, testCases);
 }
 
-function testSumArray(code) {
+function testGetLength(code) {
     const testCases = [
-        {args: [""], expected: 0},
-        {args: [[0]], expected: 0},
-        {args: [[0, 1, 2]], expected: 3},
-        {args: [[2, 1, 0]], expected: 3},
-        {args: [[2^53 - 1, 0, 1]], expected: null}
+        {args: [["a"]], expected: 1},
+        {args: [], expected: 0},
+        {args: ["abc"], expected: 3}
     ]
     return runTests(code, testCases);
 }

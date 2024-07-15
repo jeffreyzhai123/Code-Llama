@@ -5,7 +5,7 @@ import { useUser } from '@clerk/clerk-react';
 
 const PerformanceReview = () => {
 
-    const qnum = 6; // Change it to the number of questions in the quiz
+    const qnum = 8; // Change it to the number of questions in the quiz
 
     const navigate = useNavigate();
     const mainButton = () => {

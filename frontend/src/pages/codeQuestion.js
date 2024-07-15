@@ -254,7 +254,7 @@ const CodeQuestion = () => {
         
         //set limit to 6 as there are only 6 questions thus far
         //if skip is true just jump to next question lol?
-        if(question_num < 6) {
+        if(question_num < 8) {
             if(attempt_num === 2 || correctness || skip){
 
                 setQuestionNumber(question_num+1);
