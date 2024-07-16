@@ -33,6 +33,10 @@ async function easyTestSelect(question_num, code) {
             return await testEven(code);
         case 5:
             return await testOdd(code);
+        case 6:
+            return await testGetLength(code);
+        case 7:
+            return await testAvg(code);
         default:
             return "Invalid Question Number";
     }
@@ -43,11 +47,11 @@ async function mediumTestSelect(question_num, code) {
         case 0:
             return "All tests passed";
         case 1:
-            return "All tests passed";
+            return testFactorial(code);
         case 2: 
-            return "All tests passed";
+            return testReverseString(code);
         case 3:
-            return "All tests passed";
+            return isPalindrome(code);
         case 4:
             return testLongestString(code);
         case 5:
@@ -83,12 +87,12 @@ function runTests(code, testCases) {
   
         //for loop to run each test case with the arguments and function properly formatted 
         testCases.forEach(({ args, expected }) => {
-            const testArgs = args.join(', '); //converts array of args [2, 3] into comma-separated string 2, 3
-            const testName = `TestFunction(${testArgs})`; //creates the string TestFunction(testArgs)
+            const formattedArgs = args.map(arg => JSON.stringify(arg));
+            const functionCall = `TestFunction(${formattedArgs.join(', ')})`; //creates the string TestFunction(testArgs)
         
             //call async function s.run to run code in sandboxed env
             //uses output object passed in by s.run to store result of the tests
-            s.run(`${code} ${testName}`, (output) => {
+            s.run(`${code} ${functionCall}`, (output) => {
                 let result = output.result;
                 //updates results arr 
 
@@ -98,9 +102,11 @@ function runTests(code, testCases) {
 
                 //normalizing result because LLM is dumb (maybe we remove this have force user to specify return type)
                 if (result === 'true') result = true;
-                if (result === 'false') result = false; 
+                if (result === 'false') result = false;
+                if (result === 'null') result = null; 
+                
 
-                results.push({ args: testArgs, result, expected });
+                results.push({ args: formattedArgs, result, expected });
   
                 //check if all tests have been executed
                 if (results.length == testCases.length) {
@@ -175,6 +181,15 @@ function testOdd(code) {
     return runTests(code, testCases);
 }
 
+function testGetLength(code) {
+    const testCases = [
+        {args: ["a"], expected: 1},
+        {args: [""], expected: 0},
+        {args: ["abc"], expected: 3}
+    ];
+    return runTests(code, testCases);
+}
+
 //empty array allowed?
 //double or integer
 function testAvg(code){
@@ -186,9 +201,40 @@ function testAvg(code){
     return runTests(code, testCases);
 }
 
-//Medium
+//Moderated
+//Q2
+function testFactorial(code){
+    const testCases = [
+        {args: [0], expected: 1},
+        {args: [1], expected: 1},
+        {args: [2], expected: 2},
+        {args: [170], expected: 7.257415615307994e+306},
+        {args: [171], expected: null}
+    ]
+    return runTests(code, testCases);
+}
 
+//Q3
+function testReverseString(code){
+    const testCases = [
+        {args: [""], expected: null},
+        {args: ["a"], expected: "a"},
+        {args: ["abcd"], expected: "dcba"},
+        {args: ["ab123"], expected: "321ba"}
+    ]
+    return runTests(code, testCases);
+}
 
+//Q4
+function isPalindrome(code){
+    const testCases = [
+        {args: [""], expected: true},
+        {args: [" "], expected: true},
+        {args: ["Too hot to hoot"], expected: true},
+        {args: ["Hello World"], expected: false}
+    ]
+    return runTests(code, testCases);
+}
 
 //Q5
 function testLongestString(code){
@@ -247,6 +293,16 @@ function testFibonacciNum(code){
 
 //hard
 
+//Q3
+function testAnagram(code){
+    const testCases = [
+        {args: [[]], expected: true},
+        {args: [["a", "b"]], expected: false},
+        {args: [["cat", "act"]], expected: true},
+        {args: [["cat", ""]], expected: false}
+    ]
+    return runTests(code, testCases);
+}
 
 //Q4
 
@@ -284,5 +340,30 @@ function testLongestPalindrome(code){
         {args: [["ab", "abba", "abeba"]], expected: 5},
     ]
 
+    return runTests(code, testCases);
+}
+
+//Q7
+function testLongestCommonPrefix(code){
+    const testCases = [
+        {args: [[]], expected: null},
+        {args: [["flower", "flow", "flight"]], expected: "fl"},
+        {args: [["flower", "", ""]], expected: null},
+        {args: [["flower", "flow", ""]], expected: null},
+        {args: [["flower", "car", "dog"]], expected: null}
+    ]
+    return runTests(code, testCases);
+}
+
+//Q8
+function testRemoveDuplicates(code){
+    const testCases = [
+        {args: [[]], expected: 0},
+        {args: [1, 1], expected: 1},
+        {args: [[1, 1, 1]], expected: 1},
+        {args: [[1, 1, 1, 2]], expected: 2},
+        {args: [[1, 1, 2, 2, 3, 4, 4, 5]], expected: 5},
+        {args: [[1, 2, 3, 4, 5]], expected: 5}
+    ]
     return runTests(code, testCases);
 }
