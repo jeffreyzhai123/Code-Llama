@@ -39,7 +39,8 @@ const PerformanceReview = () => {
                             if (passfail === true) grade++;
                             passfail = passfail ? "PASS" : "FAIL";
                             let attempNumber = quiz.attemptNum;
-                            resultArray.push({quizNumber, questionNumber, question, answer, reasonofchange, passfail, attempNumber});
+                            let difficultyLevel = quiz.difficultyLevel;
+                            resultArray.push({quizNumber, questionNumber, question, answer, reasonofchange, passfail, attempNumber, difficultyLevel});
                         })
                         let quizScore = ((grade/qnum)*100).toFixed(0) + "%";
                         let quizNumber = index + 1;
@@ -136,6 +137,7 @@ const PerformanceReview = () => {
                                     <th>Reason of Change</th>
                                     <th>Pass/Fail</th>
                                     <th>Attempt Number</th>
+                                    <th>Difficulty Level</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -147,6 +149,7 @@ const PerformanceReview = () => {
                                         <td>{detail.reasonofchange}</td>
                                         <td>{detail.passfail}</td>
                                         <td>{detail.attempNumber}</td>
+                                        <td>{detail.difficultyLevel}</td>
                                     </tr>
                                 ))}
                             </tbody>

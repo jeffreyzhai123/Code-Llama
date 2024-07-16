@@ -181,6 +181,12 @@ const CodeQuestion = () => {
         return nextQuestion;
     };
 
+    const convertLevelofDifficulty = (currDifficulty) => {
+        if (currDifficulty === 1) return "Easy"
+        else if (currDifficulty === 2) return "Moderate"
+        else return "Hard"
+    };
+
 
     //function that handle submit=> ask backend right or wrong and decide what to do next
     //correct + first attempt: update the question variable + update question number + attemp_num stay at 1
@@ -244,7 +250,8 @@ const CodeQuestion = () => {
             passfail: correctness,
             attemptNum: attempt_num,
             startTime: quizStart,
-            endTime: new Date().toLocaleString()
+            endTime: new Date().toLocaleString(),
+            difficultyLevel: convertLevelofDifficulty(currDifficulty)
         };
 
         const temporaryArray = quizResult;

@@ -31,6 +31,7 @@ const QuizResult =()=>{
                         <p>Reason of Change: {quizItem.reasonofchange}</p>
                         <p>Pass/Fail: {quizItem.passfail ? "pass" : "fail"}</p>
                         <p>Attempt Number: {quizItem.attemptNum}</p>
+                        <p>Level of Difficulty: {quizItem.difficultyLevel}</p>
                     </div>
                 ))}
         </div>
