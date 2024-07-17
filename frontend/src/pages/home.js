@@ -24,6 +24,15 @@ const Home = (props) => {
       navigate("/performanceReview");
     }
 
+    const adminMode = () => {
+      const response = prompt("Please enter the admin password:");
+      if (response == "codeLlama") {
+        navigate("/adminMode");
+      } else {
+        alert("Wrong password. Please try again.");
+      }
+    }
+
     return (
         <div className="mainContainer">
 
@@ -60,6 +69,15 @@ const Home = (props) => {
                 type="button"
                 onClick={performanceReview}
                 value={"Results Review"}
+              />
+            </div>
+
+            <div className={'buttonContainer'}>
+              <input
+                className={'inputButton'}
+                type="button"
+                onClick={adminMode}
+                value={"Admin Mode"}
               />
             </div>
 
