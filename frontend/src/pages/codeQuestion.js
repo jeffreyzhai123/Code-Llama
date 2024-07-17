@@ -251,7 +251,8 @@ const CodeQuestion = () => {
             attemptNum: attempt_num,
             startTime: quizStart,
             endTime: new Date().toLocaleString(),
-            difficultyLevel: convertLevelofDifficulty(currDifficulty)
+            difficultyLevel: convertLevelofDifficulty(currDifficulty),
+            generatedCode: generatedCode
         };
 
         const temporaryArray = quizResult;
@@ -321,7 +322,7 @@ const CodeQuestion = () => {
                 <>
                 <div className='question'>
                     <h2>Question {question_num}</h2>
-                 
+                    <p>Difficulty Level: {convertLevelofDifficulty(currDifficulty)}</p>
                     <p>Please describe the following code in plain English: </p>
                     <br></br>
                     <p>{question}</p>

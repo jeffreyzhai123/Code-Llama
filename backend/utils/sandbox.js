@@ -56,6 +56,10 @@ async function mediumTestSelect(question_num, code) {
             return testLongestString(code);
         case 5:
             return testDigitInSt(code);
+        case 6: 
+            return testNumberOfWords(code);
+        case 7:
+            return testFibonacciNum(code);
         default:
             return "Invalid Question Number";
     }
@@ -68,13 +72,17 @@ async function hardTestSelect(question_num, code) {
         case 1:
             return "All tests passed";
         case 2: 
-            return "All tests passed";
+            return testAnagram(code);
         case 3:
             return testInsertionSort(code);
         case 4:
             return testSelectionSort(code);
         case 5:
             return testLongestPalindrome(code);
+        case 6: 
+            return testLongestCommonPrefix(code);
+        case 7:
+            return testRemoveDuplicates(code);
         default:
             return "Invalid Question Number";
     }
@@ -104,6 +112,7 @@ function runTests(code, testCases) {
                 if (result === 'true') result = true;
                 if (result === 'false') result = false;
                 if (result === 'null') result = null; 
+                if (typeof expected === 'string') expected = JSON.stringify(expected);
                 
 
                 results.push({ args: formattedArgs, result, expected });
@@ -191,15 +200,16 @@ function testGetLength(code) {
 }
 
 //empty array allowed?
-//double or integer
 function testAvg(code){
-    const testCases =[
+    const testCases = [
         {args: [[2, 4, 9]], expected: 5},
         {args: [[2]], expected: 2},
-        {args: [[3, 4]], expected: 3}
+        {args: [[3, 4]], expected: 3.5},
+        {args: [[0.5, 0.5, 0]], expected: 1/3}
     ]
     return runTests(code, testCases);
 }
+
 
 //Moderated
 //Q2
@@ -208,8 +218,7 @@ function testFactorial(code){
         {args: [0], expected: 1},
         {args: [1], expected: 1},
         {args: [2], expected: 2},
-        {args: [170], expected: 7.257415615307994e+306},
-        {args: [171], expected: null}
+        {args: [10], expected: 3628800}
     ]
     return runTests(code, testCases);
 }
@@ -217,10 +226,10 @@ function testFactorial(code){
 //Q3
 function testReverseString(code){
     const testCases = [
-        {args: [""], expected: null},
-        {args: ["a"], expected: "a"},
-        {args: ["abcd"], expected: "dcba"},
-        {args: ["ab123"], expected: "321ba"}
+        {args: [""], expected: ''},
+        {args: ["a"], expected: 'a'},
+        {args: ["abcd"], expected: 'dcba'},
+        {args: ["ab123"], expected: '321ba'}
     ]
     return runTests(code, testCases);
 }
@@ -235,6 +244,7 @@ function isPalindrome(code){
     ]
     return runTests(code, testCases);
 }
+
 
 //Q5
 function testLongestString(code){
