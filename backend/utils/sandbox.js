@@ -57,7 +57,7 @@ async function mediumTestSelect(question_num, code) {
         case 5:
             return testFindKey(code);
         case 6: 
-            return testNumberOfWords(code);
+            return testCountEven(code);
         case 7:
             return testFindMin(code);
         default:
@@ -114,6 +114,8 @@ export function runTests(code, testCases) {
                 if (result === 'null') result = null; 
                 if (typeof expected === 'string') expected = JSON.stringify(expected);
                 if (typeof expected === 'number') result = Number(result);
+              
+                
 
                 results.push({ args: formattedArgs, result, expected });
   
@@ -276,6 +278,8 @@ function testFindKey(code){
     const testCases = [
         {args: [2, [2, 4, 9]], expected: true},
         {args: [3, [2, 4, 9]], expected: false},
+        {args: [9, [2, 4, 9]], expected: true},
+        {args: [4, [2, 4, 9]], expected: true},
         {args: [4, []], expected: false},
     ]
 
@@ -283,14 +287,12 @@ function testFindKey(code){
 }
 
 
-//Q7
-function testNumberOfWords(code){
+//Q7--Need to be fixed
+function testCountEven(code){
     const testCases =[
-        {args: ["Tree"], expected: 1},
-        {args: [""], expected: 0},
-        {args: ["   "], expected: 0},
-        {args: ["The is a test"], expected: 4},
-        {args: [" I'm a test"], expected: 3}
+        {args: [[0, 1, 9]], expected: 1},
+        {args: [[]], expected: 0},
+        {args: [[2, 1, 4, 8]], expected: 3},
     ]
 
     return runTests(code, testCases);
@@ -376,7 +378,7 @@ function testLongestCommonPrefix(code){
 function testDistinctNum(code){
     const testCases = [
         {args: [[]], expected: 0},
-        {args: [1, 1], expected: 1},
+        {args: [[1, 1]], expected: 1},
         {args: [[1, 1, 1]], expected: 1},
         {args: [[1, 1, 1, 2]], expected: 2},
         {args: [[1, 1, 2, 2, 3, 4, 4, 5]], expected: 5},
