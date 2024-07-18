@@ -112,7 +112,7 @@ function runTests(code, testCases) {
                 if (result === 'true') result = true;
                 if (result === 'false') result = false;
                 if (result === 'null') result = null; 
-                if (typeof expected === 'string') expected = JSON.stringify(expected);
+                // if (typeof expected === 'string') expected = JSON.stringify(expected);
                 
 
                 results.push({ args: formattedArgs, result, expected });
@@ -276,6 +276,8 @@ function testFindKey(code){
     const testCases = [
         {args: [2, [2, 4, 9]], expected: true},
         {args: [3, [2, 4, 9]], expected: false},
+        {args: [9, [2, 4, 9]], expected: true},
+        {args: [4, [2, 4, 9]], expected: true},
         {args: [4, []], expected: false},
     ]
 
@@ -283,7 +285,7 @@ function testFindKey(code){
 }
 
 
-//Q7
+//Q7--Need to be fixed
 function testNumberOfWords(code){
     const testCases =[
         {args: ["Tree"], expected: 1},
@@ -376,7 +378,7 @@ function testLongestCommonPrefix(code){
 function testDistinctNum(code){
     const testCases = [
         {args: [[]], expected: 0},
-        {args: [1, 1], expected: 1},
+        {args: [[1, 1]], expected: 1},
         {args: [[1, 1, 1]], expected: 1},
         {args: [[1, 1, 1, 2]], expected: 2},
         {args: [[1, 1, 2, 2, 3, 4, 4, 5]], expected: 5},

@@ -2,7 +2,6 @@ import { expect } from 'chai'
 
 describe("test if fetch is working", function() {
     it('fetch the questions from easy problembank and get the qNum of each', async() => {
-        try {
             const response = await fetch('http://localhost:3080/question');
             if(response.ok) {
             const questions = await response.json();
@@ -13,8 +12,6 @@ describe("test if fetch is working", function() {
             expect(questions[4].qNum).to.equal(5);
             expect(questions[5].qNum).to.equal(6);
             }
-        } catch (error) {
-            console.log(error);
-        }
+       
     });
 });
