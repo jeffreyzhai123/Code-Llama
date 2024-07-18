@@ -44,36 +44,12 @@ const M_Q6_wrong = `function TestFunction(key, array){
     return key === array[0];
 }`;
 
-const M_Q7 = `function TestFunction(sentence) {
-    let count = 0;
-    let word = ''; 
-
-    for (let i = 0; i < sentence.length; i++) {
-        if (sentence[i] !== ' ') { 
-            word += sentence[i];
-        } else { 
-            count++;
-            word = '';
-        }
-    }
-
-    if (word.length > 0) {
-        count++;
-    }
-
-    return count;
+const M_Q7 = `function TestFunction(arr) {
+  return arr.reduce((count, num) => count + (num % 2 === 0 ? 1 : 0), 0);
 }`;
 
-const M_Q7_wrong = `function TestFunction(str) {
-    let count = 0; 
-
-    for (let i = 0; i < str.length; i++) {
-        if (str[i] === ' ') {
-            count++;
-        }
-    }
-
-    return count;
+const M_Q7_wrong = `function TestFunction(arr) {
+    return arr.length;
 }`;
 
 const M_Q8 = `function TestFunction(arr) {
@@ -111,21 +87,51 @@ const H_Q6 = `function TestFunction(str) {
     return cleanedStr === reversedStr;
 }`;
 
-const H_Q7 = ``;
+const H_Q6_wrong = `function TestFunction(str) {
+    let cleanedStr = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    let reversedStr = cleanedStr.reverse().join('');
+    return cleanedStr === reversedStr;
+}`;
+
+const H_Q7 = `function TestFunction(arr) {
+  let len = arr.length;
+  if (!len) return 0;
+
+  for (let i = 0; i < arr[0].length; i++) {
+    const char = arr[0][i];
+    for (let j = 1; j < len; j++) {
+      if (arr[j][i] !== char) return i;
+    }
+  }
+
+  return arr[0].length; 
+}`;
+
+const H_Q7_wrong = `function TestFunction(arr){
+    if(arr.length ===0) {
+        return 0;
+    }
+    
+    return arr[0].length;
+}`;
 
 const H_Q8 = `function TestFunction(arr) {
-    let count = 0; // Initialize a variable to hold the count
-    let seen = new Set(); // Create a Set data structure to store unique values
+    let count = 0; 
+    let seen = new Set(); 
 
-    for (let num of arr) { // Iterate through each number in the array
-        if (!seen.has(num)) { // If the current number has not been seen before, increment the count and add it to the Set
+    for (let num of arr) { 
+        if (!seen.has(num)) { 
             seen.add(num);
             count++;
         }
     }
 
     return count;
-}`
+}`;
+
+const H_Q8_wrong = `function TestFunction(arr) {
+  return arr.reduce((count, num) => count + (num % 2 === 0 ? 1 : 0), 0);
+}`;
 
 
 
@@ -270,13 +276,13 @@ describe("test H_Q6", function() {
         .include("passed");
     });
 
-    // it('M_Q6 icorrect', async() => {
-    //     const test_result = await testSelector(6, M_Q6_wrong, 2);
-    //     expect(test_result)
-    //     .to
-    //     .not
-    //     .include("passed"); 
-    // });
+    it('H_Q6 icorrect', async() => {
+        const test_result = await testSelector(6, H_Q6_wrong, 3);
+        expect(test_result)
+        .to
+        .not
+        .include("passed"); 
+    });
 });
 
 describe("test H_Q7", function() {
@@ -287,13 +293,13 @@ describe("test H_Q7", function() {
         .include("passed");
     });
 
-    // it('M_Q6 icorrect', async() => {
-    //     const test_result = await testSelector(6, M_Q6_wrong, 2);
-    //     expect(test_result)
-    //     .to
-    //     .not
-    //     .include("passed"); 
-    // });
+    it('H_Q7 icorrect', async() => {
+        const test_result = await testSelector(7, H_Q7_wrong, 3);
+        expect(test_result)
+        .to
+        .not
+        .include("passed"); 
+    });
 });
 
 describe("test H_Q8", function() {
@@ -304,11 +310,11 @@ describe("test H_Q8", function() {
         .include("passed");
     });
 
-    // it('M_Q6 icorrect', async() => {
-    //     const test_result = await testSelector(6, M_Q6_wrong, 2);
-    //     expect(test_result)
-    //     .to
-    //     .not
-    //     .include("passed"); 
-    // });
+    it('H_Q8 icorrect', async() => {
+        const test_result = await testSelector(8, H_Q8_wrong, 3);
+        expect(test_result)
+        .to
+        .not
+        .include("passed"); 
+    });
 });

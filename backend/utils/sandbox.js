@@ -57,7 +57,7 @@ async function mediumTestSelect(question_num, code) {
         case 5:
             return testFindKey(code);
         case 6: 
-            return testNumberOfWords(code);
+            return testCountEven(code);
         case 7:
             return testFindMin(code);
         default:
@@ -286,13 +286,11 @@ function testFindKey(code){
 
 
 //Q7--Need to be fixed
-function testNumberOfWords(code){
+function testCountEven(code){
     const testCases =[
-        {args: ["Tree"], expected: 1},
-        {args: [""], expected: 0},
-        {args: ["   "], expected: 0},
-        {args: ["The is a test"], expected: 4},
-        {args: [" I'm a test"], expected: 3}
+        {args: [[0, 1, 9]], expected: 1},
+        {args: [[]], expected: 0},
+        {args: [[2, 1, 4, 8]], expected: 3},
     ]
 
     return runTests(code, testCases);
