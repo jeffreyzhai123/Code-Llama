@@ -114,7 +114,7 @@ export function runTests(code, testCases) {
                 if (result === 'null') result = null; 
                 if (typeof expected === 'string') expected = JSON.stringify(expected);
                 if (typeof expected === 'number') result = Number(result);
-                // if (typeof expected === 'string') expected = JSON.stringify(expected);
+              
                 
 
                 results.push({ args: formattedArgs, result, expected });
