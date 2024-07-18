@@ -89,7 +89,7 @@ async function hardTestSelect(question_num, code) {
 }
 
 //runs the generated code against our array of testCases 
-function runTests(code, testCases) {
+export function runTests(code, testCases) {
     return new Promise((resolve) => {
         const results = []; // Array to store the results of each test
   
@@ -113,7 +113,7 @@ function runTests(code, testCases) {
                 if (result === 'false') result = false;
                 if (result === 'null') result = null; 
                 if (typeof expected === 'string') expected = JSON.stringify(expected);
-                
+                if (typeof expected === 'number') result = Number(result);
 
                 results.push({ args: formattedArgs, result, expected });
   
