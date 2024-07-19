@@ -13,8 +13,14 @@ router.get("/:userid", async (req, res) => {
     let query = {userid: req.params.userid};
     let result = await res_collection.findOne(query)
 
-    if (!result) res.send("Not found").status(404);
-    else res.send(result).status(200);
+    if (!result) {
+        //make the result status to 404 and return message to indicate that the user id does not exist in current database
+        res.status(404).send({errormsg:"Not found"});
+    } else {
+        //send the user's information corresponding to the user id
+        res.status(200).send(result);
+    }
+   
 });
 
 router.post("/", async (req, res) => {
