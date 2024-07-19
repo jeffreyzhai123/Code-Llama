@@ -203,6 +203,7 @@ const CodeQuestion = () => {
         setSubmitDisabled(true);
 
         let correctness;
+        let failedTests;
         let code;
         let answerObject;
         console.log(currDifficulty);
@@ -233,6 +234,7 @@ const CodeQuestion = () => {
                 console.log(data.generatedCode);
                 correctness = data.correctness;
                 setTestCase(data.failedTests)
+                failedTests = data.failedTests;
                 code = data.generatedCode;
                 setGC(data.generatedCode);
 
@@ -257,7 +259,7 @@ const CodeQuestion = () => {
             endTime: new Date().toLocaleString(),
             difficultyLevel: convertLevelofDifficulty(currDifficulty),
             generatedCode: code,
-            failedTestCases: failedTestCase
+            failedTestCases: failedTests
         };
         console.log(quizJSon)
 
