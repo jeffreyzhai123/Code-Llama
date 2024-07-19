@@ -30,17 +30,13 @@ const M_Q2 = `function TestFunction(arr) {
                 return sum / arr.length || null
             }`;
 const M_Q3 = `function TestFunction(arr) {return arr.length ? Math.max(...arr) : null}`;
-const M_Q4 = `function TestFunction(arr) {
-                const sorted = arr.slice().sort((a, b) => a - b);
-                const len = sorted.length;
-                return len % 2 ? sorted[Math.floor(len / 2)] : (sorted[len / 2 - 1] + sorted[len / 2]) / 2;
-            }`; 
-const M_Q5 = `function TestFunction(str) {
+
+const M_Q4 = `function TestFunction(str) {
     const words = str.split(' ');
     return Math.max(...words.map(word => word.length));
 }`;
 
-const M_Q6 = `function TestFunction(numberToFind, arrayOfNumbers) {
+const M_Q5 = `function TestFunction(numberToFind, arrayOfNumbers) {
     
     let found = arrayOfNumbers.filter(num => num === numberToFind).length;
 
@@ -51,12 +47,16 @@ const M_Q6 = `function TestFunction(numberToFind, arrayOfNumbers) {
     }
 }`;
 
-const M_Q6_wrong = `function TestFunction(key, array){
+const M_Q5_wrong = `function TestFunction(key, array){
     if (array.length === 0) {
         return false;
     }
     
     return key === array[0];
+}`;
+
+const M_Q6 = `function TestFunction(arr) {
+  return arr.filter(num => num % 2 !== 0).length;
 }`;
 
 const M_Q7 = `function TestFunction(arr) {
@@ -240,16 +240,16 @@ describe("test E_Q8", function() {
 
 
 
-describe("test M_Q6", function() {
+describe("test M_Q5", function() {
     it('M_Q6 correct', async() => {
-        const test_result = await testSelector(6, M_Q6, 2);
+        const test_result = await testSelector(5, M_Q5, 2);
         expect(test_result)
         .to
         .include("passed");
     });
 
     it('M_Q6 icorrect', async() => {
-        const test_result = await testSelector(6, M_Q6_wrong, 2);
+        const test_result = await testSelector(5, M_Q5_wrong, 2);
         expect(test_result)
         .to
         .not
@@ -475,11 +475,12 @@ describe("runTests", () => {
         })
     })
 
-    it('testMedian should return the median value in the given array or return null if the array is empty', () => {
-        const M_T41 = [{ args: [[-9, -4, -2]], expected: -4 }];
-        const M_T42 = [{ args: [[2]], expected: 2}];
-        const M_T43 = [{ args: [[4, 7, 8, 2]], expected: 4 }];
-        const M_T44 = [{ args: [[]], expected: null}];
+    it('testLongestString should return the length of the longest word in the given string of words or return 0 if the string is empty', () => {
+        const M_T41 = [{ args: ["Tree"], expected: 4 }];
+        const M_T42 = [{ args: [""], expected: 0 }];
+        const M_T43 = [{ args: ["   "], expected: 0 }];
+        const M_T44 = [{ args: ["The is a testttt"], expected: 7}];
+        const M_T45 = [{ args: ["such a beautiful weather!"], expected: 9 }];
 
         runTests(M_Q4, M_T41).then(result => {
             const expected = M_T41[0].expected;
@@ -500,37 +501,31 @@ describe("runTests", () => {
             const expected = M_T44[0].expected;
             expect(result).to.equal(expected);
         })
+
+        runTests(M_Q4, M_T45).then(result => {
+            const expected = M_T45[0].expected;
+            expect(result).to.equal(expected);
+        })
     })
 
-    it('testLongestString should return the length of the longest word in the given string of words or return 0 if the string is empty', () => {
-        const M_T51 = [{ args: ["Tree"], expected: 4 }];
-        const M_T52 = [{ args: [""], expected: 0 }];
-        const M_T53 = [{ args: ["   "], expected: 0 }];
-        const M_T54 = [{ args: ["The is a testttt"], expected: 7}];
-        const M_T55 = [{ args: ["such a beautiful weather!"], expected: 9 }];
+    it('testCountOdd should return number of odd numbers in a given array or return 0 if the array is empty', () => {
+        const M_T61 = [{ args: [[0, 1, 9]], expected: 2 }];
+        const M_T62 = [{ args: [[]], expected: 0 }];
+        const M_T63 = [{ args: [[2, 1, 4, 8]], expected: 1 }];
 
-        runTests(M_Q5, M_T51).then(result => {
-            const expected = M_T51[0].expected;
+
+        runTests(M_Q6, M_T61).then(result => {
+            const expected = M_T61[0].expected;
             expect(result).to.equal(expected);
         })
 
-        runTests(M_Q5, M_T52).then(result => {
-            const expected = M_T52[0].expected;
+        runTests(M_Q6, M_T62).then(result => {
+            const expected = M_T62[0].expected;
             expect(result).to.equal(expected);
         })
 
-        runTests(M_Q5, M_T53).then(result => {
-            const expected = M_T53[0].expected;
-            expect(result).to.equal(expected);
-        })
-
-        runTests(M_Q5, M_T54).then(result => {
-            const expected = M_T54[0].expected;
-            expect(result).to.equal(expected);
-        })
-
-        runTests(M_Q5, M_T55).then(result => {
-            const expected = M_T55[0].expected;
+        runTests(M_Q6, M_T63).then(result => {
+            const expected = M_T63[0].expected;
             expect(result).to.equal(expected);
         })
     })

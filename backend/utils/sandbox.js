@@ -51,11 +51,11 @@ async function mediumTestSelect(question_num, code) {
         case 2: 
             return testFindMax(code);
         case 3:
-            return testMedian(code);
-        case 4:
             return testLongestString(code);
-        case 5:
+        case 4:
             return testFindKey(code);
+        case 5:
+            return testCountOdd(code);
         case 6: 
             return testCountEven(code);
         case 7:
@@ -246,18 +246,6 @@ function testFindMax(code) {
 }
 
 //Q4
-function testMedian(code){
-    const testCases = [
-        {args: [[-9, -4, -2]], expected: -4},
-        {args: [[2]], expected: 2},
-        {args: [[4, 7, 8, 2]], expected: 4},
-        {args: [[]], expected: null}
-    ]
-    return runTests(code, testCases);
-}
-
-
-//Q5
 function testLongestString(code){
     const testCases =[
         {args: ["Tree"], expected: 4},
@@ -272,8 +260,7 @@ function testLongestString(code){
 
 
 
-//Q6
-
+//Q5
 function testFindKey(code){
     const testCases = [
         {args: [2, [2, 4, 9]], expected: true},
@@ -286,13 +273,23 @@ function testFindKey(code){
     return runTests(code, testCases);
 }
 
+//Q6
+function testCountOdd(code){
+    const testCases = [
+        {args: [[0, 1, 9]], expected: 2},
+        {args: [[]], expected: 0},
+        {args: [[2, 1, 4, 8]], expected: 1}
+    ]
+    return runTests(code, testCases);
+}
 
-//Q7--Need to be fixed
+
+//Q7
 function testCountEven(code){
     const testCases =[
         {args: [[0, 1, 9]], expected: 1},
         {args: [[]], expected: 0},
-        {args: [[2, 1, 4, 8]], expected: 3},
+        {args: [[2, 1, 4, 8]], expected: 3}
     ]
 
     return runTests(code, testCases);
@@ -317,10 +314,10 @@ function testFindMin(code) {
 //Q3
 function testAnagram(code){
     const testCases = [
-        {args: [[]], expected: true},
-        {args: [["a", "b"]], expected: false},
-        {args: [["cat", "act"]], expected: true},
-        {args: [["cat", ""]], expected: false}
+        {args: [], expected: true},
+        {args: ["a", "b"], expected: false},
+        {args: ["cat", "act"], expected: true},
+        {args: ["cat", ""], expected: false}
     ]
     return runTests(code, testCases);
 }
