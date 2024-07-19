@@ -32,6 +32,7 @@ const QuizResult =()=>{
                         <p>Pass/Fail: {quizItem.passfail ? "pass" : "fail"}</p>
                         <p>Attempt Number: {quizItem.attemptNum}</p>
                         <p>Level of Difficulty: {quizItem.difficultyLevel}</p>
+                        <p>Generated Code: {quizItem.generatedCode}</p>
                     </div>
                 ))}
         </div>
