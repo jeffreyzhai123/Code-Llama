@@ -187,6 +187,8 @@ const CodeQuestion = () => {
         else return "Hard"
     };
 
+    
+
 
     //function that handle submit=> ask backend right or wrong and decide what to do next
     //correct + first attempt: update the question variable + update question number + attemp_num stay at 1
@@ -201,6 +203,7 @@ const CodeQuestion = () => {
         setSubmitDisabled(true);
 
         let correctness;
+        let code;
         let answerObject;
         console.log(currDifficulty);
         try {
@@ -230,6 +233,7 @@ const CodeQuestion = () => {
                 console.log(data.generatedCode);
                 correctness = data.correctness;
                 setTestCase(data.failedTests)
+                code = data.generatedCode;
                 setGC(data.generatedCode);
 
             } else {
@@ -252,12 +256,15 @@ const CodeQuestion = () => {
             startTime: quizStart,
             endTime: new Date().toLocaleString(),
             difficultyLevel: convertLevelofDifficulty(currDifficulty),
-            generatedCode: generatedCode
+            generatedCode: code,
+            failedTestCases: failedTestCase
         };
+        console.log(quizJSon)
 
         const temporaryArray = quizResult;
         temporaryArray.push(quizJSon);
         console.log(temporaryArray);
+        console.log(generatedCode)
         setQuizResult(temporaryArray);
         
         //set limit to 6 as there are only 6 questions thus far
