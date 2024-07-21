@@ -26,7 +26,7 @@ const Home = (props) => {
     }
 
     return (
-        <div className="mainContainer">
+        <div className="homeContainer">
 
            
           {/* The children of the SignedOut component are rendered only when the user is signed out from the app. In this case, the app will render a SignInButton */}
@@ -61,32 +61,41 @@ const Home = (props) => {
 
           {/* The children of the SignedIn component are rendered only when the user is signed in. In this case, the app will render the SignOutButton */}
           <SignedIn>
-            <div className={'buttonContainer'}>
-              <input
-                className={'inputButton'}
-                type="button"
-                onClick={codeQuestionButton}
-                value={"Exercise"}
-              />
+            <div className='smalllogoContainer'>
+              <img src= {my_logo} alt='icon' className='smalllogo'></img>
+            </div>
+            <div className='codeLlama'>
+              <h2>CodeLlamaAcademy</h2>
             </div>
 
-            <div className={'buttonContainer'}>
-              <input
-                className={'inputButton'}
-                type="button"
-                onClick={performanceReview}
-                value={"Results Review"}
-              />
-            </div>
+            <div className="mainBtnContainer">
+              <input type="button" onClick={codeQuestionButton} value="Exercise" className="btn btn-info" />
+              <input type="button" onClick={performanceReview} value="Performance Review" className="btn btn-success" />
 
-            <SignOutButton>
-              <input className={'inputButton'} type="button" value={'Log out'} />
-            </SignOutButton>
+              <SignOutButton>
+                <input type="button" value="Log out" className="btn btn-warning" />
+              </SignOutButton>
+            </div>
+              {/* You can also check if a user is logged in or not using the 'user' object from the useUser hook. In this case, a non-undefined user object will render the user's email on the page
+              {user ? <div>Your email address is {user.primaryEmailAddress.emailAddress}</div> : null} */}
+
+              <div className={'codeExerciseDescription'}>
+                <p className='emphasizeDescription'>In Exercise</p> 
+                <li>There are eight questions in total per exercise.</li>
+                <li>User must complete all of them to save the results.</li>
+                <li>User cannot go back to the previous questions.</li>
+                <li>User gets two chances to pass each question.</li>
+                <li>User can skip the question which will be considered as failed question.</li>
+              </div>
+
+              <div className={'performanceReviewDescription'}>
+                <p className='emphasizeDescription'>In Performance Review</p> 
+                <li>All user's completed quiz attemps are listed.</li>
+                <li>User can click on each quiz to view detailed performance review.</li>
+                <li>User can click on each question to view further details.</li>
+              </div>
+            
           </SignedIn>
-    
-          {/* You can also check if a user is logged in or not using the 'user' object from the useUser hook. In this case, a non-undefined user object will render the user's email on the page */}
-          {user ? <div>Your email address is {user.primaryEmailAddress.emailAddress}</div> : null}
-          
         </div>
     )
 }

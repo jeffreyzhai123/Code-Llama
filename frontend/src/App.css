@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-.mainContainer {
+.homeContainer {
 
   height: 100vh;
-  background-color: rgb(3, 13, 30);
+  /* background-color: rgb(3, 13, 30); */
+}
+
+.mainBtnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  
 }
 
 .titleContainer {
@@ -107,17 +114,18 @@ tr:hover{
   float: left;
   width: 50%;
   font-size: 20pt;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   padding: 20px;
+  margin-top: 5rem;
   
 }
 
 .answer{
   float: left;
   font-size: 20pt;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   padding: 20px;
-  
+  margin-top: 5rem;
 }
 
 
@@ -174,13 +182,35 @@ tr:hover{
   float: left;
   width: 60%;
   height: 70%;
- 
-  
 }
 
 .logo {
   max-width: 100%;
   max-height: 100%;
+}
+
+.smalllogoContainer {
+  position: absolute;
+  left:1%;
+  top:1%;
+  width:5%;
+}
+
+.smalllogo{
+  max-width: 4rem;
+  max-height: 4rem;
+}
+
+.codeLlama {
+  display: flex;
+  font-size:3rem;
+  margin:auto;
+  width:100%;
+  left: 5.5rem;
+  top: 1.25rem;
+  display: inline-block;
+  position:absolute;  
+  color: rgb(237, 108, 207);;
 }
 
 
@@ -202,3 +232,29 @@ tr:hover{
   font-size: 18pt;
 }
 
+.emphasizeDescription{
+  color: rgb(237, 108, 108);
+  font-size: 30pt;
+}
+
+.codeExerciseDescription{
+  margin-top:15%;
+  float: left;
+  height: 40%;
+  width: 45%;
+  padding-left: 10%;
+  color: azure;
+  font-size: large;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.performanceReviewDescription{
+  margin-top:15%;
+  float: right;
+  height: 40%;
+  width: 45%;
+  padding-right: 10%;
+  color: azure;
+  font-size: large;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
