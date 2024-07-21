@@ -1,7 +1,7 @@
 import Home from './pages/home';
 import CodeQuestion from './pages/codeQuestion';
 import QuizResult from './pages/quizResult';
-import './tailwind.css';
+import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import PerformanceReview from './pages/performanceReview';
 import PrivateRoute from './components/Auth/PrivateRoute';
