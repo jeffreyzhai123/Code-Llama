@@ -1,9 +1,11 @@
-/* .mainContainer {
-  flex-direction: column;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.mainContainer {
+
   height: 100vh;
+  background-color: rgb(3, 13, 30);
 }
 
 .titleContainer {
@@ -11,8 +13,12 @@
   flex-direction: column;
   font-size: 64px;
   font-weight: bolder;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   align-items: center;
   justify-content: center;
+  width: 100vw;
+  color:rgb(237, 108, 207);
+  background-color:  rgb(0, 0, 0);
 }
 
 .resultContainer, .historyItem { 
@@ -160,4 +166,39 @@ tr:hover{
   background-color: rgb(181, 199, 231);
   color:white;
   border-radius: 10px;
-} */
+}
+
+.logoContainer {
+  margin-top: 5%;
+  padding-left: 5%;
+  float: left;
+  width: 60%;
+  height: 70%;
+ 
+  
+}
+
+.logo {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+
+.introduction{
+ 
+  margin-top:10%;
+  float: right;
+  height: 40%;
+  width: 40%;
+  padding-right: 10%;
+  color: azure;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+
+}
+
+.emphasize{
+  color: rgb(237, 108, 207);
+  font-size: 18pt;
+}
+
