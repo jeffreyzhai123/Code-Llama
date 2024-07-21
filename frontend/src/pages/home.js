@@ -27,24 +27,47 @@ const Home = (props) => {
     return (
         <div className="mainContainer">
 
-          <div className={'titleContainer'}>
-            <div>Welcome!</div>
-          </div>
-
-          <div>This is the home page.</div>
+          
            
           {/* The children of the SignedOut component are rendered only when the user is signed out from the app. In this case, the app will render a SignInButton */}
             <SignedOut>
+              <div className={'titleContainer'}>
+                <div>Welcome!</div>
+              </div>
+
+              <div>This is the home page.</div>
               <ConsentForm checked={isChecked} onCheckboxChange={onCheckboxChange} />
               {isChecked &&
               <SignInButton>
                 <input className={'inputButton'} type="button" value={'Log in'} />
               </SignInButton>
               }
+              {/* You can also check if a user is logged in or not using the 'user' object from the useUser hook. In this case, a non-undefined user object will render the user's email on the page */}
+          {user ? <div>Your email address is {user.primaryEmailAddress.emailAddress}</div> : null}
             </SignedOut>
 
           {/* The children of the SignedIn component are rendered only when the user is signed in. In this case, the app will render the SignOutButton */}
           <SignedIn>
+          <div
+              className="hero min-h-screen"
+              style={{
+                backgroundImage: "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
+              }}>
+              <div className="hero-overlay bg-opacity-60"></div>
+              <div className="hero-content text-neutral-content text-center">
+                <div className="max-w-md">
+                  <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
+                  <p className="mb-5">
+                    Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
+                    quasi. In deleniti eaque aut repudiandae et a id nisi.
+                  </p>
+                  <button className="btn btn-primary">Get Started</button>
+                  <button className="btn btn-primary">
+                    <input onclick={codeQuestionButton}/>Exercies</button>
+                  <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Exercise</button>
+                </div>
+              </div>
+            
             <div className={'buttonContainer'}>
               <input
                 className={'inputButton'}
@@ -66,11 +89,13 @@ const Home = (props) => {
             <SignOutButton>
               <input className={'inputButton'} type="button" value={'Log out'} />
             </SignOutButton>
+            {/* You can also check if a user is logged in or not using the 'user' object from the useUser hook. In this case, a non-undefined user object will render the user's email on the page */}
+          {user ? <div>Your email address is {user.primaryEmailAddress.emailAddress}</div> : null}
+            </div>
           </SignedIn>
     
-          {/* You can also check if a user is logged in or not using the 'user' object from the useUser hook. In this case, a non-undefined user object will render the user's email on the page */}
-          {user ? <div>Your email address is {user.primaryEmailAddress.emailAddress}</div> : null}
           
+        
         </div>
     )
 }

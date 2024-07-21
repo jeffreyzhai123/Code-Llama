@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
+import './tailwind.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { ClerkProvider } from '@clerk/clerk-react'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 //the code in this file is taken from: https://clerk.com/blog/building-a-react-login-page-template
 

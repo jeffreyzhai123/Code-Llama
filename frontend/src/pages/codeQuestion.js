@@ -334,6 +334,9 @@ const CodeQuestion = () => {
                     <p>Difficulty Level: {convertLevelofDifficulty(currDifficulty)}</p>
                     <p>Please describe the following code in plain English: </p>
                     <br></br>
+                    <div className="mockup-code">
+                        <pre data-prefix="$"><code>{question}</code></pre>
+                    </div>
                     <p>{question}</p>
                 </div>
 
