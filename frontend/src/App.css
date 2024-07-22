@@ -74,40 +74,57 @@
   padding-left: 8px;
 }
 
-.Score-header {
-  background-color: black;
-  padding: 20px;
-  color: white;
-  display: flex;
-  justify-content: center;
-}
-
 .results {
   padding: 20px;
   flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: white;
 }
 
 table {
   width: 80%;
   margin: 20px auto;
   border-collapse: collapse;
-  border: 2px solid black;
+  border: 2px solid rgb(255, 255, 255);
 }
 
 th, td, tr {
   padding: 8px;
-  border: 2px solid black;
+  border: 2px solid rgb(251, 251, 251);
 }
 
 th {
-  background-color: wheat;
+  background-color: rgb(96, 227, 157);
 }
 
 tr:hover{
   background-color: #ddd;
+}
+
+.backtoMain{
+  color:white;
+  float: right;
+  margin-right: -65rem;
+  margin-top: -59rem;
+}
+
+.backtoPerformanceReview{
+  float: right;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+.detailedDescription {
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
+.detailedDescription2 {
+  margin-left: 5rem;
+  margin-top: 3rem;
+  width: 80%;
 }
 
 .question, .secondAttempt{
@@ -133,7 +150,7 @@ tr:hover{
 
 
 #generatedCode{
-  color: rgb(100, 149, 237);
+  color: rgb(146, 177, 234);
 }
 
 .input{

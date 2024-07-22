@@ -1,4 +1,5 @@
 // Display performance review
+import my_logo from '../components/CodeLlama_Academy.GIF'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '@clerk/clerk-react';
@@ -122,9 +123,12 @@ const PerformanceReview = () => {
     };
         
     return (
-        <div className='ScoreBoard'>
-            <div className='Score-header'>
-                <h1>CodeLlamaAcademy</h1>
+        <div className='homeContainer'>
+            <div className='smalllogoContainer'>
+                <img src= {my_logo} alt='icon' className='smalllogo'></img>
+            </div>
+            <div className='codeLlama'>
+                <h2>CodeLlamaAcademy</h2>
             </div>
 
             <div className='results'>
@@ -150,23 +154,20 @@ const PerformanceReview = () => {
                 }
 
                 {scoreboardVisible && (
-                    <div className={'buttonContainer'}>
-                        <input
-                            className={'inputButton'}
-                            type="button"
-                            onClick={mainButton}
-                            value="Go to the Main Page"
-                        />
+                    <div className='backtoMain'>
+                        <input type="button" onClick={mainButton} value="Go back to main" className="btn btn-success" />
                     </div>
                 )}
 
                 {detailedVisible && selectedScore && (
                     <div className="details-table">
-                        <div className={'buttonContainer'}>
-                            <button onClick={handleBackButtonClick}>Go to Performance Review</button>
+                        <div className={'backtoPerformanceReview'}>
+                            <button className="btn btn-success" onClick={handleBackButtonClick}>Go to Performance Review</button>
                         </div>
-                        <h2>Details for Quiz {selectedScore.quizNumber}</h2>
-                        <h3>Score: {selectedScore.quizScore}</h3>
+                        <div className='detailedDescription'>
+                            <h2>Details for Quiz {selectedScore.quizNumber}</h2>
+                            <h3>Score: {selectedScore.quizScore}</h3>
+                        </div>
                         <table>
                             <thead>
                                 <tr>
@@ -196,23 +197,24 @@ const PerformanceReview = () => {
 
                 {selectedQuestion && selectedScore && (
                     <div className='answer-table'>
-                        <div className={'buttonContainer'}>
-                            <button onClick={handleBackButtonClickTwice}>Go to Detailed Performance Review</button>
+                        <div className={'backtoPerformanceReview'}>
+                            <button className="btn btn-success" onClick={handleBackButtonClickTwice}>Go to Detailed Performance Review</button>
                         </div>
-                        
-                        {getDetailsForQuestion(selectedScore.quizNumber, selectedQuestion).map((answer, index) => (
-                            <div key={index} className="question-item">
-                                <h2>Question {answer.questionNumber}</h2>
-                                <p>Question: {answer.question}</p>
-                                <p>Answer: {answer.answer}</p>
-                                <p>Reason of Change: {answer.reasonofchange}</p>
-                                <p>Pass/Fail: {answer.passFail}</p>
-                                <p>Attempt Number: {answer.attempNumber}</p>
-                                <p>Level of Difficulty: {answer.difficultyLevel}</p>
-                                <p>Generated Code: {answer.generatedCode}</p>
-                                <p>Failed Test Cases: {answer.failedTestCases}</p>
-                            </div>  
-                        ))}
+                        <div className='detailedDescription2'>
+                            {getDetailsForQuestion(selectedScore.quizNumber, selectedQuestion).map((answer, index) => (
+                                <div key={index} className="question-item">
+                                    <h2>Question {answer.questionNumber}</h2>
+                                    <p>Question: {answer.question}</p>
+                                    <p>Answer: {answer.answer}</p>
+                                    <p>Reason of Change: {answer.reasonofchange}</p>
+                                    <p>Pass/Fail: {answer.passFail}</p>
+                                    <p>Attempt Number: {answer.attempNumber}</p>
+                                    <p>Level of Difficulty: {answer.difficultyLevel}</p>
+                                    <p>Generated Code: {answer.generatedCode}</p>
+                                    <p>Failed Test Cases: {answer.failedTestCases}</p>
+                                </div>  
+                            ))}
+                        </div>
                            
                     </div>
                 )}
