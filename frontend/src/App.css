@@ -85,10 +85,10 @@ table {
   border: 2px solid rgb(255, 255, 255);
 }
 
-th, td, tr {
+/* th, td, tr {
   padding: 8px;
   border: 2px solid rgb(251, 251, 251);
-}
+} */
 
 th {
   background-color: rgb(96, 227, 157);
