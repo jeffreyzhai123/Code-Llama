@@ -336,12 +336,17 @@ const CodeQuestion = () => {
                     <>
                     <div className='question'>
                         <h2>Question {question_num} </h2>
-                        <p>Difficulty Level: {convertLevelofDifficulty(currDifficulty)}</p>
+                        <div className='levelTag'>
+                            <p>Difficulty Level: {convertLevelofDifficulty(currDifficulty)}</p>
+                        </div>
                         <p>Please describe the following code in plain English: </p>
                         <br></br>
-                        <div className="mockup-code bg-neutral text-neutral-content">
-                            <pre data-prefix="$"><code>{question}</code></pre>
-                        </div>
+                                                
+                        <div className="pre">
+                            <code>
+                                {question}
+                            </code>
+                        </div>                        
                     </div>
 
                     <div className='answer'>
