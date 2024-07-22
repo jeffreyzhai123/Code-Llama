@@ -337,7 +337,7 @@ const CodeQuestion = () => {
                     <div className='question'>
                         <h2>Question {question_num} </h2>
                         <div className='levelTag'>
-                            <p>Difficulty Level: {convertLevelofDifficulty(currDifficulty)}</p>
+                            <h2>{convertLevelofDifficulty(currDifficulty)}</h2>
                         </div>
                         <p>Please describe the following code in plain English: </p>
                         <br></br>

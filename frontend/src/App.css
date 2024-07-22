@@ -142,7 +142,13 @@ tr:hover{
 }
 
 .levelTag {
-  
+  background-color: rgb(248, 240, 94);
+  color:black;
+  border-radius: 20px;
+  float: left;
+  margin-left: 10rem;
+  margin-top: -3.2rem;
+  padding-inline: 1rem;
 }
 
 .submitButton{
