@@ -49,12 +49,14 @@ const Home = (props) => {
                 can generate a code piece that is functionally equivalent as the given code piece in the question. 
                 </p>
               </div>
+              <div className='login'>
               <ConsentForm checked={isChecked} onCheckboxChange={onCheckboxChange} />
               {isChecked &&
               <SignInButton>
-                <input className={'inputButton'} type="button" value={'Log in'} />
+                  <input type="button" value="Log in" className='btn btn-warning' />
               </SignInButton>
               }
+              </div>
               {/* You can also check if a user is logged in or not using the 'user' object from the useUser hook. In this case, a non-undefined user object will render the user's email on the page */}
           {user ? <div>Your email address is {user.primaryEmailAddress.emailAddress}</div> : null}
             </SignedOut>
@@ -69,8 +71,8 @@ const Home = (props) => {
             </div>
 
             <div className="mainBtnContainer">
-              <input type="button" onClick={codeQuestionButton} value="Exercise" className="btn btn-info" />
-              <input type="button" onClick={performanceReview} value="Performance Review" className="btn btn-success" />
+              <input type="button" onClick={codeQuestionButton} value="Exercise" className='btn btn-info' />
+              <input type="button" onClick={performanceReview} value="Performance Review" className='btn btn-success' />
 
               <SignOutButton>
                 <input type="button" value="Log out" className="btn btn-warning" />

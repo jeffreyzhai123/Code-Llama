@@ -133,91 +133,89 @@ const PerformanceReview = () => {
 
             <div className='results'>
                 <h2>Performance Results</h2>
-                {scoreboardVisible && 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Quiz Number</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {score.map((score, index) => (
-                                <tr key={index} onClick={() => handleRowClick(score)} className="clickable-row">
-                                    <td>{score.quizNumber}</td>
-                                    <td>{score.quizScore}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                }
-
-                {scoreboardVisible && (
-                    <div className='backtoMain'>
-                        <input type="button" onClick={mainButton} value="Go back to main" className="btn btn-success" />
-                    </div>
-                )}
-
-                {detailedVisible && selectedScore && (
-                    <div className="details-table">
-                        <div className={'backtoPerformanceReview'}>
-                            <button className="btn btn-success" onClick={handleBackButtonClick}>Go to Performance Review</button>
-                        </div>
-                        <div className='detailedDescription'>
-                            <h2>Details for Quiz {selectedScore.quizNumber}</h2>
-                            <h3>Score: {selectedScore.quizScore}</h3>
-                        </div>
+                    {scoreboardVisible && 
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Question Number</th>
-                                    <th>Questions</th>
-                                    <th>Final Answer</th>
-                                    <th>Pass/Fail</th>
-                                    <th>Attempt Number</th>
-                                    <th>Difficulty Level</th>
+                                    <th>Quiz Number</th>
+                                    <th>Score</th>
                                 </tr>
                             </thead>
+
                             <tbody>
-                                {getDetailsForQuiz(selectedScore.quizNumber).map((detail,index) => (
-                                    <tr key={index} onClick={() => handleRowClickTwice(detail.questionNumber)} className="clickable-row">
-                                        <td>{detail.questionNumber}</td>
-                                        <td>{detail.question}</td>
-                                        <td>{detail.answer}</td>
-                                        <td>{detail.passfail}</td>
-                                        <td>{detail.attempNumber}</td>
-                                        <td>{detail.difficultyLevel}</td>
+                                {score.map((score, index) => (
+                                    <tr key={index} onClick={() => handleRowClick(score)} className="clickable-row">
+                                        <td>{score.quizNumber}</td>
+                                        <td>{score.quizScore}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                    </div>
-                )}
+                    }
+                        {scoreboardVisible && (
+                            <div className='backtoMain'>
+                                <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
+                            </div>
+                        )}
 
-                {selectedQuestion && selectedScore && (
-                    <div className='answer-table'>
-                        <div className={'backtoPerformanceReview'}>
-                            <button className="btn btn-success" onClick={handleBackButtonClickTwice}>Go to Detailed Performance Review</button>
-                        </div>
-                        <div className='detailedDescription2'>
-                            {getDetailsForQuestion(selectedScore.quizNumber, selectedQuestion).map((answer, index) => (
-                                <div key={index} className="question-item">
-                                    <h2>Question {answer.questionNumber}</h2>
-                                    <p>Question: {answer.question}</p>
-                                    <p>Answer: {answer.answer}</p>
-                                    <p>Reason of Change: {answer.reasonofchange}</p>
-                                    <p>Pass/Fail: {answer.passFail}</p>
-                                    <p>Attempt Number: {answer.attempNumber}</p>
-                                    <p>Level of Difficulty: {answer.difficultyLevel}</p>
-                                    <p>Generated Code: {answer.generatedCode}</p>
-                                    <p>Failed Test Cases: {answer.failedTestCases}</p>
-                                </div>  
-                            ))}
-                        </div>
-                           
-                    </div>
-                )}
+                        {detailedVisible && selectedScore && (
+                            <div className="details-table">
+                                <div className={'backtoPerformanceReview'}>
+                                    <button className="btn btn-success" onClick={handleBackButtonClick}>Go to Performance Review</button>
+                                </div>
+                                <div className='detailedDescription'>
+                                    <h2>Details for Quiz {selectedScore.quizNumber}</h2>
+                                    <h3>Score: {selectedScore.quizScore}</h3>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Question Number</th>
+                                            <th>Questions</th>
+                                            <th>Final Answer</th>
+                                            <th>Pass/Fail</th>
+                                            <th>Attempt Number</th>
+                                            <th>Difficulty Level</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {getDetailsForQuiz(selectedScore.quizNumber).map((detail,index) => (
+                                            <tr key={index} onClick={() => handleRowClickTwice(detail.questionNumber)} className="clickable-row">
+                                                <td>{detail.questionNumber}</td>
+                                                <td>{detail.question}</td>
+                                                <td>{detail.answer}</td>
+                                                <td>{detail.passfail}</td>
+                                                <td>{detail.attempNumber}</td>
+                                                <td>{detail.difficultyLevel}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+
+                        {selectedQuestion && selectedScore && (
+                            <div className='answer-table'>
+                                <div className={'backtoPerformanceReview'}>
+                                    <button className="btn btn-success" onClick={handleBackButtonClickTwice}>Go to Detailed Performance Review</button>
+                                </div>
+                                <div className='detailedDescription2'>
+                                    {getDetailsForQuestion(selectedScore.quizNumber, selectedQuestion).map((answer, index) => (
+                                        <div key={index} className="question-item">
+                                            <h2>Question {answer.questionNumber}</h2>
+                                            <p>Question: {answer.question}</p>
+                                            <p>Answer: {answer.answer}</p>
+                                            <p>Reason of Change: {answer.reasonofchange}</p>
+                                            <p>Pass/Fail: {answer.passFail}</p>
+                                            <p>Attempt Number: {answer.attempNumber}</p>
+                                            <p>Level of Difficulty: {answer.difficultyLevel}</p>
+                                            <p>Generated Code: {answer.generatedCode}</p>
+                                            <p>Failed Test Cases: {answer.failedTestCases}</p>
+                                        </div>  
+                                    ))}
+                                </div> 
+                            </div>
+                        )}
             </div>
 
         </div>
