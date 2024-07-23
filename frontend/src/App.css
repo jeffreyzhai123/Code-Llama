@@ -175,7 +175,7 @@ tr:hover{
   color:white;
   border-radius: 10px;
   float: right;
-  margin-right: 10rem;
+  margin-right: 4rem;
 }
 
 .skipButton{
@@ -183,8 +183,8 @@ tr:hover{
   color:white;
   border-radius: 10px;
   float: right;
-  margin-right: -120px;
-  margin-top: -15rem;
+  margin-right: -5.5rem;
+  margin-top: -20rem;
 }
 
 .submitButton:hover{
