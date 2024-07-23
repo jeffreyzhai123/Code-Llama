@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import my_logo from '../components/CodeLlama_Academy.GIF'
 
 const AdminMode = () => {
 
@@ -8,9 +9,35 @@ const AdminMode = () => {
         navigate("/");
     };
 
+    const [score, setScore] = useState([]);
+    const [count, setCount] = useState(0);
+    let scoreArray = [];
+
+
+    const fetchResults = async () => {
+        try {
+            const response = await fetch(`http://localhost:3080/results`);
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+            }
+        } catch (error) {
+            console.log("Error: ", error);
+        }
+    }; 
+
     return (
-        <div className='backtoMain'>
-            
+        <div className='homeContainer'>
+            <div className='smalllogoContainer'>
+                <img src= {my_logo} alt='icon' className='smalllogo'></img>
+            </div>
+            <div className='codeLlama'>
+                <h2>CodeLlamaAcademy</h2>
+            </div>
+
+            <div className='backtoMain2'>
+                <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
+            </div>
         </div>
     )
 
