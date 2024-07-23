@@ -8,6 +8,12 @@ const AdminMode = () => {
         navigate("/");
     };
 
-    
+    return (
+        <div className='backtoMain'>
+            
+        </div>
+    )
 
-}
+} 
+
+export default AdminMode
