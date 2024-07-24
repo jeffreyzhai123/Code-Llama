@@ -1,5 +1,5 @@
 //dispaly code questions
-
+import my_logo from '../components/CodeLlama_Academy.GIF'
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -320,82 +320,95 @@ const CodeQuestion = () => {
     }
 
     return (
-        <div className='mainCodeQuestion'>
-            <div className='Score-header'>
-                <h1>CodeLlamaAcademy</h1>
+        <div className="homeContainer">
+            <div className='smalllogoContainer'>
+              <img src= {my_logo} alt='icon' className='smalllogo'></img>
             </div>
-           
-            {loading ? (
-                <p>Loading...</p>
-            ) : ( 
-                <>
-                <div className='question'>
-                    <h2>Question {question_num}</h2>
-                    <p>Difficulty Level: {convertLevelofDifficulty(currDifficulty)}</p>
-                    <p>Please describe the following code in plain English: </p>
-                    <br></br>
-                    <p>{question}</p>
-                </div>
-
-                <div className='answer'>
-                <form onSubmit={handleAnsSubmit}>
-                    <br></br>
-                    <label>
-                        Answer
-                        <br></br>
-                        <input
-                            className='input' 
-                            type="text" 
-                            name='Answer' 
-                            placeholder='Type your answer here'
-                            value = {answer} 
-                            onChange = { (e) =>
-                            {
-                                setAns(e.target.value)
-                            }}>  
-                        </input>
-                    </label>
-
-                    <br></br>
-                       
-                    {(attempt_num === 2) && 
-                    <label>
-                        Reason for changing your answer
-                        <br></br>
-                        <input
-                            className='input' 
-                            type="text" 
-                            name='Reason of Change' 
-                            placeholder='Type your reason for changing the answer here'
-                            value = {reasonOfChange} 
-                            onChange = { (e) =>
-                            {
-                                setReason(e.target.value)
-                            }}>
-                        </input>
-                    </label>
-                    }
-
-                    <br></br>
-                    <br></br>
-                        <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
-                    </form>
-                    <button className='skipButton' type = "button" disabled={submitDisabled} onClick = {handleSkip}>Skip</button>
+            <div className='codeLlama'>
+              <h2>CodeLlamaAcademy</h2>
+            </div>
+            <div className='mainCodeQuestion'>
                 
-                </div>
+            
+                {loading ? (
+                    <p>Loading...</p>
+                ) : ( 
+                    <>
+                    <div className='question'>
+                        <h2>Question {question_num} </h2>
+                        <div className='levelTag'>
+                            <h2>{convertLevelofDifficulty(currDifficulty)}</h2>
+                        </div>
+                        <p>Please describe the following code in plain English: </p>
+                        <br></br>
+                                                
+                        <div className="pre">
+                            <code>
+                                {question}
+                            </code>
+                        </div>                        
+                    </div>
 
-                {(attempt_num === 2) && 
-                <div className='secondAttempt'>
-                    <br></br>
-                    <p>Here is the generated code: </p>
-                    <br></br>
-                    <p id='generatedCode'>{generatedCode}</p>
-                    <br></br>
-                    <p>{failedTestCase}</p>
-                </div>
-                }
-                </>
-            )}
+                    <div className='answer'>
+                    <form onSubmit={handleAnsSubmit}>
+                        <br></br>
+                        <label>
+                            Answer
+                            <br></br>
+                            <input
+                                className='input' 
+                                type="text" 
+                                name='Answer' 
+                                placeholder='Type your answer here'
+                                value = {answer} 
+                                onChange = { (e) =>
+                                {
+                                    setAns(e.target.value)
+                                }}>  
+                            </input>
+                        </label>
+
+                        <br></br>
+                        
+                        {(attempt_num === 2) && 
+                        <label>
+                            Reason for changing your answer
+                            <br></br>
+                            <input
+                                className='input' 
+                                type="text" 
+                                name='Reason of Change' 
+                                placeholder='Type your reason for changing the answer here'
+                                value = {reasonOfChange} 
+                                onChange = { (e) =>
+                                {
+                                    setReason(e.target.value)
+                                }}>
+                            </input>
+                        </label>
+                        }
+
+                        <br></br>
+                        <br></br>
+                            <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
+                        </form>
+                        <button className='skipButton' type = "button" disabled={submitDisabled} onClick = {handleSkip}>Skip</button>
+                    
+                    </div>
+
+                    {(attempt_num === 2) && 
+                    <div className='secondAttempt'>
+                        <br></br>
+                        <p>Here is the generated code: </p>
+                        <br></br>
+                        <p id='generatedCode'>{generatedCode}</p>
+                        <br></br>
+                        <p>{failedTestCase}</p>
+                    </div>
+                    }
+                    </>
+                )}
+            </div>
         </div>
     )
 }
