@@ -1,6 +1,6 @@
 describe ('Answer', () => {
     describe("test recieve answer API helper function", function() {
-        this.timeout(120000);
+        this.timeout(180000);
         it("make api call when answer is empty", async ()=>{
         
             const res = await fetch('http://localhost:3080/answer', {

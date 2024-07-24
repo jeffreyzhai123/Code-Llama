@@ -14,6 +14,7 @@
     
     <!-- file to test -->
     <script src="extractor.js"></script>
+  
     
     <!--
     Cannot run ollama_helper test becasue we can't import Ollama
@@ -31,13 +32,17 @@
     <script src="unitTest/extractortest.js"></script>
     <script src="unitTest/answertest.js"></script>
     <script src="unitTest/questiontest.js"></script>
+    <script src="unitTest/resulttest.js"></script>
+    <script src="unitTest/sandboxtest.js"></script>
     <!--
     Cannot run ollama_helper test becasue we can't import Ollama
     <script src="unitTest/ollamahelpertest.js"></script>
     -->
 
     <!-- run mocha -->
-    <script>mocha.run()</script>
+    <script>
+      mocha.run()
+    </script>
 
     <h3>Manual Testing Completed</h3>
     <p>1. When the users first start to use the application, they will see a term of service button when they open the APP,

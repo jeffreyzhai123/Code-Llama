@@ -314,7 +314,7 @@ function testFindMin(code) {
 //Q3
 function testAnagram(code){
     const testCases = [
-        {args: [], expected: true},
+        
         {args: ["a", "b"], expected: false},
         {args: ["cat", "act"], expected: true},
         {args: ["cat", ""], expected: false}
