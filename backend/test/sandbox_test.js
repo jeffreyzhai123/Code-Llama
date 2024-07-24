@@ -241,14 +241,14 @@ describe("test E_Q8", function() {
 
 
 describe("test M_Q5", function() {
-    it('M_Q6 correct', async() => {
+    it('M_Q5 correct', async() => {
         const test_result = await testSelector(5, M_Q5, 2);
         expect(test_result)
         .to
         .include("passed");
     });
 
-    it('M_Q6 icorrect', async() => {
+    it('M_Q5 icorrect', async() => {
         const test_result = await testSelector(5, M_Q5_wrong, 2);
         expect(test_result)
         .to

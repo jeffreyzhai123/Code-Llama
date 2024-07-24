@@ -1,5 +1,5 @@
 
-describe("test get user id", function() {
+describe("Test get user id", function() {
     it('get user id successful', async() => {
         const user_id = "user_2iRkLPhAxeb9pqeO29Zfe1QtbZr";
 
