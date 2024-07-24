@@ -1,5 +1,5 @@
 // Display performance review
-import my_logo from '../components/CodeLlama_Academy.GIF'
+import my_logo from '../components/CodeLlama.png'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '@clerk/clerk-react';

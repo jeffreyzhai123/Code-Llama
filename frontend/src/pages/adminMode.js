@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import my_logo from '../components/CodeLlama_Academy.GIF'
+import my_logo from '../components/CodeLlama.png'
 
 const AdminMode = () => {
 
@@ -11,20 +11,26 @@ const AdminMode = () => {
 
     const [score, setScore] = useState([]);
     const [count, setCount] = useState(0);
-    let scoreArray = [];
-
 
     const fetchResults = async () => {
         try {
-            const response = await fetch(`http://localhost:3080/results`);
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data);
+            const response = await fetch(`http:///localhost:3080/results`);
+            if (!response.ok) {
+                const message = `An error has occurred: ${response.status}`;
+                throw new Error(message);
             }
-        } catch (error) {
+
+            const data = await response.json();
+            console.log(data);
+            return data;
+        }
+        catch (error) {
             console.log("Error: ", error);
         }
+        
     }; 
+
+    fetchResults();
 
     return (
         <div className='homeContainer'>
