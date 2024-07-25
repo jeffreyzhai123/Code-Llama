@@ -9,14 +9,14 @@ router.get('/', async (req, res) => {
     let results_db = dbClient.db('performancereview');
     let res_collection = await results_db.collection("results");
 
-    // let userid = res_collection.userid;
+    let result = await res_collection.find().toArray();
 
-    if (!res_collection) {
+    if (result.length === 0) {
         //make the result status to 404 and return message to indicate that the user id does not exist in current database
         res.status(404).send({errormsg:"Not found"});
     } else {
         //send the user's information corresponding to the user id
-        res.status(200).send(res_collection);
+        res.status(200).send(result);
     }
    
 });

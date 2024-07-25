@@ -9,8 +9,7 @@ const AdminMode = () => {
         navigate("/");
     };
 
-    const [score, setScore] = useState([]);
-    const [count, setCount] = useState(0);
+    const [userArray, setUserArray] = useState([]);
 
     const fetchResults = async () => {
         try {
@@ -21,7 +20,6 @@ const AdminMode = () => {
             }
 
             const data = await response.json();
-            console.log(data);
             return data;
         }
         catch (error) {
@@ -30,7 +28,9 @@ const AdminMode = () => {
         
     }; 
 
-    fetchResults();
+    fetchResults().then((data) => {
+        setUserArray(data);
+    })
 
     return (
         <div className='homeContainer'>
@@ -43,6 +43,25 @@ const AdminMode = () => {
 
             <div className='backtoMain2'>
                 <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
+            </div>
+
+            <div className='usertable'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {userArray.map((user, index) => (
+                            <tr key={index} className='users'>
+                                <td>{user.userid}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+
+                </table>
             </div>
         </div>
     )
