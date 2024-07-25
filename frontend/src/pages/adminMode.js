@@ -56,7 +56,7 @@ const AdminMode = () => {
                     <tbody>
                         {userArray.map((user, index) => (
                             <tr key={index} className='users'>
-                                <td>{user.userid}</td>
+                                <td>{user.username}</td>
                             </tr>
                         ))}
                     </tbody>
