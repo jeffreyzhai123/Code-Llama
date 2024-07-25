@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import my_logo from '../components/CodeLlama.png'
+import { calculateAllAvg, calculateAvgScore, calculateAllScaledAvg, calculateAvgScaledScore } from '../helpers/calculate.js';
 
 const AdminMode = () => {
 
@@ -50,6 +51,9 @@ const AdminMode = () => {
                     <thead>
                         <tr>
                             <th>User ID</th>
+                            <th>Average Score</th>
+                            <th>Average Scaled Score</th>
+                            <th>Num of Quizzes Done</th>
                         </tr>
                     </thead>
 
@@ -57,8 +61,36 @@ const AdminMode = () => {
                         {userArray.map((user, index) => (
                             <tr key={index} className='users'>
                                 <td>{user.username}</td>
+                                <td>{calculateAvgScore(user.results).toFixed(2) + "%"}</td>
+                                <td>{calculateAvgScaledScore(user.results).toFixed(2) + "%"}</td>
+                                <td>{user.results.length}</td>
                             </tr>
                         ))}
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div className='data'>
+                {/* <label>{calculateAllAvg(userArray)}</label> */}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>All Users Average</th>
+                            <th>All Users Scaled Average</th>
+                            <th>Total Number Of Users with Records</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                      
+                        <tr>
+                            <td>{calculateAllAvg(userArray).toFixed(2) + "%"}</td>
+                            <td>{calculateAllScaledAvg(userArray).toFixed(2) + "%"}</td>
+                            <td>{userArray.length}</td>
+                           
+                        </tr>
+                        
                     </tbody>
 
                 </table>
