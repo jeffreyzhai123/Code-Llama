@@ -1,5 +1,5 @@
 //dispaly code questions
-import my_logo from '../components/CodeLlama_Academy.GIF'
+import my_logo from '../components/CodeLlama.png'
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

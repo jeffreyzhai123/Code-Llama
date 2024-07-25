@@ -25,6 +25,15 @@ const Home = (props) => {
       navigate("/performanceReview");
     }
 
+    const adminMode = () => {
+      const response = prompt("Please enter the admin password:");
+      if (response == "codeLlama") {
+        navigate("/adminMode");
+      } else {
+        alert("Wrong password. Please try again.");
+      }
+    }
+
     return (
         <div className="homeContainer">
 
@@ -73,6 +82,7 @@ const Home = (props) => {
             <div className="mainBtnContainer">
               <input type="button" onClick={codeQuestionButton} value="Exercise" className='btn btn-info' />
               <input type="button" onClick={performanceReview} value="Performance Review" className='btn btn-success' />
+              <input type="button" onClick={adminMode} value="Admin Mode" className='btn btn-primary' />
 
               <SignOutButton>
                 <input type="button" value="Log out" className="btn btn-warning" />
