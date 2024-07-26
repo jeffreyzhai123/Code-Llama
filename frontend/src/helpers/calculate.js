@@ -3,7 +3,7 @@ const ESCALE = 0.6;
 const MSCALE = 0.8;
 const HSCALE = 1;
 
-//unscaled version: all the question has the same weight dispite of difference in difficulty
+//unscaled version: all the question has the same weight despite of difference in difficulty
 
 //calculate the average score of average score of all users
 export function calculateAllAvg(userarr){
