@@ -8,202 +8,96 @@
   width: 100vw;
   background-color: rgb(3, 13, 30);
 }
+  
+.mainBtnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-top: 1.5rem;
+  padding-right: 1rem;
+  gap: 20px;
+}
 
-/* TODOs:
-logo & CodeLlamaAcademy
- */
+.siteHeader {
+  width: 100%;
+  padding: 10px 20px;
+  /* background-color: #f8f9fa; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
 
+.headerLeft,
+.headerRight {
+  display: flex;
+  align-items: center;
+}
 
+.smalllogoContainer {
+  display: flex;
+  align-items: center;
+}
 
-  
-  .resultContainer, .historyItem { 
-    flex-direction: row;
-    display: flex;
-    width: 400px;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .historyContainer {
-    flex-direction: column;
-    display: flex;
-    height: 200px;
-    align-items: center;
-    flex-grow: 5;
-    justify-content: flex-start;
-  }
-  
-  .mainBtnContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    padding-top: 1.5rem;
-    padding-right: 1rem;
-    gap: 20px;
-  }
-  
-  .inputContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-  }
-  
-  .inputContainer > .errorLabel {
-    color: red;
-    font-size: 12px;
-  }
-  
-  .inputBox {
-    height: 48px;
-    width: 400px;
-    font-size: large;
-    border-radius: 8px;
-    border: 1px solid grey;
-    padding-left: 8px;
-  }
-  
-  .results {
-    padding: 20px;
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-  }
-  
-  .usertable {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    padding-top: 5rem;
-  }
-  
-  table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    border: 2px solid rgb(255, 255, 255);
-  }
-  
-  th {
-    background-color: rgb(96, 227, 157);
-  }
-  
-  tr:hover{
-    background-color: #ddd;
-  }
-  
-  .backtoMain{
-    color:white;
-    float: right;
-    margin-right: -70rem;
-    margin-top: -40rem;
-  }
-  
-  .backtoMain2{
-    color:white;
-    float: right;
-    margin-right: 5rem;
-    margin-top: 2.5rem;
-  }
-  
-  .backtoPerformanceReview{
-    float: right;
-    margin-top: 1rem;
-    margin-right: 1rem;
-  }
-  
-  .detailedDescription {
-    margin-left: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .detailedDescription2 {
-    margin-left: 5rem;
-    margin-top: 3rem;
-    width: 80%;
-  }
-  
+.smalllogo{
+  height: 65px;
+  margin-right: 10px;
+}
 
-  
-  
-  
- 
-  
-  .login {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    width: 20%;
-  }
-  
- 
-  
-
-  
- 
-  
-  .smalllogoContainer {
-    position: absolute;
-    left:1%;
-    top:1%;
-    width:5%;
-  }
-  
-  .smalllogo{
-    max-width: 4rem;
-    max-height: 4rem;
-  }
-  
-  .codeLlama {
-    display: flex;
-    font-size:3rem;
-    margin:auto;
-    /* width:100%; */
-    left: 5.5rem;
-    top: 1.25rem;
-    /* display: inline-block; */
-    position:absolute;  
-    color: rgb(237, 108, 207);;
-  }
+.codeLlama {
+  font-size: 40px;
+  font-weight: bold;    
+  color: rgb(237, 108, 207);
+}
   
   
   
 
-  
-  .emphasizeDescription{
-    color: rgb(237, 108, 108);
-    font-size: 30pt;
-  }
-  
-  .codeExerciseDescription{
-    margin-top:10%;
-    float: left;
-    height: 40%;
-    width: 45%;
-    padding-left: 10%;
-    color: azure;
-    font-size: large;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-  }
-  
-  .performanceReviewDescription{
-    margin-top:10%;
-    float: right;
-    height: 40%;
-    width: 45%;
-    padding-right: 10%;
-    color: azure;
-    font-size: large;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-  }
-  
 
+.introduction{
   
-  .data{
-    color: azure;
-  }
+  margin-top:10%;
+  float: right;
+  height: 40%;
+  width: 40%;
+  padding-right: 10%;
+  color: azure;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+
+}
+
+.emphasize{
+  color: rgb(237, 108, 207);
+  font-size: 18pt;
+}
+
+.emphasizeDescription{
+  color: rgb(237, 108, 108);
+  font-size: 30pt;
+}
+
+.codeLlamaDescription{
+  margin-top: 15rem;
+  margin-left: 10rem;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  color: white;
+}
+
+.descriptionColumn {
+  flex: 1;
+  padding: 10px;
+  max-width: 700px;
+}
+
+
+
+.data{
+  color: azure;
+}
   

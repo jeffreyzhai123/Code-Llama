@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import my_logo from '../components/CodeLlama.png'
 import { calculateAllAvg, calculateAvgScore, calculateAllScaledAvg, calculateAvgScaledScore } from '../helpers/calculate.js';
@@ -21,52 +21,66 @@ const AdminMode = () => {
     const [usertableVisible, setUsertableVisible] = useState(true);
     const [detailedVisible, setdetailedVisible] = useState(false);
 
-    const fetchResults = async () => {
-        try {
-            const response = await fetch(`http:///localhost:3080/results`);
-            if (!response.ok) {
-                const message = `An error has occurred: ${response.status}`;
-                throw new Error(message);
+    useEffect( () => {
+        const fetchResults = async () => {
+            try {
+                const response = await fetch(`http:///localhost:3080/results`);
+                if (!response.ok) {
+                    const message = `An error has occurred: ${response.status}`;
+                    throw new Error(message);
+                }
+
+                const data = await response.json();
+                setUserArray(data);
             }
+            catch (error) {
+                console.log("Error: ", error);
+            }
+            
+        }; 
 
-            const data = await response.json();
-            return data;
-        }
-        catch (error) {
-            console.log("Error: ", error);
-        }
+        fetchResults();
         
-    }; 
-
-    fetchResults().then((data) => {
-        setUserArray(data);
-    })
+    }, [])
 
     function handleRowClick(user) {
         setSelectedUser(user);
         setUsertableVisible(false);
         setdetailedVisible(true);
     }
-    
+
+    let plot_x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let plot_y = [0, 0, 0, 0, 50, 50, 60, 80, 100, 100]; 
 
     return (
         <div className='homeContainer'>
-            <div className='smalllogoContainer'>
-                <img src= {my_logo} alt='icon' className='smalllogo'></img>
-            </div>
-            <div className='codeLlama'>
-                <h2>CodeLlamaAcademy</h2>
-            </div>
-            
-            <div className='usertable'>
-                {usertableVisible &&
-                    <div className='backtoMain2'>
-                        <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
+            <header className='siteHeader'>
+                <div className='headerLeft'>
+                    <div className='smalllogoContainer'>
+                        <img src= {my_logo} alt='icon' className='smalllogo'></img>
+                        <span className = "codeLlama">CodeLlamaAcademy</span>
                     </div>
-                }
+                </div>
+                <div className='headerRight'>
+                    {usertableVisible && (
+                        <div className='mainBtnContainer'>
+                            <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
+                        </div>
+                    )}
+
+                    {detailedVisible && selectedUser && (
+                        <div className='mainBtnContainer'>
+                            <button className="btn btn-success" onClick={backButton}>Go back to Admin Page</button>
+                        </div>
+                    )}
+                </div>
+            </header>
+
+            <div className='userTable'>
+                <span className = "userResultsTitle">User Performance Results</span>
                 {usertableVisible && 
                     <div>
-                        <table>
+                        <table id="resultsTable">
                             <thead>
                                 <tr>
                                     <th>User Name</th>
@@ -90,7 +104,7 @@ const AdminMode = () => {
                             </tbody>
                         </table>
 
-                        <table className='data'>
+                        <table id="resultsTable">
                             <thead>
                                 <tr>
                                     <th>All Users Average</th>
@@ -105,49 +119,32 @@ const AdminMode = () => {
                                     <td>{calculateAllAvg(userArray).toFixed(2) + "%"}</td>
                                     <td>{calculateAllScaledAvg(userArray).toFixed(2) + "%"}</td>
                                     <td>{userArray.length}</td>
-                                
                                 </tr>
-                                
                             </tbody>
-
                         </table>
-                    </div>
-
-
-                    
+                    </div>  
                 }
                 {detailedVisible && selectedUser && (
                     <div className = 'userResults'>
-                        <div className='backtoMain2'>
-                            <button className="btn btn-success" onClick={backButton}>Go back to Admin Page</button>
-                        </div>
-
                         <div className='plot'>
                             <Plot 
                                 data = {[
                                     {
-                                    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                                    y: [0, 0, 0, 0, 50, 50, 60, 80, 100, 100],
+                                    x: plot_x,
+                                    y: plot_y,
                                     mode: "lines",
                                     type: "scatter",
                                     marker: {color: 'blue'},
                                     },
-                                
                                 ]}
-
                                 layout = { 
-                                    {width: 600, height: 500, title: "Quiz Result"}
+                                    {width: 800, height: 700, title: "Quiz Result"}
                                 }
                             />
                         </div>
-
                     </div>
                 )}
-
             </div>
-
-
-            
         </div>
     )
 

@@ -1,0 +1,56 @@
+.scoreboardContainer {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.performanceresultsTitle {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.detailedDescription {
+    margin-top: 30px;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.detailedDescription2 {
+    width: 80%;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.scoreDescription {
+    font-size: 30px;
+}
+
+#resultsTable {
+    border-collapse: collapse;
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+#resultsTable td, #resultsTable th {
+    border: 1px solid #ddd;
+    padding: 2px;
+}
+
+#resultsTable tr:hover {background-color: #ddd;}
+
+#resultsTable th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    background-color: rgb(216, 167, 82);
+}
+
+#resultsTable td {
+    text-align: center;
+}
