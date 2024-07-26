@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.homeContainer {
+  height: auto;
+  width: 100vw;
+  background-color: rgb(3, 13, 30);
+}
+

@@ -1,7 +1,8 @@
 import Home from './pages/home';
 import CodeQuestion from './pages/codeQuestion';
 import QuizResult from './pages/quizResult';
-import './App.css';
+import './style/App.css';
+import './style/home.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import PerformanceReview from './pages/performanceReview';
 import AdminMode from './pages/adminMode';
