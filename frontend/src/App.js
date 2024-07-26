@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import PerformanceReview from './pages/performanceReview';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import { QuizResultProvider } from './context/QuizResultContext';
+import Profile from './pages/profile';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/codeQuestion" element={<PrivateRoute element={CodeQuestion}/>}/>
             <Route path="/result" element={<PrivateRoute element={QuizResult}/>}/>
             <Route path="/performanceReview" element={<PrivateRoute element={PerformanceReview}/>}/>
+            <Route path="/profilePage" element={<PrivateRoute element={Profile}/>}/>
           </Routes>
         </QuizResultProvider>
       </BrowserRouter>

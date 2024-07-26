@@ -62,7 +62,9 @@ const PerformanceReview = () => {
         }
     };
 
+    //location of buggy code
     fetchResults().then(([scoreArray, resultArray]) => {
+        console.log("fetch user results being called");
         setScore(scoreArray);
         setResult(resultArray);
     });
@@ -153,7 +155,7 @@ const PerformanceReview = () => {
                         </table>
                     }
                         {scoreboardVisible && (
-                            <div className='backtoMain'>
+                            <div className='mainBtnContainer'>
                                 <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
                             </div>
                         )}

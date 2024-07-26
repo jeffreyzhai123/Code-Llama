@@ -29,8 +29,10 @@ router.post("/", async (req, res) => {
     try {
         let newUser = {
             userid: req.body.userid,
+            username: req.body.username,
             results: [req.body.quizResult]
         };
+        console.log('New User:', newUser);
         let res_collection = await results_db.collection("results");
         let result = await res_collection.insertOne(newUser);
         res.send(result).status(204);

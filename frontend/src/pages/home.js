@@ -25,6 +25,10 @@ const Home = (props) => {
       navigate("/performanceReview");
     }
 
+    const profilePage = () => {
+      navigate("/profilePage");
+    }
+
     return (
         <div className="homeContainer">
 
@@ -73,6 +77,7 @@ const Home = (props) => {
             <div className="mainBtnContainer">
               <input type="button" onClick={codeQuestionButton} value="Exercise" className='btn btn-info' />
               <input type="button" onClick={performanceReview} value="Performance Review" className='btn btn-success' />
+              <input type="button" onClick={profilePage} value="Profile Page" className='btn btn-primary' />
 
               <SignOutButton>
                 <input type="button" value="Log out" className="btn btn-warning" />
