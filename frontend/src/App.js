@@ -2,7 +2,12 @@ import Home from './pages/home';
 import CodeQuestion from './pages/codeQuestion';
 import QuizResult from './pages/quizResult';
 import './style/App.css';
-import './style/home.css';
+import './style/adminMode.css';
+import './style/codeQuestion.css';
+import './style/home_login.css';
+import './style/home_logout.css';
+import './style/performanceReview.css';
+import './style/quizResult.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import PerformanceReview from './pages/performanceReview';
 import AdminMode from './pages/adminMode';
