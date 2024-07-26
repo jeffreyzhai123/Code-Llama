@@ -1,6 +1,6 @@
 // Display performance review
 import my_logo from '../components/CodeLlama.png'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '@clerk/clerk-react';
 
@@ -23,49 +23,51 @@ const PerformanceReview = () => {
     let scoreArray = [];
     let resultArray = [];
 
-    const fetchResults = async () => {
-        try {
-            const response = await fetch(`http:///localhost:3080/results/${user_id}`);
-            if (response.ok) {
-                const data = await response.json();
-                if (data.userid === user.id) {
-                    data.results.forEach((array, index) => {
-                        array.forEach((quiz) => {
-                            let quizNumber = index + 1;
-                            let questionNumber = quiz.questionNum;
-                            let question = quiz.question;
-                            let answer = quiz.answer;
-                            if (answer === "") answer = "No Input";
-                            let reasonofchange = quiz.reasonofchange;
-                            if (reasonofchange === "") reasonofchange = "No Input";
-                            let passfail = quiz.passfail;
-                            if (passfail === true) grade++;
-                            passfail = passfail ? "PASS" : "FAIL";
-                            let attempNumber = quiz.attemptNum;
-                            let difficultyLevel = quiz.difficultyLevel;
-                            let generatedCode = quiz.generatedCode;
-                            if (generatedCode === "") generatedCode = "No Input";
-                            let failedTestCases = quiz.failedTestCases;
-                            if (failedTestCases === "") failedTestCases = "All tests passed"
-                            resultArray.push({quizNumber, questionNumber, question, answer, reasonofchange, passfail, attempNumber, difficultyLevel, generatedCode, failedTestCases});
-                        })
-                        let quizScore = ((grade/qnum)*100).toFixed(0) + "%";
-                        let quizNumber = index + 1;
-                        scoreArray.push({quizNumber,quizScore});
-                        grade = 0;
-                    })
-                }
-                return [scoreArray, resultArray];
-            }
-        } catch (error) {
-            console.log("Error: ", error);
-        }
-    };
+    useEffect( () => {
 
-    fetchResults().then(([scoreArray, resultArray]) => {
-        setScore(scoreArray);
-        setResult(resultArray);
-    });
+        const fetchResults = async () => {
+            try {
+                const response = await fetch(`http:///localhost:3080/results/${user_id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.userid === user.id) {
+                        data.results.forEach((array, index) => {
+                            array.forEach((quiz) => {
+                                let quizNumber = index + 1;
+                                let questionNumber = quiz.questionNum;
+                                let question = quiz.question;
+                                let answer = quiz.answer;
+                                if (answer === "") answer = "No Input";
+                                let reasonofchange = quiz.reasonofchange;
+                                if (reasonofchange === "") reasonofchange = "No Input";
+                                let passfail = quiz.passfail;
+                                if (passfail === true) grade++;
+                                passfail = passfail ? "PASS" : "FAIL";
+                                let attempNumber = quiz.attemptNum;
+                                let difficultyLevel = quiz.difficultyLevel;
+                                let generatedCode = quiz.generatedCode;
+                                if (generatedCode === "") generatedCode = "No Input";
+                                let failedTestCases = quiz.failedTestCases;
+                                if (failedTestCases === "") failedTestCases = "All tests passed"
+                                resultArray.push({quizNumber, questionNumber, question, answer, reasonofchange, passfail, attempNumber, difficultyLevel, generatedCode, failedTestCases});
+                            })
+                            let quizScore = ((grade/qnum)*100).toFixed(0) + "%";
+                            let quizNumber = index + 1;
+                            scoreArray.push({quizNumber,quizScore});
+                            grade = 0;
+                        })
+                    }
+                    setScore(scoreArray);
+                    setResult(resultArray);
+                }
+            } catch (error) {
+                console.log("Error: ", error);
+            }
+        };
+
+        fetchResults();
+
+    }, [])
     
     const[selectedScore, setSelectedScore] = useState(null);
     const[scoreboardVisible, setScoreboardVisible] = useState(true);

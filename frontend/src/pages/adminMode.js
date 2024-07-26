@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import my_logo from '../components/CodeLlama.png'
 import { calculateAllAvg, calculateAvgScore, calculateAllScaledAvg, calculateAvgScaledScore } from '../helpers/calculate.js';
@@ -21,26 +21,27 @@ const AdminMode = () => {
     const [usertableVisible, setUsertableVisible] = useState(true);
     const [detailedVisible, setdetailedVisible] = useState(false);
 
-    const fetchResults = async () => {
-        try {
-            const response = await fetch(`http:///localhost:3080/results`);
-            if (!response.ok) {
-                const message = `An error has occurred: ${response.status}`;
-                throw new Error(message);
+    useEffect( () => {
+        const fetchResults = async () => {
+            try {
+                const response = await fetch(`http:///localhost:3080/results`);
+                if (!response.ok) {
+                    const message = `An error has occurred: ${response.status}`;
+                    throw new Error(message);
+                }
+
+                const data = await response.json();
+                setUserArray(data);
             }
+            catch (error) {
+                console.log("Error: ", error);
+            }
+            
+        }; 
 
-            const data = await response.json();
-            return data;
-        }
-        catch (error) {
-            console.log("Error: ", error);
-        }
+        fetchResults();
         
-    }; 
-
-    fetchResults().then((data) => {
-        setUserArray(data);
-    })
+    }, [])
 
     function handleRowClick(user) {
         setSelectedUser(user);
