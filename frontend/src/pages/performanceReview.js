@@ -1,6 +1,6 @@
 // Display performance review
-import my_logo from '../components/CodeLlama_Academy.GIF'
-import { useState } from 'react';
+import my_logo from '../components/CodeLlama.png'
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '@clerk/clerk-react';
 
@@ -23,51 +23,51 @@ const PerformanceReview = () => {
     let scoreArray = [];
     let resultArray = [];
 
-    const fetchResults = async () => {
-        try {
-            const response = await fetch(`http:///localhost:3080/results/${user_id}`);
-            if (response.ok) {
-                const data = await response.json();
-                if (data.userid === user.id) {
-                    data.results.forEach((array, index) => {
-                        array.forEach((quiz) => {
-                            let quizNumber = index + 1;
-                            let questionNumber = quiz.questionNum;
-                            let question = quiz.question;
-                            let answer = quiz.answer;
-                            if (answer === "") answer = "No Input";
-                            let reasonofchange = quiz.reasonofchange;
-                            if (reasonofchange === "") reasonofchange = "No Input";
-                            let passfail = quiz.passfail;
-                            if (passfail === true) grade++;
-                            passfail = passfail ? "PASS" : "FAIL";
-                            let attempNumber = quiz.attemptNum;
-                            let difficultyLevel = quiz.difficultyLevel;
-                            let generatedCode = quiz.generatedCode;
-                            if (generatedCode === "") generatedCode = "No Input";
-                            let failedTestCases = quiz.failedTestCases;
-                            if (failedTestCases === "") failedTestCases = "All tests passed"
-                            resultArray.push({quizNumber, questionNumber, question, answer, reasonofchange, passfail, attempNumber, difficultyLevel, generatedCode, failedTestCases});
-                        })
-                        let quizScore = ((grade/qnum)*100).toFixed(0) + "%";
-                        let quizNumber = index + 1;
-                        scoreArray.push({quizNumber,quizScore});
-                        grade = 0;
-                    })
-                }
-                return [scoreArray, resultArray];
-            }
-        } catch (error) {
-            console.log("Error: ", error);
-        }
-    };
+    useEffect( () => {
 
-    //location of buggy code
-    fetchResults().then(([scoreArray, resultArray]) => {
-        console.log("fetch user results being called");
-        setScore(scoreArray);
-        setResult(resultArray);
-    });
+        const fetchResults = async () => {
+            try {
+                const response = await fetch(`http:///localhost:3080/results/${user_id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.userid === user.id) {
+                        data.results.forEach((array, index) => {
+                            array.forEach((quiz) => {
+                                let quizNumber = index + 1;
+                                let questionNumber = quiz.questionNum;
+                                let question = quiz.question;
+                                let answer = quiz.answer;
+                                if (answer === "") answer = "No Input";
+                                let reasonofchange = quiz.reasonofchange;
+                                if (reasonofchange === "") reasonofchange = "No Input";
+                                let passfail = quiz.passfail;
+                                if (passfail === true) grade++;
+                                passfail = passfail ? "PASS" : "FAIL";
+                                let attempNumber = quiz.attemptNum;
+                                let difficultyLevel = quiz.difficultyLevel;
+                                let generatedCode = quiz.generatedCode;
+                                if (generatedCode === "") generatedCode = "No Input";
+                                let failedTestCases = quiz.failedTestCases;
+                                if (failedTestCases === "") failedTestCases = "All tests passed"
+                                resultArray.push({quizNumber, questionNumber, question, answer, reasonofchange, passfail, attempNumber, difficultyLevel, generatedCode, failedTestCases});
+                            })
+                            let quizScore = ((grade/qnum)*100).toFixed(0) + "%";
+                            let quizNumber = index + 1;
+                            scoreArray.push({quizNumber,quizScore});
+                            grade = 0;
+                        })
+                    }
+                    setScore(scoreArray);
+                    setResult(resultArray);
+                }
+            } catch (error) {
+                console.log("Error: ", error);
+            }
+        };
+
+        fetchResults();
+
+    }, [])
     
     const[selectedScore, setSelectedScore] = useState(null);
     const[scoreboardVisible, setScoreboardVisible] = useState(true);
@@ -126,17 +126,39 @@ const PerformanceReview = () => {
         
     return (
         <div className='homeContainer'>
-            <div className='smalllogoContainer'>
-                <img src= {my_logo} alt='icon' className='smalllogo'></img>
-            </div>
-            <div className='codeLlama'>
-                <h2>CodeLlamaAcademy</h2>
-            </div>
+            <header className="siteHeader">
+                <div className='headerLeft'>
+                    <div className='smalllogoContainer'>
+                        <img src= {my_logo} alt='icon' className='smalllogo'></img>
+                        <span className = "codeLlama">CodeLlamaAcademy</span>
+                    </div>
+                </div>
 
-            <div className='results'>
-                <h2>Performance Results</h2>
+                <div className='headerRight'>
+                    {scoreboardVisible && (
+                        <div className='mainBtnContainer'>
+                            <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
+                        </div>
+                    )}
+
+                    {detailedVisible && selectedScore && (
+                        <div className='mainBtnContainer'>
+                            <button className="btn btn-success" onClick={handleBackButtonClick}>Go to Performance Review</button>
+                        </div>
+                    )}
+
+                    {selectedQuestion && selectedScore && (
+                        <div className='mainBtnContainer'>
+                            <button className="btn btn-success" onClick={handleBackButtonClickTwice}>Go to Detailed Performance Review</button>
+                        </div>
+                    )}
+                </div>
+            </header>
+
+            <div className='scoreboardContainer'>
+                <span className = "performanceresultsTitle">Performance Results</span>
                     {scoreboardVisible && 
-                        <table>
+                        <table id="resultsTable">
                             <thead>
                                 <tr>
                                     <th>Quiz Number</th>
@@ -146,7 +168,7 @@ const PerformanceReview = () => {
 
                             <tbody>
                                 {score.map((score, index) => (
-                                    <tr key={index} onClick={() => handleRowClick(score)} className="clickable-row">
+                                    <tr key={index} onClick={() => handleRowClick(score)}>
                                         <td>{score.quizNumber}</td>
                                         <td>{score.quizScore}</td>
                                     </tr>
@@ -154,70 +176,63 @@ const PerformanceReview = () => {
                             </tbody>
                         </table>
                     }
-                        {scoreboardVisible && (
-                            <div className='mainBtnContainer'>
-                                <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
-                            </div>
-                        )}
+                        
 
-                        {detailedVisible && selectedScore && (
-                            <div className="details-table">
-                                <div className={'backtoPerformanceReview'}>
-                                    <button className="btn btn-success" onClick={handleBackButtonClick}>Go to Performance Review</button>
-                                </div>
-                                <div className='detailedDescription'>
-                                    <h2>Details for Quiz {selectedScore.quizNumber}</h2>
-                                    <h3>Score: {selectedScore.quizScore}</h3>
-                                </div>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Question Number</th>
-                                            <th>Questions</th>
-                                            <th>Final Answer</th>
-                                            <th>Pass/Fail</th>
-                                            <th>Attempt Number</th>
-                                            <th>Difficulty Level</th>
+                    {detailedVisible && selectedScore && (
+                        <div className="detailsTable">
+                            <div className='detailedDescription'>
+                                <span className = "scoreDescription"> Selected Quiz: {selectedScore.quizNumber}</span>
+                                <span className = "scoreDescription"> Overall Percentage: {selectedScore.quizScore}</span>
+                            </div>
+                            <table id="resultsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Question Number</th>
+                                        <th>Questions</th>
+                                        <th>Final Answer</th>
+                                        <th>Pass/Fail</th>
+                                        <th>Attempt Number</th>
+                                        <th>Difficulty Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {getDetailsForQuiz(selectedScore.quizNumber).map((detail,index) => (
+                                        <tr key={index} onClick={() => handleRowClickTwice(detail.questionNumber)}>
+                                            <td>{detail.questionNumber}</td>
+                                            <td>{detail.question}</td>
+                                            <td>{detail.answer}</td>
+                                            <td>{detail.passfail}</td>
+                                            <td>{detail.attempNumber}</td>
+                                            <td>{detail.difficultyLevel}</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {getDetailsForQuiz(selectedScore.quizNumber).map((detail,index) => (
-                                            <tr key={index} onClick={() => handleRowClickTwice(detail.questionNumber)} className="clickable-row">
-                                                <td>{detail.questionNumber}</td>
-                                                <td>{detail.question}</td>
-                                                <td>{detail.answer}</td>
-                                                <td>{detail.passfail}</td>
-                                                <td>{detail.attempNumber}</td>
-                                                <td>{detail.difficultyLevel}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-
-                        {selectedQuestion && selectedScore && (
-                            <div className='answer-table'>
-                                <div className={'backtoPerformanceReview'}>
-                                    <button className="btn btn-success" onClick={handleBackButtonClickTwice}>Go to Detailed Performance Review</button>
-                                </div>
-                                <div className='detailedDescription2'>
-                                    {getDetailsForQuestion(selectedScore.quizNumber, selectedQuestion).map((answer, index) => (
-                                        <div key={index} className="question-item">
-                                            <h2>Question {answer.questionNumber}</h2>
-                                            <p>Question: {answer.question}</p>
-                                            <p>Answer: {answer.answer}</p>
-                                            <p>Reason of Change: {answer.reasonofchange}</p>
-                                            <p>Pass/Fail: {answer.passFail}</p>
-                                            <p>Attempt Number: {answer.attempNumber}</p>
-                                            <p>Level of Difficulty: {answer.difficultyLevel}</p>
-                                            <p>Generated Code: {answer.generatedCode}</p>
-                                            <p>Failed Test Cases: {answer.failedTestCases}</p>
-                                        </div>  
                                     ))}
-                                </div> 
-                            </div>
-                        )}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+
+                    {selectedQuestion && selectedScore && (
+                        <div className='detailedDescription2'>
+                            {getDetailsForQuestion(selectedScore.quizNumber, selectedQuestion).map((answer, index) => (
+                                <div key={index}>
+                                    <span className = "scoreDescription"> Selected Question: {answer.questionNumber}</span>
+                                    <span className = "detailedDescription2"> 
+                                        Question: {answer.question}<br></br>
+                                        Answer: {answer.answer}<br></br>
+                                        Reason of Change: {answer.reasonofchange}<br></br>
+                                        Pass/Fail: {answer.passFail}<br></br>
+                                        Attempt Number: {answer.attempNumber}<br></br>
+                                        Level of Difficulty: {answer.difficultyLevel}<br></br>
+                                        Generated Code: {answer.generatedCode}<br></br>
+                                        Failed Test Cases: {answer.failedTestCases}<br></br>
+                                        <br></br>
+                                        <br></br>
+                                    </span>
+                                    
+                                </div>  
+                            ))}
+                        </div> 
+                    )}
             </div>
 
         </div>

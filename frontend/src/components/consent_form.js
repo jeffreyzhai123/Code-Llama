@@ -13,7 +13,7 @@ function ConsentForm({checked, onCheckboxChange}) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="info" onClick={handleShow}>
         Terms of Service
       </Button>
 
