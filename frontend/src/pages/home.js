@@ -25,6 +25,15 @@ const Home = (props) => {
       navigate("/performanceReview");
     }
 
+    const adminMode = () => {
+      const response = prompt("Please enter the admin password:");
+      if (response == "codeLlama") {
+        navigate("/adminMode");
+      } else {
+        alert("Wrong password. Please try again.");
+      }
+    }
+
     return (
         <div className="homeContainer">
 
@@ -50,11 +59,15 @@ const Home = (props) => {
                 </p>
               </div>
               <div className='login'>
+              
               <ConsentForm checked={isChecked} onCheckboxChange={onCheckboxChange} />
+              
               {isChecked &&
-              <SignInButton>
-                  <input type="button" value="Log in" className='btn btn-warning' />
-              </SignInButton>
+              <div className='loginContainer'>
+                <SignInButton className="btn btn-warning">
+                    <input type="button" value="Log in"  />
+                </SignInButton>
+              </div>
               }
               </div>
               {/* You can also check if a user is logged in or not using the 'user' object from the useUser hook. In this case, a non-undefined user object will render the user's email on the page */}
@@ -63,39 +76,45 @@ const Home = (props) => {
 
           {/* The children of the SignedIn component are rendered only when the user is signed in. In this case, the app will render the SignOutButton */}
           <SignedIn>
-            <div className='smalllogoContainer'>
-              <img src= {my_logo} alt='icon' className='smalllogo'></img>
-            </div>
-            <div className='codeLlama'>
-              <h2>CodeLlamaAcademy</h2>
-            </div>
+            <header className="siteHeader">
+              <div className='headerLeft'>
+                <div className='smalllogoContainer'>
+                  <img src= {my_logo} alt='icon' className='smalllogo'></img>
+                  <span className = "codeLlama">CodeLlamaAcademy</span>
+                </div>
+              </div>
 
-            <div className="mainBtnContainer">
-              <input type="button" onClick={codeQuestionButton} value="Exercise" className='btn btn-info' />
-              <input type="button" onClick={performanceReview} value="Performance Review" className='btn btn-success' />
+              <div className='headerRight'>
+                <div className="mainBtnContainer">
+                  <input type="button" onClick={codeQuestionButton} value="Exercise" className='btn btn-info' />
+                  <input type="button" onClick={performanceReview} value="Performance Review" className='btn btn-success' />
+                  <input type="button" onClick={adminMode} value="Admin Mode" className='btn btn-primary' />
 
-              <SignOutButton>
-                <input type="button" value="Log out" className="btn btn-warning" />
-              </SignOutButton>
-            </div>
+                  <SignOutButton>
+                    <input type="button" value="Log out" className="btn btn-warning" />
+                  </SignOutButton>
+                </div>
+              </div>
+            </header>
               {/* You can also check if a user is logged in or not using the 'user' object from the useUser hook. In this case, a non-undefined user object will render the user's email on the page
               {user ? <div>Your email address is {user.primaryEmailAddress.emailAddress}</div> : null} */}
+              <section className = "codeLlamaDescription">
+                <div className={'descriptionColumn'}>
+                  <p className='emphasizeDescription'>In Exercise</p> 
+                  <li>There are eight questions in total per exercise.</li>
+                  <li>User must complete all of them to save the results.</li>
+                  <li>User cannot go back to the previous questions.</li>
+                  <li>User gets two chances to pass each question.</li>
+                  <li>User can skip the question which will be considered as failed question.</li>
+                </div>
 
-              <div className={'codeExerciseDescription'}>
-                <p className='emphasizeDescription'>In Exercise</p> 
-                <li>There are eight questions in total per exercise.</li>
-                <li>User must complete all of them to save the results.</li>
-                <li>User cannot go back to the previous questions.</li>
-                <li>User gets two chances to pass each question.</li>
-                <li>User can skip the question which will be considered as failed question.</li>
-              </div>
-
-              <div className={'performanceReviewDescription'}>
-                <p className='emphasizeDescription'>In Performance Review</p> 
-                <li>All user's completed quiz attemps are listed.</li>
-                <li>User can click on each quiz to view detailed performance review.</li>
-                <li>User can click on each question to view further details.</li>
-              </div>
+                <div className={'descriptionColumn'}>
+                  <p className='emphasizeDescription'>In Performance Review</p> 
+                  <li>All user's completed quiz attemps are listed.</li>
+                  <li>User can click on each quiz to view detailed performance review.</li>
+                  <li>User can click on each question to view further details.</li>
+                </div>
+              </section>
             
           </SignedIn>
         </div>

@@ -1,0 +1,17 @@
+.userTable {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+
+  .userResultsTitle {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.data{
+  color: azure;
+}

@@ -4,6 +4,23 @@ import dbClient from "../config/db_connection.js"
 
 const router = express.Router();
 
+router.get('/', async (req, res) => {
+    await dbClient.connect();
+    let results_db = dbClient.db('performancereview');
+    let res_collection = await results_db.collection("results");
+
+    let result = await res_collection.find().toArray();
+
+    if (result.length === 0) {
+        //make the result status to 404 and return message to indicate that the user id does not exist in current database
+        res.status(404).send({errormsg:"Not found"});
+    } else {
+        //send the user's information corresponding to the user id
+        res.status(200).send(result);
+    }
+   
+});
+
 router.get("/:userid", async (req, res) => {
     await dbClient.connect();
     let results_db = dbClient.db('performancereview');
