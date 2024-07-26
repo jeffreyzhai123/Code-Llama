@@ -1,0 +1,39 @@
+.usernameFormLabel {
+    font-weight: bold;
+    color: aliceblue; 
+  }
+  
+.usernameForm {
+    padding-top: 1.5rem;
+    padding-right: 1rem;
+    padding-left: 5rem;
+    width: 50px;
+}
+  
+.usernameForm .input {
+    height: 50px;
+    padding: 10px; /* Padding inside the input box */
+    margin-top: 5px; /* Space between label and input */
+    font-size: 16px; /* Size of the input text */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.profileMessage {
+    padding-left: 5rem;
+    padding-top: 2rem;
+    font-weight: bold;
+    font-size: 16px;
+    color:aliceblue;
+}
+
+.usernameChangeButton {
+    background-color: rgb(100, 149, 237);
+    color:white;
+    border-radius: 10px;
+    padding: 0.5rem 1rem; /* Adjust padding as needed for size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}

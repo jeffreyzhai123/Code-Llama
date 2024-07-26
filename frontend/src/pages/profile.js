@@ -98,11 +98,11 @@ const Profile = () => {
 
     return (
         <div className='homeContainer'>
-            <div className='smalllogoContainer'>
-                <img src= {my_logo} alt='icon' className='smalllogo'></img>
-            </div>
-            <div className='codeLlama'>
-                <h2>CodeLlamaAcademy</h2>
+            <div className='headerLeft'>
+                    <div className='smalllogoContainer'>
+                        <img src= {my_logo} alt='icon' className='smalllogo'></img>
+                        <span className = "codeLlama">CodeLlamaAcademy</span>
+                    </div>
             </div>
 
             <div className='mainBtnContainer'>
