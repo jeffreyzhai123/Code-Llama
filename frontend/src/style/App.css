@@ -14,18 +14,7 @@ logo & CodeLlamaAcademy
  */
 
 
-.titleContainer {
-    display: flex;
-    flex-direction: column;
-    font-size: 64px;
-    font-weight: bolder;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    color:rgb(237, 108, 207);
-    background-color:  rgb(0, 0, 0);
-  }
+
   
   .resultContainer, .historyItem { 
     flex-direction: row;
@@ -138,36 +127,11 @@ logo & CodeLlamaAcademy
     width: 80%;
   }
   
-  .question, .secondAttempt{
-    float: left;
-    width: 45%;
-    font-size: 20pt;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    padding: 20px;
-    margin-top: 5rem;
-    color: rgb(255, 255, 255);
-  }
-  
-  .answer{
-    float: right;
-    width: 45%;
-    font-size: 20pt;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    padding: 20px;
-    margin-top: 5rem;
-    color: rgb(255, 255, 255);
-  }
+
   
   
   
-  #generatedCode{
-    color: rgb(146, 177, 234);
-  }
-  
-  .input{
-    height: 2cm;
-    width: 15cm;
-  }
+ 
   
   .login {
     display: flex;
@@ -176,70 +140,11 @@ logo & CodeLlamaAcademy
     width: 20%;
   }
   
-  .levelTag {
-    background-color: rgb(248, 240, 94);
-    color:black;
-    border-radius: 20px;
-    float: left;
-    margin-left: 10rem;
-    margin-top: -3.2rem;
-    padding-inline: 1rem;
-  }
+ 
   
-  .submitButton{
-    background-color: rgb(100, 149, 237);
-    color:white;
-    border-radius: 10px;
-    float: right;
-    margin-right: 4rem;
-  }
+
   
-  .skipButton{
-    background-color: rgb(100, 149, 237);
-    color:white;
-    border-radius: 10px;
-    float: right;
-    margin-right: -5.5rem;
-    margin-top: -20rem;
-  }
-  
-  .submitButton:hover{
-    background-color: rgb(85, 124, 196);
-    color:white;
-    border-radius: 10px;
-  }
-  
-  .skipButton:hover{
-    background-color: rgb(85, 124, 196);
-    color:white;
-    border-radius: 10px;
-  }
-  
-  
-  .submitButton:disabled{
-    background-color: rgb(181, 199, 231);
-    color:white;
-    border-radius: 10px;
-  }
-  
-  .skipButton:disabled{
-    background-color: rgb(181, 199, 231);
-    color:white;
-    border-radius: 10px;
-  }
-  
-  .logoContainer {
-    margin-top: 5%;
-    padding-left: 5%;
-    float: left;
-    width: 60%;
-    height: 70%;
-  }
-  
-  .logo {
-    max-width: 100%;
-    max-height: 100%;
-  }
+ 
   
   .smalllogoContainer {
     position: absolute;
@@ -267,22 +172,7 @@ logo & CodeLlamaAcademy
   
   
   
-  .introduction{
-   
-    margin-top:10%;
-    float: right;
-    height: 40%;
-    width: 40%;
-    padding-right: 10%;
-    color: azure;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-  
-  }
-  
-  .emphasize{
-    color: rgb(237, 108, 207);
-    font-size: 18pt;
-  }
+
   
   .emphasizeDescription{
     color: rgb(237, 108, 108);
@@ -311,19 +201,7 @@ logo & CodeLlamaAcademy
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
   }
   
-  .pre code {
-      /* background: #f1f1f1;
-      padding: 1.33em;
-      border-radius: 0.33em; */
-    background: none;
-    white-space: pre;
-    -webkit-overflow-scrolling: touch;
-    overflow-x: scroll;
-    max-width: 100%;
-    min-width: 100px;
-    padding: 0;
-    color: white;
-  }
+
   
   .data{
     color: azure;
