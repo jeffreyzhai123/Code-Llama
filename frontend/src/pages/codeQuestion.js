@@ -46,6 +46,8 @@ const CodeQuestion = () => {
     const [failedTestCase, setTestCase] = useState("");
     const [reasonOfChange, setReason] = useState("");
 
+    //all users
+    const [userArray, setUserArray] = useState([]);
     //quiz start time
     
 
@@ -91,7 +93,21 @@ const CodeQuestion = () => {
             }
         };
 
+        const fetchAllUsers = async () => {
+            try {
+                const response = await fetch(`http://localhost:3080/profile`)
+                if (response.ok) {
+                    const users = await response.json();
+                    setUserArray(users);
+                    console.log("array is being updated, useEffect triggered");
+                }
+            } catch (error) {
+                console.log("fetched failed")
+            }
+        };
+
         fetchUser();
+        fetchAllUsers();
         fetchQuestions('easy');
         fetchQuestions('medium');
         fetchQuestions('hard');
@@ -101,15 +117,20 @@ const CodeQuestion = () => {
 
     const createResult = async () => {
         try {
+
+            const payload = {
+                userid: user.id,
+                username: "llama" + String(userArray.length + 1),
+                quizResult: quizResult
+            };
+            console.log('Payload:', payload);
+
             const response = await fetch('http://localhost:3080/results', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    userid: user.id,
-                    quizResult: quizResult
-                })
+                body: JSON.stringify(payload)
             });
     
             if (!response.ok) {
