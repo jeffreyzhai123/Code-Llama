@@ -21,7 +21,7 @@
 .siteHeader {
   width: 100%;
   padding: 10px 20px;
-  /* background-color: #f8f9fa; */
+  background-color: rgb(3, 13, 30);
   display: flex;
   align-items: center;
   justify-content: space-between;

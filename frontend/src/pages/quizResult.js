@@ -20,12 +20,21 @@ const QuizResult =()=>{
 
     return (
     <div className='homeContainer'> 
-        <div className='smalllogoContainer'>
-            <img src= {my_logo} alt='icon' className='smalllogo'></img>
-        </div>
-        <div className='codeLlama'>
-            <h2>CodeLlamaAcademy</h2>
-        </div>
+        <header className='siteHeader'>
+            <div className='headerLeft'>
+                <div className='smalllogoContainer'>
+                    <img src= {my_logo} alt='icon' className='smalllogo'></img>
+                    <span className = "codeLlama">CodeLlamaAcademy</span>
+                </div>
+            </div>
+
+            <div className='headerRight'>
+                <div className='mainBtnContainer'>
+                    <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
+                </div>
+            </div>
+        </header>
+
         
         {/* Display each quiz result item */}
         <div className="quiz-results">
@@ -48,11 +57,6 @@ const QuizResult =()=>{
         </div>
         <br></br>
         <h1 className='QuizScore'>Quiz Results: {score}/8</h1>
-                <div className={'buttonContainer'}>
-                    <div className='backtoMain3'>
-                        <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
-                    </div>
-                </div>
         
     </div>
     )
