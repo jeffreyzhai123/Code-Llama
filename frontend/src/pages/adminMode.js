@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import my_logo from '../components/CodeLlama.png'
-import { calculateAllAvg, calculateAvgScore, calculateAllScaledAvg, calculateAvgScaledScore } from '../helpers/calculate.js';
+import { calculateScore, calculateAllAvg, calculateAvgScore, calculateAllScaledAvg, calculateAvgScaledScore, calcultateScore } from '../helpers/calculate.js';
 import Plot from 'react-plotly.js'
 
 const AdminMode = () => {
@@ -49,8 +49,31 @@ const AdminMode = () => {
         setdetailedVisible(true);
     }
 
-    let plot_x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    let plot_y = [0, 0, 0, 0, 50, 50, 60, 80, 100, 100]; 
+    function getXDataPoints(user) {
+        let datapoint_x = [];
+        userArray.forEach((array) => {
+            if(array.userid === user) {
+                let max_x = array.results.length;
+                for (let i = 1; i <= max_x; i++) {
+                    datapoint_x.push(i);
+                }
+            }
+            return datapoint_x;
+        })
+    }
+
+    function getYDataPoints(user) {
+        let datapoint_y = [];
+        userArray.forEach((array) => {
+            if(array.userid === user) {
+                array.results.forEach((quiz) => {
+                    let y = calculateScore(quiz) * 100;
+                    datapoint_y.push(y);
+                })
+            }
+        })
+        return datapoint_y;
+    }
 
     return (
         <div className='homeContainer'>
@@ -130,15 +153,19 @@ const AdminMode = () => {
                             <Plot 
                                 data = {[
                                     {
-                                    x: plot_x,
-                                    y: plot_y,
+                                    x: getXDataPoints(selectedUser.userid),
+                                    y: getYDataPoints(selectedUser.userid),
                                     mode: "lines",
                                     type: "scatter",
                                     marker: {color: 'blue'},
                                     },
                                 ]}
                                 layout = { 
-                                    {width: 800, height: 700, title: "Quiz Result"}
+                                    {width: 800, height: 700, 
+                                        title: "Quiz Result", 
+                                        xaxis: {range: [0, selectedUser.results.length]},
+                                        yaxis: {range: [0, 100]}
+                                    }
                                 }
                             />
                         </div>

@@ -23,7 +23,7 @@ export function calculateAllAvg(userarr){
 export function calculateAvgScore(loq) {
     let totalScore = 0;
     loq.forEach(quiz => {
-        totalScore += calcultateScore(quiz);
+        totalScore += calculateScore(quiz);
     });
 
     return 100*(totalScore/loq.length);
@@ -33,7 +33,7 @@ export function calculateAvgScore(loq) {
 
 
 //calulate the score of this quiz
-function calcultateScore(quiz){
+export function calculateScore(quiz){
     let correct = 0;
     quiz.forEach(question => {
         if(question.passfail) {
