@@ -20,13 +20,13 @@
   }
   
 .logo {
-max-width: 100%;
-max-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .introduction{
    
-  margin-top:10%;
+  margin-top:6%;
   float: right;
   height: 40%;
   width: 40%;
@@ -46,4 +46,11 @@ max-height: 100%;
 .loginContainer{
   display: inline;
   margin-left: 20px;
+}
+
+.login{
+  display: block;
+  position: absolute;
+  bottom: 15%;
+  left: 60%;
 }
