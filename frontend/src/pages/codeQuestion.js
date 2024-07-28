@@ -359,9 +359,25 @@ const CodeQuestion = () => {
                     <>
                     <div className='question'>
                         <h2>Question {question_num} </h2>
-                        <div className='levelTag'>
-                            <h2>{convertLevelofDifficulty(currDifficulty)}</h2>
+                        
+                        {convertLevelofDifficulty(currDifficulty) === "Easy" &&
+                        <div className='easyLevelTag'>
+                            <span>{convertLevelofDifficulty(currDifficulty)}</span>
                         </div>
+                        }
+
+                        {convertLevelofDifficulty(currDifficulty) === "Moderate" &&
+                        <div className='modLevelTag'>
+                            <span>{convertLevelofDifficulty(currDifficulty)}</span>
+                        </div>
+                        }
+
+                        {convertLevelofDifficulty(currDifficulty) === "Hard" &&
+                        <div className='hardLevelTag'>
+                            <span>{convertLevelofDifficulty(currDifficulty)}</span>
+                        </div>
+                        }
+                        
                         <p>Please describe the following code in plain English: </p>
                         <br></br>
                                                 

@@ -27,13 +27,33 @@
     border-radius: 20px;
   }
 
-  .levelTag {
-    background-color: rgb(248, 240, 94);
+  .easyLevelTag {
+    background-color: #9FE481;
     color:black;
-    border-radius: 20px;
+    border-radius: 1rem;
     float: left;
     margin-left: 10rem;
-    margin-top: -3.2rem;
+    margin-top: -3rem;
+    padding-inline: 1rem;
+  }
+
+  .modLevelTag {
+    background-color: #FEA655;
+    color:black;
+    border-radius: 1rem;
+    float: left;
+    margin-left: 10rem;
+    margin-top: -3rem;
+    padding-inline: 1rem;
+  }
+
+  .hardLevelTag {
+    background-color: #DA4239;
+    color:black;
+    border-radius: 1rem;
+    float: left;
+    margin-left: 10rem;
+    margin-top: -3rem;
     padding-inline: 1rem;
   }
 
