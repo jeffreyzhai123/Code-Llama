@@ -57,7 +57,7 @@ function ConsentForm({checked, onCheckboxChange}) {
         <Modal.Footer>
           <CheckBox checked={checked} onCheckboxChange={onCheckboxChange}/>
           {checked && 
-            <SignInButton className="btn btn-warning">
+            <SignInButton className="loginBtn">
               <input type="button" value="Log in"  />
             </SignInButton>
           }
