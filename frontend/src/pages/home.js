@@ -68,9 +68,6 @@ const Home = (props) => {
               
                 {isChecked &&
                   <div className='loginContainer'>
-                  <SignInButton className="btn btn-warning">
-                    <input type="button" value="Log in"  />
-                  </SignInButton>
                   </div>}
               </div>
               {/* You can also check if a user is logged in or not using the 'user' object from the useUser hook. In this case, a non-undefined user object will render the user's email on the page */}
