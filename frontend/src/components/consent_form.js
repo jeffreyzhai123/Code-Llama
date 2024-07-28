@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import CheckBox from './checkbox';
 
+import { SignInButton } from '@clerk/clerk-react'
+
 function ConsentForm({checked, onCheckboxChange}) {
   const [show, setShow] = useState(false);
 
@@ -13,7 +15,7 @@ function ConsentForm({checked, onCheckboxChange}) {
 
   return (
     <>
-      <Button variant="info" onClick={handleShow}>
+      <Button variant="info" className="termButton" onClick={handleShow}>
         Terms of Service
       </Button>
 
@@ -54,6 +56,11 @@ function ConsentForm({checked, onCheckboxChange}) {
         </Modal.Body>
         <Modal.Footer>
           <CheckBox checked={checked} onCheckboxChange={onCheckboxChange}/>
+          {checked && 
+            <SignInButton className="btn btn-warning">
+              <input type="button" value="Log in"  />
+            </SignInButton>
+          }
         </Modal.Footer>
       </Modal>
     </>

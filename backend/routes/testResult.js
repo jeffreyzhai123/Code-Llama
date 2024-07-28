@@ -30,9 +30,4 @@ router.post('/', async (req, res) => {
    
 });
 
-
-
-
-
-
 export { router as testResultRouter };
