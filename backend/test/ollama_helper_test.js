@@ -4,7 +4,7 @@ import { expect } from 'chai';
 
 describe("test ollama helper function", function() {
 
-    this.timeout(120000);
+    this.timeout(180000);
     it("call ollama return non-empty string", async ()=>{
     
         const ollamaResponse = await callOllama("hello world");
