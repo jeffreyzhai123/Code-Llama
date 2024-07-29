@@ -29,7 +29,7 @@ const Home = (props) => {
       const response = prompt("Please enter the admin password:");
       if (response === "codeLlama") {
         navigate("/adminMode");
-      } else {
+      } else if(response != null){
         alert("Wrong password. Please try again.");
       }
     }

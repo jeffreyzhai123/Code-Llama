@@ -24,13 +24,12 @@ Please choose a way you want to run the application and follow the corresponding
 
 ## Docker Compose
 - Please start the Docker Desktop engine
-- Please download (https://ollama.com/) and run Ollama on your device.
 - Please navigate to the root folder of this project, which is Project-Groups-01-Lab-A
 - Please type "docker compose build" in the terminal and press enter, and the image will start to build. You should be able to see related information and progress in the terminal
 - After "docker compose build" command is finished, please type "docker-compose up -d" in the terminal (you should still be in Project-Groups-01-Lab-A directory) and press enter. You should be able to see the related information and progress in the terminal. After waiting for a while, if you see something like this: 
 ![alt text](image.png)
-in the terminal, this means the application is running successfully. (NOTE: if this is not the first time you build it, the things showing in the terminal may be slightly different, such as the network part may not show up, but it should be similar. Please just make sure frontend, backend, and ollama are running by checking the Docker Desktop's container)
-- After the container for backend, frontend, and ollama succesfully runs and the ollama-pull container exits, please open http://localhost:3000 in your browser to start the application (or you can click the the port link in Docker Desktop for the frontend)
+in the terminal, this means the application is running successfully. (NOTE: if this is not the first time you build it, the things showing in the terminal may be slightly different, such as the network part may not show up, but it should be similar.)
+- After the container for backend, frontend, and ollama succesfully runs and the ollama-pull container exits after it finishes its job (you can open the docker desktop and go to container to confirm that the frontend, backend, and ollama are all running), please open http://localhost:3000 in your browser to start the application (or you can click the the port link in Docker Desktop for the frontend)
 
 ## Running using npm command
 - Please download Ollama from https://ollama.com/ 
@@ -47,24 +46,10 @@ in the terminal, this means the application is running successfully. (NOTE: if t
 If you want to have a try for each way of running it, please check the important notes section at the end of the README, which may be helpful for you to shift between the two ways successfully
 
 
-# Instruction on using the application
-- If this is the first time you are using this application, the first page you see is this a term of service button. Please click it, read the term of service, click the checkbox at the bottom and then close it by clicking the close button at the top right corner. (if you didn't see the close button, please scroll up a bit to reach the top of the term of service)
-- Follow the instruction of the page to log in/sign-up. You can either do it through google account or email
-- After seeing the home page, please click on "Exercise" to if you want to start do a quiz
-- Please click submit to submit your answer, and note that the button will be diabled while waiting for result (which may take a while)
-- If the answer is right, you will directed to the next question; otherwise, you will have a second attempt, and be provided with failed test cases and generated code. You will also be able to enter the reason of changing the answer at the second attempt
-- If you enter empty answer, the question will be marked as wrong
-- You will be able to see the score and result for all your attempts at the end of the quiz
-- There are 6 questions in total 
-- The Result review button on home page will take you to the performance review page (currently the backend logic is not finished yet)
-- Clicking on rows of the table at the performance review page will take you to a page where detailed information about a quiz is displayed. If you want to go back to the performance review page, please click "Go to Performance Review"
-- Please click "Go to the Main Page" button at performance review page or the page showed up at the end of each quiz if you want to navigate to the home page
-- NOTE: if you refresh or quit at the middle of a quiz, no result is going to be recorded
-
-
 # Instruction on viewing tests for this APP through HTML
 ## Steps
-- Inside folder test, there is a file called index.html that you can open to view tests
+- Link to tests: Inside folder <u>test</u>, there is a file called <u>index.html</u> that you can open to view tests
+- Please make sure the backend and ollama is running (both docker and npm command ways of runing the application can work) when running the tests in browser.
 - For backend tests, there are three sections as presented on HTML: Extractor (test for the function that extract the generated code from ollama response), answers (test for the API handling process when the frontend send to user results to the backend to trigger the process of calling ollama), question (test for the getting the problem bank from the database)
 - For the frontend, we did manual testing as listed in the HTML
 ## NOTE:
@@ -81,6 +66,23 @@ Using npm test, you will be able to see additional tests on "callOllama" compare
 - Please navigate to the backend folder and type "npm run dev" into the terminal to start the backend server
 - At backend folder, please then type "npm test" at the terminal to run the tests
 - The tests result will be displayed in the terminal
+
+# Instruction on using the application
+- If this is the first time you are using this application, the first page you see is the page with a logo and a term of service button. Please click the terms of service button, read the term of service, and click the checkbox at the bottom. The login button will show up beside the checkbox. If you accidentally close the term and service form, you can just click term of service button again to see the checkbox and the login button. If this is not the first time you use the application and you have previously log in recently, the first page you see may be the home page and you are already logged in. You can click "Log out" button to log out if you want, and you will be able to follow the same procedure to log in as you did before.
+- After check the terms of service and click on "log in", please follow the instruction on the page to log in/sign-up. You can either do it through google account or email
+- After seeing the home page, please click on "Exercise" to if you want to start do a quiz
+- Please click submit to submit your answer, and note that the button will be disabled while waiting for result (which may take a while)
+- If the answer is right, you will directed to the next question; otherwise, you will have a second attempt, and be provided with failed test cases and generated code. You will also be able to enter the reason of changing the answer at the second attempt
+- If you enter empty answer, the question will be marked as wrong
+- If you click skip button, you will be directed to the next question (if there is one), and the skipped question will be marked as wrong
+- You will be able to see the score and result for all your attempts at the end of the quiz
+- There are 8 questions in total, and the level of difficulty will be changing based on your performance
+- The Performance review button on home page will take you to the performance review page
+- Clicking on rows of the table at the performance review page will take you to a page where detailed information about a quiz is displayed. You can see even more detailed information about each question by clicking the corresponding row. 
+- Please click "Go to the Main Page" button at performance review page or the page showed up at the end of each quiz if you want to navigate to the home page
+- If you click Admin Mode button at home page, there will be a prompt that ask you about the password to admin mode. The password is "CodeLlama", which will only be revealed to authorized people in practice. If you enter the correct password, you will be directed to the admin mode page, where you can see summary data for each users and aggregated data for all users. It may take a few seconds for the data to fully loaded. You can see the score trend graph of a user by clicking the row corresponding to that user.
+- If you click Profile Page button at home page, you will be able to set up or change your username. This page may load a bit slow, so if you didn't see anything at the first glance, please wait for a few seconds for it to show up
+- NOTE: if you refresh or quit (click backward on the browser) at the middle of a quiz, no result is going to be recorded
 
 
 # Important notes for troubleshooting
