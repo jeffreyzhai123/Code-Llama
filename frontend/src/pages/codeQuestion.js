@@ -396,7 +396,7 @@ const CodeQuestion = () => {
                                 <br></br>
                                 <p id='generatedCode'>{generatedCode}</p>
                                 <br></br>
-                                <p>{failedTestCase}</p>
+                                <pre>{failedTestCase}</pre>
                             </div>
                         }                        
                     </div>

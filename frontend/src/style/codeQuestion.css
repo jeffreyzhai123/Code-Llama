@@ -107,18 +107,15 @@
   .codeContainer{
     background-color: black;
     border-radius: 10px;
+    padding: 20px;
     
   }
 
   .code {
-
-    background: none;
     white-space: pre;
-    -webkit-overflow-scrolling: touch;
     overflow-x: scroll;
     max-width: 100%;
     min-width: 100px;
-    margin-left: 10px;
     color: white;
  }
 
