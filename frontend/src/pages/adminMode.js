@@ -155,16 +155,27 @@ const AdminMode = () => {
                                     {
                                     x: getXDataPoints(selectedUser.userid),
                                     y: getYDataPoints(selectedUser.userid),
-                                    mode: "lines",
-                                    type: "scatter",
+                                    type: "bar",
                                     marker: {color: 'blue'},
                                     },
                                 ]}
                                 layout = { 
                                     {width: 800, height: 700, 
                                         title: "Quiz Result", 
-                                        xaxis: {range: [0, selectedUser.results.length]},
-                                        yaxis: {range: [0, 100]}
+                                        xaxis: {
+                                            title: 'Quiz Number',
+                                            tickmode: 'linear',
+                                            tick0: 1,
+                                            dtick: 1,
+                                            range: [0, selectedUser.results.length]
+                                        },
+                                        yaxis: {
+                                            title: 'Score in Percentage',
+                                            tickmode: 'linear',
+                                            tick0: 0,
+                                            dtick: 10,
+                                            range: [0, 100]
+                                        }
                                     }
                                 }
                             />

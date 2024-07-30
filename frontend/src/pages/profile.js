@@ -98,20 +98,24 @@ const Profile = () => {
 
     return (
         <div className='homeContainer'>
-            <div className='headerLeft'>
-                    <div className='smalllogoContainer'>
-                        <img src= {my_logo} alt='icon' className='smalllogo'></img>
-                        <span className = "codeLlama">CodeLlamaAcademy</span>
-                    </div>
-            </div>
+            <header className='siteHeader'>
+                <div className='headerLeft'>
+                        <div className='smalllogoContainer'>
+                            <img src= {my_logo} alt='icon' className='smalllogo'></img>
+                            <span className = "codeLlama">CodeLlamaAcademy</span>
+                        </div>
+                </div>
 
-            <div className='mainBtnContainer'>
-                <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
-            </div>
+                <div className='headerRight'>
+                    <div className='mainBtnContainer'>
+                        <button className="btn btn-success" onClick={mainButton}>Go back to Main</button>
+                    </div>
+                </div>
+            </header>
 
             {userExistence && (
             <>
-            <p className='profileMessage'>Current Username Is: {currName}</p>
+            <p className='profileMessage'>Current username is: {currName}</p>
             <div className="usernameForm">
                 <form onSubmit={handleSubmit}>
                     <label className='usernameFormLabel'>
@@ -134,19 +138,22 @@ const Profile = () => {
             </>
             )}
 
-            { userExistence && warning && (
-                <p className='profileMessage'>
-                    Current Username Has Already Been Taken. 
-                    <br></br> 
-                    Please Select A New Username 
-                </p>
-            )}
+            <div className='confirmationMessage'>
+                { userExistence && warning && (
+                    <p style={{color:"red"}}>
+                        Current username has already been taken. 
+                        <br></br> 
+                        Please select a new username. 
+                    </p>
+                    
+                )}
 
-            { userExistence && success && (
-                <p className='profileMessage'>
-                    Username Updated Successfully
-                </p>
-            )}  
+                { userExistence && success && (
+                    <p style={{color:"green"}}>
+                        Username has been updated successfully!
+                    </p>
+                )}  
+            </div>
 
 
         </div>
