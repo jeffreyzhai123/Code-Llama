@@ -1,6 +1,3 @@
-
-
-
 //example functions
 const E_Q1 = `function TestFunction(a,b) {return a + b}`;
 const E_Q2 = `function TestFunction(a,b) {return a - b}`;
@@ -163,830 +160,829 @@ const H_Q8_wrong = `function TestFunction(arr) {
 }`;
 
 
-
-
-
-
 //tests
+describe("Test the test for generated code", ()=>{
+    //Easy
+    describe("Easy SandBox Tests Result", function() {
+        
+        it('E_Q1 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 1,
+                    code: E_Q1,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
 
-//Easy
-describe("Easy SandBox Tests Result", function() {
-    
-    it('E_Q1 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 1,
-                code: E_Q1,
-                diff:1
-            })
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+        });
+
+        it('E_Q2 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 2,
+                    code: E_Q2,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+        });
+
+        it('E_Q3 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 3,
+                    code: E_Q3,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+        });
+
+        it('E_Q4 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 4,
+                    code: E_Q4,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
         });
         
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
 
-        }
-    });
+        it('E_Q5 correct', async() => {
+            //make api call to the backend that assist with the test
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 5,
+                    code: E_Q5,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
 
-    it('E_Q2 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 2,
-                code: E_Q2,
-                diff:1
-            })
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
+        it('E_Q5 icorrect', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 5,
+                    code: E_Q6,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
 
-    it('E_Q3 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 3,
-                code: E_Q3,
-                diff:1
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
+        it('E_Q6 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 6,
+                    code: E_Q6,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
 
-    it('E_Q4 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 4,
-                code: E_Q4,
-                diff:1
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
+        it('E_Q6 icorrect', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 6,
+                    code: E_Q5,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
-    
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
 
-
-    it('E_Q5 correct', async() => {
-        //make api call to the backend that assist with the test
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 5,
-                code: E_Q5,
-                diff:1
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
+        it('E_Q7 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 7,
+                    code: E_Q7,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
 
-        }
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
 
-    });
-
-    it('E_Q5 icorrect', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 5,
-                code: E_Q6,
-                diff:1
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
+        it('E_Q7 icorrect', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 7,
+                    code: E_Q7_wrong,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
 
-    it('E_Q6 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 6,
-                code: E_Q6,
-                diff:1
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
+        it('E_Q8 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 8,
+                    code: E_Q8,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
 
-    it('E_Q6 icorrect', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 6,
-                code: E_Q5,
-                diff:1
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
+        it('E_Q8 icorrect', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 8,
+                    code: E_Q8_wrong,
+                    diff:1
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
 
-    it('E_Q7 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 7,
-                code: E_Q7,
-                diff:1
-            })
+            }
         });
+
         
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
-    });
-
-    it('E_Q7 icorrect', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 7,
-                code: E_Q7_wrong,
-                diff:1
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
-
-        }
-    });
-
-    it('E_Q8 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 8,
-                code: E_Q8,
-                diff:1
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
-    });
-
-    it('E_Q8 icorrect', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 8,
-                code: E_Q8_wrong,
-                diff:1
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
-
-        }
-    });
-
-    
-
-
-});
-
-//Moderate
-describe("Moderate SandBox Tests Result", function() {
-    
-
-    it('M_Q2 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 2,
-                code: M_Q2,
-                diff:2
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
-    });
-
-    it('M_Q3 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 3,
-                code: M_Q3,
-                diff:2
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
-    });
-
-    it('M_Q4 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 4,
-                code: M_Q4,
-                diff:2
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
-    });
-    
-
-
-    it('M_Q5 correct', async() => {
-        //make api call to the backend that assist with the test
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 5,
-                code: M_Q5,
-                diff:2
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
 
     });
 
-    it('M_Q5 icorrect', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 5,
-                code: M_Q5_wrong,
-                diff:2
-            })
+    //Moderate
+    describe("Moderate SandBox Tests Result", function() {
+        
+
+        it('M_Q2 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 2,
+                    code: M_Q2,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+        });
+
+        it('M_Q3 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 3,
+                    code: M_Q3,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+        });
+
+        it('M_Q4 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 4,
+                    code: M_Q4,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
         });
         
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
 
-        }
+        it('M_Q5 correct', async() => {
+            //make api call to the backend that assist with the test
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 5,
+                    code: M_Q5,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+
+        });
+
+        it('M_Q5 icorrect', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 5,
+                    code: M_Q5_wrong,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
+
+            }
+        });
+
+        it('M_Q6 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 6,
+                    code: M_Q6,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+        });
+
+        
+
+        it('M_Q7 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 7,
+                    code: M_Q7,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+        });
+
+        it('M_Q7 icorrect', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 7,
+                    code: M_Q7_wrong,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
+
+            }
+        });
+
+        it('M_Q8 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 8,
+                    code: M_Q8,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+        });
+
+        it('M_Q8 icorrect', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 8,
+                    code: M_Q8_wrong,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
+
+            }
+        });
+
+        it('M_Q8 icorrect 2', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 8,
+                    code: M_Q8_wrong_2,
+                    diff:2
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
+
+            }
+        });
+
+        
+
+
     });
 
-    it('M_Q6 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 6,
-                code: M_Q6,
-                diff:2
-            })
+    //Hard
+    describe("Hard SandBox Tests Result", function() {
+        
+        
+
+        it('H_Q3 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 3,
+                    code: H_Q3,
+                    diff:3
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
+        });
+
+        it('H_Q4 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 4,
+                    code: H_Q4,
+                    diff:3
+                })
+            });
+            
+            if (response.ok) {
+
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
+
+            }
         });
         
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
 
-        }
-    });
+        it('H_Q5 correct', async() => {
+            //make api call to the backend that assist with the test
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 5,
+                    code: H_Q5,
+                    diff:3
+                })
+            });
+            
+            if (response.ok) {
 
-    
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
 
-    it('M_Q7 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 7,
-                code: M_Q7,
-                diff:2
-            })
+            }
+
         });
+
         
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
+        it('H_Q6 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 6,
+                    code: H_Q6,
+                    diff:3
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
 
-    it('M_Q7 icorrect', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 7,
-                code: M_Q7_wrong,
-                diff:2
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
+        it('H_Q6 icorrect', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 6,
+                    code: H_Q6_wrong,
+                    diff:3
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
 
-    it('M_Q8 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 8,
-                code: M_Q8,
-                diff:2
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
+        it('H_Q7 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 7,
+                    code: H_Q7,
+                    diff:3
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
 
-    it('M_Q8 icorrect', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 8,
-                code: M_Q8_wrong,
-                diff:2
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
+        it('H_Q7 icorrect', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 7,
+                    code: H_Q7_wrong,
+                    diff: 3
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
 
-    it('M_Q8 icorrect 2', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 8,
-                code: M_Q8_wrong_2,
-                diff:2
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
+        it('H_Q8 correct', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 8,
+                    code: H_Q8,
+                    diff: 3
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .include("passed");
 
-    
-
-
-});
-
-//Hard
-describe("Hard SandBox Tests Result", function() {
-    
-    
-
-    it('H_Q3 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 3,
-                code: H_Q3,
-                diff:3
-            })
+            }
         });
-        
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
+        it('H_Q8 icorrect', async() => {
+            const response = await fetch('http://localhost:3080/testResult', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    num: 8,
+                    code: H_Q8_wrong,
+                    diff: 3
+                })
+            });
+            
+            if (response.ok) {
 
-        }
-    });
+                let sandboxResult = await response.json();
+                console.log(sandboxResult);
+                expect(sandboxResult.testResult)
+                .to
+                .not
+                .include("passed");
 
-    it('H_Q4 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 4,
-                code: H_Q4,
-                diff:3
-            })
+            }
         });
+
         
-        if (response.ok) {
 
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
-    });
-    
-
-
-    it('H_Q5 correct', async() => {
-        //make api call to the backend that assist with the test
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 5,
-                code: H_Q5,
-                diff:3
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
 
     });
-
-    
-
-    it('H_Q6 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 6,
-                code: H_Q6,
-                diff:3
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
-    });
-
-    it('H_Q6 icorrect', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 6,
-                code: H_Q6_wrong,
-                diff:3
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
-
-        }
-    });
-
-    it('H_Q7 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 7,
-                code: H_Q7,
-                diff:3
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
-    });
-
-    it('H_Q7 icorrect', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 7,
-                code: H_Q7_wrong,
-                diff: 3
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
-
-        }
-    });
-
-    it('H_Q8 correct', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 8,
-                code: H_Q8,
-                diff: 3
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .include("passed");
-
-        }
-    });
-
-    it('H_Q8 icorrect', async() => {
-        const response = await fetch('http://localhost:3080/testResult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                num: 8,
-                code: H_Q8_wrong,
-                diff: 3
-            })
-        });
-        
-        if (response.ok) {
-
-            let sandboxResult = await response.json();
-            console.log(sandboxResult);
-            expect(sandboxResult.testResult)
-            .to
-            .not
-            .include("passed");
-
-        }
-    });
-
-    
 
 
 });
