@@ -19,3 +19,27 @@
 .plot{
   margin-top: 20px;
 }
+
+#overallResultsTable {
+  border-collapse: collapse;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+
+#overallResultsTable td, #overallResultsTable th {
+  border: 1px solid #ddd;
+  padding: 2px;
+}
+
+#overallResultsTable th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  background-color: rgb(216, 167, 82);
+}
+
+#overallResultsTable td {
+  text-align: center;
+}
