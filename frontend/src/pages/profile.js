@@ -113,6 +113,11 @@ const Profile = () => {
                 </div>
             </header>
 
+            {!userExistence && (
+                <div className='profileMessage'>
+                    <p>Please complete at least one quiz set to change your username.</p>
+                </div>
+            )}
             {userExistence && (
             <>
             <p className='profileMessage'>Current username is: {currName}</p>

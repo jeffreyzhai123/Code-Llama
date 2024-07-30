@@ -72,7 +72,7 @@ async function hardTestSelect(question_num, code) {
         case 1:
             return "All tests passed";
         case 2: 
-            return testAnagram(code);
+            return testSumDigits(code);
         case 3:
             return testFactorial(code);
         case 4:
@@ -313,12 +313,12 @@ function testFindMin(code) {
 //hard
 
 //Q3
-function testAnagram(code){
+function testSumDigits(code){
     const testCases = [
         
-        {args: ["a", "b"], expected: false},
-        {args: ["cat", "act"], expected: true},
-        {args: ["cat", ""], expected: false}
+        {args: [0], expected: 0},
+        {args: [12], expected: 3},
+        {args: [123], expected: 6}
     ]
     return runTests(code, testCases);
 }
@@ -354,7 +354,7 @@ function testIsPalindrome(code){
     const testCases = [
         {args: [""], expected: true},
         {args: [" "], expected: true},
-        {args: ["Too hot to hoot"], expected: true},
+        {args: ["too hot to hoot"], expected: true},
         {args: ["Hello World"], expected: false}
     ]
     return runTests(code, testCases);

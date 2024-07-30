@@ -90,7 +90,7 @@ const Home = (props) => {
                   <input type="button" onClick={codeQuestionButton} value="Exercise" className='btn btn-info' />
                   <input type="button" onClick={performanceReview} value="Performance Review" className='btn btn-success' />
                   <input type="button" onClick={adminMode} value="Admin Mode" className='btn btn-secondary' />
-                  <input type="button" onClick={profilePage} value="Profile Page" className='btn btn-primary' />
+                  <input type="button" onClick={profilePage} value="Change Username" className='btn btn-primary' />
 
                   <SignOutButton>
                     <input type="button" value="Log out" className="btn btn-warning" />
