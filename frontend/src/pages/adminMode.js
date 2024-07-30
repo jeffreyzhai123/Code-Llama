@@ -127,7 +127,7 @@ const AdminMode = () => {
                             </tbody>
                         </table>
 
-                        <table id="resultsTable">
+                        <table id="overallResultsTable">
                             <thead>
                                 <tr>
                                     <th>All Users Average</th>
