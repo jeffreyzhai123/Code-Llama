@@ -58,8 +58,8 @@ const AdminMode = () => {
                     datapoint_x.push(i);
                 }
             }
-            return datapoint_x;
         })
+        return datapoint_x;
     }
 
     function getYDataPoints(user) {
@@ -162,13 +162,13 @@ const AdminMode = () => {
                                 layout = { 
                                     {width: 800, height: 700, 
                                         title: "Quiz Result", 
+                                        showlegend: false,
                                         xaxis: {
                                             title: 'Quiz Number',
                                             tickmode: 'linear',
+                                            zeroline: false,
                                             tick0: 1,
-                                            dtick: 1,
-                                            range: [0, selectedUser.results.length]
-                                        },
+                                            dtick: 1                                        },
                                         yaxis: {
                                             title: 'Score in Percentage',
                                             tickmode: 'linear',
