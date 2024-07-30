@@ -92,11 +92,10 @@ const M_Q8_wrong_2 = `function TestFunction(a){
     return a[a.length-1];
 }`;
 
-const H_Q3 = `function TestFunction(str1, str2) {
-    const sortedChars1 = [...new Set(str1.toLowerCase().split(''))].sort();
-    const sortedChars2 = [...new Set(str2.toLowerCase().split(''))].sort();
+const H_Q3 = `function TestFunction(n) {
+    if (n < 10) return n;
 
-    return sortedChars1.every((char, i) => char === sortedChars2[i]);
+    return (n % 10) + TestFunction(Math.floor(n/10));
 }`;
 
 const H_Q4 = `function TestFunction(n) {
