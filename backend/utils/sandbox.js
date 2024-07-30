@@ -92,6 +92,7 @@ async function hardTestSelect(question_num, code) {
 export function runTests(code, testCases) {
     return new Promise((resolve) => {
         const results = []; // Array to store the results of each test
+        let testCaseNum = 1;
   
         //for loop to run each test case with the arguments and function properly formatted 
         testCases.forEach(({ args, expected }) => {
@@ -117,7 +118,8 @@ export function runTests(code, testCases) {
               
                 
 
-                results.push({ args: formattedArgs, result, expected });
+                results.push({ args: formattedArgs, result, expected, num:testCaseNum});
+                testCaseNum++;
   
                 //check if all tests have been executed
                 if (results.length == testCases.length) {
@@ -129,7 +131,7 @@ export function runTests(code, testCases) {
                     } else {
                         //prints all failed tests by adding it to a new array and then printing each element on a new line using .join
                         const failureMessages = failedTests.map((test) => {
-                        return `Test failed: expected ${test.expected}, got ${test.result} for args: ${test.args}`;
+                        return `Test Case ${test.num} failed: expected ${test.expected}, got ${test.result} for args: ${test.args}`;
                     });
                         //.join used to concat all elements in array into a single string with <br> between each element
                         //join with \n and display inside a <pre> in html to separate them in lines

@@ -82,4 +82,25 @@ router.patch("/:userid", async (req, res) => {
     }
 });
 
+router.delete("/:userid", async (req, res) => {
+    //connect to database and get the collection out
+    console.log("backend recieved");
+    console.log(req);
+    await dbClient.connect();
+    let results_db = dbClient.db('performancereview');
+    let res_collection = await results_db.collection("results");
+    console.log(req.params.userid);
+    //making a query object with the userid in the request to delete the corresponding user
+    let query = {userid: req.params.userid};
+    let result = await res_collection.deleteOne(query);
+
+    if (!result) {
+        //make the result status to 404 and return message to indicate that the user id does not exist in current database
+        res.status(404).send({errormsg:"Not found"});
+    } else {
+        //send the user's information corresponding to the user id
+        res.status(200).send(result);
+    }
+});
+
 export { router as resultRouter };
