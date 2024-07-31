@@ -118,26 +118,13 @@ const H_Q6_wrong = `function TestFunction(str) {
     return cleanedStr === reversedStr;
 }`;
 
-const H_Q7 = `function TestFunction(arr) {
-  let len = arr.length;
-  if (!len) return 0;
+const H_Q7 = `function TestFunction(n) {
+                if (n === 0) return 0;
+                return n + TestFunction(n - 1);
+              }`;
 
-  for (let i = 0; i < arr[0].length; i++) {
-    const char = arr[0][i];
-    for (let j = 1; j < len; j++) {
-      if (arr[j][i] !== char) return i;
-    }
-  }
-
-  return arr[0].length; 
-}`;
-
-const H_Q7_wrong = `function TestFunction(arr){
-    if(arr.length ===0) {
-        return 0;
-    }
-    
-    return arr[0].length;
+const H_Q7_wrong = `function TestFunction(n){
+    return n+1+2;
 }`;
 
 const H_Q8 = `function TestFunction(arr) {
