@@ -429,6 +429,60 @@ describe("Test Get, Post, Patch to Database", async function() {
         
             
     });
+    
+
+    it('test changing the username for a user', async()=>{
+        const response = await fetch(`http://localhost:3080/profile/${NEW_USER.userid}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: "Llama-y",
+            }),
+        });
+
+        if (response.ok) {
+            const response2 = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`);
+            if (response2.ok) {
+                let testUserInDb = await response2.json();
+                //user id is not changed
+                expect(testUserInDb.userid)
+                .to
+                .equal(NEW_USER.userid)
+
+                //user name is changed correctly
+                expect(testUserInDb.username)
+                .to
+                .equal("Llama-y")
+
+                //results are not changed
+                expect(testUserInDb.results[0])
+                .deep
+                .to
+                .equal(NEW_USER.quizResult);
+
+                expect(testUserInDb.results[1])
+                .deep
+                .to
+                .equal(QUIZ_RESULT_SAMPLE_2);
+
+
+                //clean up the test user in the database
+                const responseDelete = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`, {
+                    method: 'DELETE'
+                });
+                
+                if(responseDelete.ok){
+                    const deletedata= await responseDelete.json();
+                    console.log(deletedata);
+                }
+            }
+        } 
+
+        
+            
+    });
 
 
 });

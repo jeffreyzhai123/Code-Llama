@@ -1,5 +1,5 @@
 import React from 'react'
-import { SignedIn, SignedOut, SignInButton, SignOutButton, useUser } from '@clerk/clerk-react'
+import { SignedIn, SignedOut, SignOutButton, useUser } from '@clerk/clerk-react'
 import ConsentForm from '../components/consent_form'
 import my_logo from '../components/CodeLlama_Academy.GIF'
 import { useState } from 'react';
