@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import my_logo from '../components/CodeLlama.png'
-import { calculateScore, calculateAllAvg, calculateAvgScore, calculateAllScaledAvg, calculateAvgScaledScore, calcultateScore } from '../helpers/calculate.js';
+import { calculateScore, calculateAllAvg, calculateAvgScore, calculateAllScaledAvg, calculateAvgScaledScore } from '../helpers/calculate.js';
 import Plot from 'react-plotly.js'
 
 const AdminMode = () => {
