@@ -6,6 +6,7 @@ import Plot from 'react-plotly.js'
 
 const AdminMode = () => {
 
+    //buttons help to navigate between pages
     const navigate = useNavigate();
     const mainButton = () => {
         navigate("/");
@@ -16,11 +17,15 @@ const AdminMode = () => {
         setdetailedVisible(false);
     }
 
+
     const [userArray, setUserArray] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
+    //Initially, the table of users is visible and detailed score graph for the user is invisible
     const [usertableVisible, setUsertableVisible] = useState(true);
     const [detailedVisible, setdetailedVisible] = useState(false);
 
+
+    //At the first render, fetch the user data from the database and set the user array (an array of users)
     useEffect( () => {
         const fetchResults = async () => {
             try {
@@ -43,12 +48,14 @@ const AdminMode = () => {
         
     }, [])
 
+    //when clicking on a row, the corresponding user is selected, and the table of users is invisible, and the detailed score graph is visible
     function handleRowClick(user) {
         setSelectedUser(user);
         setUsertableVisible(false);
         setdetailedVisible(true);
     }
 
+    //get the x data points, where each x corresponding to the x-th quiz that the user has completed
     function getXDataPoints(user) {
         let datapoint_x = [];
         userArray.forEach((array) => {
@@ -62,6 +69,7 @@ const AdminMode = () => {
         return datapoint_x;
     }
 
+    //get y data points where y is the user's score
     function getYDataPoints(user) {
         let datapoint_y = [];
         userArray.forEach((array) => {
@@ -168,7 +176,8 @@ const AdminMode = () => {
                                             tickmode: 'linear',
                                             zeroline: false,
                                             tick0: 1,
-                                            dtick: 1                                        },
+                                            dtick: 1
+                                        },
                                         yaxis: {
                                             title: 'Score in Percentage',
                                             tickmode: 'linear',

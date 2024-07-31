@@ -5,17 +5,21 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
 import { QuizContext } from '../context/QuizResultContext';
+import { convertLevelofDifficulty } from '../helpers/codeQuestionHelpers';
 
-const quizStart = new Date().toLocaleString();
+const QUIZ_START = new Date().toLocaleString();
 
 const CodeQuestion = () => {
 
+    //share the quiz result data with quiz result page
     const { setSharedResult } = useContext(QuizContext);
-    //get user info
+    //help to go to another page
+    let navigate = useNavigate();
+
+    //get user info (from clerk)
     const {user} = useUser();
     //get user data 
     const user_id = user.id;
-
     //can be used to identify users when storing to database
     const userEmail = user.primaryEmailAddress.emailAddress;
 
@@ -23,8 +27,7 @@ const CodeQuestion = () => {
     const [quizResult, setQuizResult] = useState([]);
     const [currDifficulty, setCurrentDifficulty] = useState(1);
 
-    //go to other page
-    let navigate = useNavigate();
+   
     //diable the double submission while waiting
     const [submitDisabled, setSubmitDisabled] = useState(false);
     const [userExistence, setUserExistence] = useState(false);
@@ -48,7 +51,7 @@ const CodeQuestion = () => {
 
     //all users
     const [userArray, setUserArray] = useState([]);
-    //quiz start time
+
     
 
     useEffect( () => {
@@ -72,8 +75,8 @@ const CodeQuestion = () => {
                         setHardQuestionBank(questions);
                     }
                 }
-            } catch (err) {
-                console.error("Error: ", err);
+            } catch (error) {
+                console.error("Error: ", error);
             }
         };
 
@@ -180,9 +183,9 @@ const CodeQuestion = () => {
         let newDifficulty = currDifficulty;
         
         if(correctness) {
-            newDifficulty = Math.min(currDifficulty + 1, 3);
+            newDifficulty = currDifficulty === 3 ? 3 : currDifficulty + 1;
         } else {
-            newDifficulty = Math.max(currDifficulty - 1, 1);
+            newDifficulty = currDifficulty === 1 ? 1 : currDifficulty - 1;
         }
 
         switch (newDifficulty) {
@@ -202,12 +205,7 @@ const CodeQuestion = () => {
         return nextQuestion;
     };
 
-    const convertLevelofDifficulty = (currDifficulty) => {
-        if (currDifficulty === 1) return "Easy"
-        else if (currDifficulty === 2) return "Moderate"
-        else return "Hard"
-    };
-
+ 
     
 
 
@@ -276,7 +274,7 @@ const CodeQuestion = () => {
             reasonofchange: reasonOfChange,
             passfail: correctness,
             attemptNum: attempt_num,
-            startTime: quizStart,
+            startTime: QUIZ_START,
             endTime: new Date().toLocaleString(),
             difficultyLevel: convertLevelofDifficulty(currDifficulty),
             generatedCode: code,
@@ -342,6 +340,7 @@ const CodeQuestion = () => {
 
     return (
         <div className="homeContainer">
+
             <header className='siteHeader'>
                 <div className='headerLeft'>
                     <div className='smalllogoContainer'>
@@ -350,9 +349,9 @@ const CodeQuestion = () => {
                     </div>
                 </div>
             </header>
+
             <div className='mainCodeQuestion'>
-                
-            
+                {/*  question and information section  */}
                 {loading ? (
                     <p>Loading...</p>
                 ) : ( 
@@ -387,8 +386,6 @@ const CodeQuestion = () => {
                             </code>
                         </pre>
                             
-                        
-
                         {(attempt_num === 2) && 
                             <div className='secondAttempt'>
                                 <br></br>
@@ -401,6 +398,7 @@ const CodeQuestion = () => {
                         }                        
                     </div>
 
+                    {/*  user inputs section  */}
                     <div className='answer'>
                         <div className='skipBtnContainer'>
                             <button className='skipButton' type = "button" disabled={submitDisabled} onClick = {handleSkip}>Skip</button>
@@ -442,17 +440,11 @@ const CodeQuestion = () => {
                                 </input>
                             </label>
                             }
-
                             <br></br>
                             <br></br>
-                                <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
+                            <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
                         </form>
-                        
-                       
-                    
                     </div>
-
-                    
                     </>
                 )}
             </div>

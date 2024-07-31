@@ -372,11 +372,24 @@ describe("Test Get, Post, Patch to Database", async function() {
                 .to
                 .equal(NEW_USER.username)
 
+                expect(newUserInDb.results.length)
+                .to
+                .equal(1);
+
                 expect(newUserInDb.results[0])
                 .deep
                 .to
                 .equal(NEW_USER.quizResult)
       
+            }
+            //clean up the test user in the database
+            const responseDelete = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`, {
+                method: 'DELETE'
+            });
+            
+            if(responseDelete.ok){
+                const deletedata= await responseDelete.json();
+                console.log(deletedata);
             }
         }
         
@@ -384,47 +397,59 @@ describe("Test Get, Post, Patch to Database", async function() {
     });
 
     it('test adding a new result to existing user in the database', async()=>{
-        const response = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`, {
-            method: 'PATCH',
+        const response_newuser = await fetch('http://localhost:3080/results', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                quizResult: QUIZ_RESULT_SAMPLE_2,
-            }),
+            body: JSON.stringify(NEW_USER)
         });
 
-        if (response.ok) {
-            const response2 = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`);
-            if (response2.ok) {
-                let newUserInDb = await response2.json();
-                expect(newUserInDb.results.length)
-                .to
-                .equal(2);
-
-                expect(newUserInDb.results[0])
-                .deep
-                .to
-                .equal(NEW_USER.quizResult);
-
-                expect(newUserInDb.results[1])
-                .deep
-                .to
-                .equal(QUIZ_RESULT_SAMPLE_2);
-
-                //clean up the test user in the database
-                const responseDelete = await fetch(`http://localhost:3080/results/user_test`, {
-                    method: 'DELETE'
-                });
-                
-                if(responseDelete.ok){
-                    const deletedata= await responseDelete.json();
-                    console.log(deletedata);
+        if(response_newuser.ok){
+            const response = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    quizResult: QUIZ_RESULT_SAMPLE_2,
+                }),
+            });
+    
+            if (response.ok) {
+                const response2 = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`);
+                if (response2.ok) {
+                    let newUserInDb = await response2.json();
+                    expect(newUserInDb.results.length)
+                    .to
+                    .equal(2);
+    
+                    expect(newUserInDb.results[0])
+                    .deep
+                    .to
+                    .equal(NEW_USER.quizResult);
+    
+                    expect(newUserInDb.results[1])
+                    .deep
+                    .to
+                    .equal(QUIZ_RESULT_SAMPLE_2);
+    
+                    //clean up the test user in the database
+                    const responseDelete = await fetch(`http://localhost:3080/results/user_test`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if(responseDelete.ok){
+                        const deletedata= await responseDelete.json();
+                        console.log(deletedata);
+                    }
+          
                 }
-      
+                
             }
-            
+
         }
+        
 
         
             
@@ -432,53 +457,65 @@ describe("Test Get, Post, Patch to Database", async function() {
     
 
     it('test changing the username for a user', async()=>{
-        const response = await fetch(`http://localhost:3080/profile/${NEW_USER.userid}`, {
-            method: 'PATCH',
+        const response_newuser = await fetch('http://localhost:3080/results', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                username: "Llama-y",
-            }),
+            body: JSON.stringify(NEW_USER)
         });
+        
+        if(response_newuser.ok){
+            const response = await fetch(`http://localhost:3080/profile/${NEW_USER.userid}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: "Llama-y",
+                }),
+            });
 
-        if (response.ok) {
-            const response2 = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`);
-            if (response2.ok) {
-                let testUserInDb = await response2.json();
-                //user id is not changed
-                expect(testUserInDb.userid)
-                .to
-                .equal(NEW_USER.userid)
-
-                //user name is changed correctly
-                expect(testUserInDb.username)
-                .to
-                .equal("Llama-y")
-
-                //results are not changed
-                expect(testUserInDb.results[0])
-                .deep
-                .to
-                .equal(NEW_USER.quizResult);
-
-                expect(testUserInDb.results[1])
-                .deep
-                .to
-                .equal(QUIZ_RESULT_SAMPLE_2);
-
-
-                //clean up the test user in the database
-                const responseDelete = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`, {
-                    method: 'DELETE'
-                });
-                
-                if(responseDelete.ok){
-                    const deletedata= await responseDelete.json();
-                    console.log(deletedata);
+            if (response.ok) {
+                const response2 = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`);
+                if (response2.ok) {
+                    let testUserInDb = await response2.json();
+                    //user id is not changed
+                    expect(testUserInDb.userid)
+                    .to
+                    .equal(NEW_USER.userid)
+    
+                    //user name is changed correctly
+                    expect(testUserInDb.username)
+                    .to
+                    .equal("Llama-y")
+    
+                    //results are not changed
+                    expect(testUserInDb.results[0])
+                    .deep
+                    .to
+                    .equal(NEW_USER.quizResult);
+    
+                    expect(testUserInDb.results.length)
+                    .to
+                    .equal(1);
+    
+    
+                    //clean up the test user in the database
+                    const responseDelete = await fetch(`http://localhost:3080/results/${NEW_USER.userid}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if(responseDelete.ok){
+                        const deletedata= await responseDelete.json();
+                        console.log(deletedata);
+                    }
                 }
-            }
-        } 
+            } 
+    
+        }
+       
+       
 
         
             
