@@ -4,6 +4,7 @@ import { QuizContext } from '../context/QuizResultContext'
 import my_logo from '../components/CodeLlama_Academy.GIF'
 
 const QuizResult =()=>{
+    //use the data shared by codeQuestion 
     const { sharedResult } = useContext(QuizContext);
 
     const navigate = useNavigate();
@@ -11,6 +12,7 @@ const QuizResult =()=>{
         navigate("/");
     }
 
+    //caculate the score based on the quiz result
     let results = sharedResult;
     let score = 0;
     results.forEach((result) => {
