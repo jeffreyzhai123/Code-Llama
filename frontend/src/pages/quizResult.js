@@ -45,8 +45,8 @@ const QuizResult =()=>{
                         <h2 className='QuestionNum'>Question {quizItem.questionNum}</h2>
                         <div className='ResultItems'>
                             <p>Question: {quizItem.question}</p>
-                            <p>Answer: {quizItem.answer}</p>
-                            <p>Reason of Change: {quizItem.reasonofchange}</p>
+                            <p>Answer: {quizItem.answer === "" ? "NA" : quizItem.answer}</p>
+                            <p>Reason of Change: {quizItem.reasonofchange === "" ? "NA" : quizItem.reasonofchange}</p>
                             <p>Pass/Fail: {quizItem.passfail ? "pass" : "fail"}</p>
                             <p>Attempt Number: {quizItem.attemptNum}</p>
                             <p>Level of Difficulty: {quizItem.difficultyLevel}</p>
