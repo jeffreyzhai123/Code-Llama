@@ -314,7 +314,7 @@ const CodeQuestion = () => {
                 //TODO: send the quizResult to page that needs it and store the result in database 
                 setSharedResult(quizResult);
                 console.log(quizResult.length);
-                alert("navigate!" + userEmail);
+                alert("Congratulations " + userEmail + "! You have finished the quiz. Please click Ok to see the result.");
                 console.log("before conditional " + userExistence);
                 if (!userExistence) {
                     console.log("create user");

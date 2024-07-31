@@ -21,7 +21,7 @@ The users’ data will be displayed in the history summary page and can be seen 
 - Changing in difficulty level
 - Performance review
 - Admin mode
-- Profile Page
+- Change Username
 - Skip button
 
 # Instruction on running this APP
@@ -58,7 +58,7 @@ If you want to have a try for each way of running it, please check the important
 # Instruction on viewing tests for this APP through HTML in browser
 ## Steps
 - Link to tests: Inside folder <u>test</u>, there is a file called <u>index.html</u> that you can open the file to view tests
-- Please make sure the backend and ollama is running (both docker and npm command ways of runing the application can work) when running the tests in browser.
+- Please make sure the backend and ollama is running (both docker and npm command ways of runing the application can work,  so please choose one from the two) when running the tests in browser.
 - For backend tests, there are six sections as presented on HTML: Extractor (test for the function that extract the generated code from ollama response), Answers (test for the API handling process when the frontend send to user results to the backend to trigger the process of calling ollama), Question (test for the getting the problem bank from the database),Test Get, Post, Patch to Database(test getting user id, adding new user, and adding new results at the backend), Test the test for generated code (test whether we evaluate the correctness of the generated code of ollama correctly), and Calculation Helpers (test the function that we used to calculate user scores and other data).
 - For the frontend, we did manual testing as listed in the HTML
 ## NOTE:

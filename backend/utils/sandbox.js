@@ -80,7 +80,7 @@ async function hardTestSelect(question_num, code) {
         case 5:
             return testIsPalindrome(code);
         case 6: 
-            return testLongestCommonPrefix(code);
+            return testSumFromN(code);
         case 7:
             return testDistinctNum(code);
         default:
@@ -361,13 +361,12 @@ function testIsPalindrome(code){
 }
 
 //Q7
-function testLongestCommonPrefix(code){
+function testSumFromN(code){
     const testCases = [
-        {args: [[]], expected: 0},
-        {args: [["flower", "flow", "flight"]], expected: 2},
-        {args: [["flower", "", ""]], expected: 0},
-        {args: [["flower", "flow", ""]], expected: 0},
-        {args: [["flower", "car", "dog"]], expected: 0}
+        {args: [0], expected: 0},
+        {args: [1], expected: 1},
+        {args: [2], expected: 3},
+        {args: [10], expected: 55},
     ]
     return runTests(code, testCases);
 }
