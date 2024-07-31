@@ -116,7 +116,7 @@ const CodeQuestion = () => {
         fetchQuestions('hard');
         setLoading(false);
 
-    }, [user_id, userExistence]); //empty dependency array to make sure question bank is only fetched once 
+    }, [userExistence]); 
 
     const createResult = async () => {
         try {
