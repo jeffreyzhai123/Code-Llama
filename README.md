@@ -5,9 +5,7 @@ Team Members: Emma Park, Hejia Qiu, Jeffrey Zha, Yining Zhong<br/><br/>
 CodeLlamaAcademy is a simple web application that allows users to test their code interpretation skill. <br/>
 
 This application will have multiple frontend elements and backend elements that communicate with each other. 
-The application frontend provides a sign-up page for users to create an account. 
-The backend will handle the sign-up and store users’ information like username and password. 
-Upon creating an account users can then login in and the backend will handle the authentication. 
+The application provides a sign-up page for users to create an account and log in by agreeing to the consent form.
 After successfully logging into the application, the user will see a menu page, and they can navigate to either start a new set of code comprehension exercises or view their history data by clicking on the corresponding button. 
 If the user chooses to start a new set of exercises, the application will display a simple function and prompt the user for a response. 
 The response would then be reformatted to be used in an API call to Ollama from the backend. 
@@ -18,7 +16,7 @@ After finishing the exercises, they will be directed back to the menu.
 The application also will persist all relevant data for each trial for users such as questions completed, date of completion, and time used to assist in future analysis. 
 The users’ data will be displayed in the history summary page and can be seen by themselves if they navigate to the history summary page at the menu. 
 ## Unique features
-- Changing in difficulty level
+- Changing the difficulty levels
 - Performance review
 - Admin mode
 - Change Username
@@ -95,11 +93,11 @@ Using npm test, you will be able to see additional tests on "callOllama". This i
 - If you enter empty answer, the question will be marked as wrong
 - If you click skip button, you will be directed to the next question (if there is one), and the skipped question will be marked as wrong
 - You will be able to see the score and result for all your attempts at the end of the quiz
-- There are 8 questions in total, and the level of difficulty will be changing based on your performance
+- There are 8 questions in total, and the level of difficulty will be changing based on your performance (Starting from the easy level, if you get the question right, the next question will be at the moderate level. If you get the moderate question right, the next one will be at the hard level; otherwise, you go back to the easy level. If you get the hard question right, you remain at the hard level).
 - The Performance review button on home page will take you to the performance review page
 - Clicking on rows of the table at the performance review page will take you to a page where detailed information about a quiz is displayed. You can see even more detailed information about each question by clicking the corresponding row. 
 - Please click "Go to the Main Page" button at performance review page or the page showed up at the end of each quiz if you want to navigate to the home page
-- If you click Admin Mode button at home page, there will be a prompt that ask you about the password to admin mode. The password is "CodeLlama", which will only be revealed to authorized people in practice. If you enter the correct password, you will be directed to the admin mode page, where you can see summary data for each users and aggregated data for all users. It may take a few seconds for the data to fully loaded. You can see the score trend graph of a user by clicking the row corresponding to that user.
+- If you click Admin Mode button at home page, there will be a prompt that ask you about the password to admin mode. The password is "codeLlama", which will only be revealed to authorized people in practice. If you enter the correct password, you will be directed to the admin mode page, where you can see summary data for each users and aggregated data for all users. It may take a few seconds for the data to fully loaded. You can see the score trend graph of a user by clicking the row corresponding to that user. The scales score is calculated can be find in the comments in the frontend/src/helpers/calculate.js file
 - If you click Profile Page button at home page, you will be able to set up or change your username. This page may load a bit slow, so if you didn't see anything at the first glance, please wait for a few seconds for it to show up
 - NOTE: if you refresh or quit (click backward on the browser) at the middle of a quiz, no result is going to be recorded
 
