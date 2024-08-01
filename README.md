@@ -31,11 +31,11 @@ Please choose a way you want to run the application and follow the corresponding
 - Please start the Docker Desktop engine
 - Please make sure there is nothing running at port 3000 and port 3080 on your local host. If you have Ollama running, please stop it by quitting it. 
 - Please navigate to the root folder of this project, which is Project-Groups-01-Lab-A
-- Please type "docker compose build" in the terminal and press enter, and the image will start to build. You should be able to see related information and progress in the terminal
-- After "docker compose build" command is finished, please type "docker-compose up -d" in the terminal (you should still be in Project-Groups-01-Lab-A directory) and press enter. You should be able to see the related information and progress in the terminal. After waiting for a while, if you see something like this: 
+- Please type "docker compose build" in the terminal and press enter, and the images will start to build. You should be able to see related information and progress in the terminal (it may takes a minute or so for the first time)
+- After "docker compose build" command is finished, please type "docker compose up -d" in the terminal (you should still be in Project-Groups-01-Lab-A directory) and press enter. You should be able to see the related information and progress in the terminal. If you don't have Ollama and Ollama-pull images before, it may take a while for the thing to be pulled (about 3 minute during manual testing). After all the images are ready, the containers will start and the ollama pull will start to pull the model (takes about 180 seconds - 300 seconds during manual testing). the After waiting for a while for Ollama pull to finish pulling the model and exiting, if you see something like this: 
 ![alt text](image.png)
 in the terminal, this means the application is running successfully. (NOTE: if this is not the first time you build it, the things showing in the terminal may be slightly different, such as the network part may not show up, but it should be similar.)
-- After the container for backend, frontend, and ollama succesfully runs in the docker and the ollama-pull container exits after it finishes its job (you can open the docker desktop and go to container to confirm that the frontend, backend, and ollama are all running. Usually, ollama-pull takes about 3 to 5 minutes to finish its job based on our manual testings), please open http://localhost:3000 in your browser to start the application (or you can click the the port link in Docker Desktop for the frontend)
+- After the container for backend, frontend, and ollama succesfully runs in the docker and the ollama-pull container exits after it finishes its job (you can open the docker desktop and go to container to confirm that the frontend, backend, and ollama are all running), please open http://localhost:3000 in your browser to start the application (or you can click the the port link in Docker Desktop for the frontend)
 - NOTE 1: if you go to local host 3000 too quickly before everything starts properly, the thing may not be fully loaded yet and you may see a page that says something like "this page isn't working", but if you wait for a seconds or so, everything should be loaded successfully and you don't need to take any action
 - NOTE 2: if you have already did "docker compose build" before, you do not need to redo it every time. You can jump to "docker-compose up -d" step, or start the container directly in Docker desktop
 
@@ -69,8 +69,8 @@ If you want to have a try for each way of running it, please check the important
 
 
 
-# Instruction on viewing tests for this APP through npm command at the backend
-Using npm test, you will be able to see additional tests on "callOllama" in addition to the HTML test suite. This is because the HTML version of the test does not support export and import statement so we cannot present our tests for callOllama (this function is mostly provided by official Ollama documentation about how to make an API call to ollama). npm test can allow you to see the test on callOllama.
+# Instruction on viewing extra tests for this APP through npm command at the backend
+Using npm test, you will be able to see additional tests on "callOllama". This is the only test that is not included in the HTML test suite in index.html. This is because the HTML version of the test does not support export and import statement so we cannot present our tests for callOllama (this function is mostly provided by official Ollama documentation about how to make an API call to ollama). npm test can allow you to see the test on callOllama.
 - Please stop running docker
 - Please have ollama running locally and have model mistral pulled already to your local device
 - Please navigate to the backend folder and type "npm run dev" into the terminal to start the backend server
@@ -94,6 +94,10 @@ Using npm test, you will be able to see additional tests on "callOllama" in addi
 - If you click Profile Page button at home page, you will be able to set up or change your username. This page may load a bit slow, so if you didn't see anything at the first glance, please wait for a few seconds for it to show up
 - NOTE: if you refresh or quit (click backward on the browser) at the middle of a quiz, no result is going to be recorded
 
+# Data in database
+- There are two collections: performance review and problem bank
+- Inside performance review, there is user data. Each user has field of userid, username, and results.
+- start time is the quiz start time 
 
 # Important notes for troubleshooting
 - If you want to shift from running using Docker to running using npm command, please stop the Docker containers (i.e. all four relevant containers for this project need to be stopped) for the application before you run the npm command otherwise the port will not be freed for use. Also, after stopping the containers, please check that the ollama is running locally (not in Docker), and restart it if you somehow stopped it before.
