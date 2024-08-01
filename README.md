@@ -49,14 +49,16 @@ in the terminal, this means the application is running successfully. (NOTE: if t
 - We have done multiple manual testings for docker, and during one of the manual testing, it takes really long for ollama-pull to finish (almost 20 minutes). After restarting the computer, we follow the same precedure as stated in the above instructions, and it works super quick (about 160 seconds). Based on all manual tests we have done, in most cases, it should only take about 160s to 300s to finish pulling. However, we just want to make a note here that this strange situation does occured once during testing. It might be an individual computer problem or a one time thing, but we cannot be sure about the cause. If this happens, please restart the computer to see if it can increase the speed.
 
 ## Running using npm command
+- To run using npm command, there are two env files needed. However, since it's unsafe to publish env files to github, please inform us about the situation so we can provide necessary files or information to run it using npm command. Without env file, the thing will not run as intended
+- If the env file is setted up, please follow the steps below
 - Please stop running the app using docker if you are running it
 - Please download Ollama from https://ollama.com/ 
 - Please start running your Ollama on your machine 
 (to check if it's running, please go to http://localhost:11434, if there is a text says Ollama is running then Ollama is running)
 - Please type "ollama pull mistral" on the terminal and click enter. Please wait for the model pulling to complete
-- After that, please navigate to the backend folder of this project, which is Project-Groups-01-Lab-A/backend. Please type "npm run dev", and the backend should start and the terminal will display something like this:
+- After that, please navigate to the backend folder of this project, which is Project-Groups-01-Lab-A/backend. Please type "npm install" to install the dependencies. Then, please type "npm run dev", and the backend should start and the terminal will display something like this:
 ![alt text](image-1.png)
-- Please navigate to the frontend folder of this project, which is Project-Groups-01-Lab-A/frontend. Please type "npm start", and the frontend should run and be opened in a browser (at http://localhost:3000). You should be able to start using the application now. 
+- Please navigate to the frontend folder of this project, which is Project-Groups-01-Lab-A/frontend. Please type "npm install" to install the dependencies. Please type "npm start", and the frontend should run and be opened in a browser (at http://localhost:3000). You should be able to start using the application now. 
 
 
 
