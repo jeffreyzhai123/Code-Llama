@@ -21,6 +21,7 @@ const Profile = () => {
     };
 
     useEffect(  () => {
+        // fetch current user's username
         const fetchUser = async () => {
             try {
                 const response = await fetch(`http://localhost:3080/profile/${user_id}`)
@@ -37,6 +38,7 @@ const Profile = () => {
             }
         };
 
+        // fetch all usernames
         const fetchAllUsers = async () => {
             try {
                 const response = await fetch(`http://localhost:3080/profile`)

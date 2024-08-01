@@ -6,7 +6,7 @@ import { useUser } from '@clerk/clerk-react';
 
 const PerformanceReview = () => {
 
-    const qnum = 8; // Change it to the number of questions in the quiz
+    const qnum = 8; // set to 8 questions per quiz
 
     const navigate = useNavigate();
     const mainButton = () => {
@@ -24,7 +24,7 @@ const PerformanceReview = () => {
     let resultArray = [];
 
     useEffect( () => {
-
+        // fetch all results and store them in scoreArray and resultArray
         const fetchResults = async () => {
             try {
                 const response = await fetch(`http:///localhost:3080/results/${user_id}`);
@@ -70,30 +70,35 @@ const PerformanceReview = () => {
     }, [])
     
     const[selectedScore, setSelectedScore] = useState(null);
-    const[scoreboardVisible, setScoreboardVisible] = useState(true);
+    const[scoreboardVisible, setScoreboardVisible] = useState(true); // initially, the score board is visible
     const[selectedQuestion, setSelectedQuestion] = useState(null);
     const[detailedVisible, setdetailedVisible] = useState(true);
 
+    // To handle a row click on the first scoreboard
     function handleRowClick(score) {
         setSelectedScore(score);
         setScoreboardVisible(false); // hide the scoreboard
     };
 
+    // To handle the first "Go to Performance Review" button in detailed quiz results
     function handleBackButtonClick() {
         setSelectedScore(null);
         setScoreboardVisible(true); // show the scoreboard
     };
 
+    // To handle a row click on the detailed quiz table
     function handleRowClickTwice(questionNumber) {
         setSelectedQuestion(questionNumber);
-        setdetailedVisible(false);
+        setdetailedVisible(false); // hide the detailed result table
     }
 
+    // To handle the second "Go to Performance Review" button in detailed question results
     function handleBackButtonClickTwice() {
         setSelectedQuestion(null);
-        setdetailedVisible(true);
+        setdetailedVisible(true); // show the detailed result table
     }
 
+    // get details for selected quiz
     function getDetailsForQuiz(quizID){
         let details = [];
         result.forEach((quiz) => {
@@ -104,6 +109,7 @@ const PerformanceReview = () => {
         return details;
     };
 
+    // get details for selected question
     function getDetailsForQuestion(quizID, questionNumber){
         let answers = [];  
         result.forEach((quiz) => {
@@ -159,6 +165,7 @@ const PerformanceReview = () => {
                 <span className = "performanceresultsTitle">Performance Results</span>
                     {scoreboardVisible && 
                         <table id="resultsTable">
+                            {/*  scoreboard with all quizzes and their score in percentage */}
                             <thead>
                                 <tr>
                                     <th>Quiz Number</th>
@@ -185,6 +192,7 @@ const PerformanceReview = () => {
                                 <span className = "scoreDescription"> Overall Percentage: {selectedScore.quizScore}</span>
                             </div>
                             <table id="resultsTable">
+                                {/*  scoreboard with all questions in selected quiz and some details */}
                                 <thead>
                                     <tr>
                                         <th>Question Number</th>
@@ -213,6 +221,7 @@ const PerformanceReview = () => {
 
                     {selectedQuestion && selectedScore && (
                         <div className='detailedDescription2'>
+                            {/*  Detailed results for selected question */}
                             {getDetailsForQuestion(selectedScore.quizNumber, selectedQuestion).map((answer, index) => (
                                 <div key={index}>
                                     <span className = "scoreDescription"> Selected Question: {answer.questionNumber}</span>
