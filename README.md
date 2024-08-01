@@ -5,9 +5,7 @@ Team Members: Emma Park, Hejia Qiu, Jeffrey Zha, Yining Zhong<br/><br/>
 CodeLlamaAcademy is a simple web application that allows users to test their code interpretation skill. <br/>
 
 This application will have multiple frontend elements and backend elements that communicate with each other. 
-The application frontend provides a sign-up page for users to create an account. 
-The backend will handle the sign-up and store users’ information like username and password. 
-Upon creating an account users can then login in and the backend will handle the authentication. 
+The application provides a sign-up page for users to create an account and log in by agreeing to the consent form.
 After successfully logging into the application, the user will see a menu page, and they can navigate to either start a new set of code comprehension exercises or view their history data by clicking on the corresponding button. 
 If the user chooses to start a new set of exercises, the application will display a simple function and prompt the user for a response. 
 The response would then be reformatted to be used in an API call to Ollama from the backend. 
