@@ -24,6 +24,9 @@ The users’ data will be displayed in the history summary page and can be seen 
 - Change Username
 - Skip button
 
+## Model used
+- Ollama's mistral model
+
 # Instruction on running this APP
 Please choose a way you want to run the application and follow the corresponding instructions below step by step
 
@@ -32,11 +35,14 @@ Please choose a way you want to run the application and follow the corresponding
 - Please make sure there is nothing running at port 3000 and port 3080 on your local host. If you have Ollama running, please stop it by quitting it. 
 - Please navigate to the root folder of this project, which is Project-Groups-01-Lab-A
 - Please type "docker compose build" in the terminal and press enter, and the images will start to build. You should be able to see related information and progress in the terminal (it may takes a minute or so for the first time)
-- After "docker compose build" command is finished, please type "docker compose up -d" in the terminal (you should still be in Project-Groups-01-Lab-A directory) and press enter. You should be able to see the related information and progress in the terminal. If you don't have Ollama and Ollama-pull images before, it may take a while for the thing to be pulled (about 3 minute during manual testing). After all the images are ready, the containers will start and the ollama pull will start to pull the model (takes about 180 seconds - 300 seconds during manual testing). the After waiting for a while for Ollama pull to finish pulling the model and exiting, if you see something like this: 
-![alt text](image.png)
+![alt text](<docker (docker compose build).png>)
+- After "docker compose build" command is finished, please type "docker compose up -d" in the terminal (you should still be in Project-Groups-01-Lab-A directory) and press enter. You should be able to see the related information and progress in the terminal. If you don't have Ollama and Ollama-pull images before, it may take a while for the thing to be pulled (time spent ranges from 30 seconds to 3 minute during manual testing). After all the images are ready, the containers will start and the ollama pull will start to pull the model (takes about 180 seconds - 300 seconds during manual testing). During this process, the terminal looks something like this (might vary from computers to computers):
+![alt text](<docker (docker compose up -d).png>)
+After waiting for a while for Ollama pull to finish pulling the model and exiting, if you see something like this: 
+![alt text](<docker (everything finished).png>)
 in the terminal, this means the application is running successfully. (NOTE: if this is not the first time you build it, the things showing in the terminal may be slightly different, such as the network part may not show up, but it should be similar.)
 - After the container for backend, frontend, and ollama succesfully runs in the docker and the ollama-pull container exits after it finishes its job (you can open the docker desktop and go to container to confirm that the frontend, backend, and ollama are all running), please open http://localhost:3000 in your browser to start the application (or you can click the the port link in Docker Desktop for the frontend)
-- NOTE 1: if you go to local host 3000 too quickly before everything starts properly, the thing may not be fully loaded yet and you may see a page that says something like "this page isn't working", but if you wait for a seconds or so, everything should be loaded successfully and you don't need to take any action
+- NOTE 1: if you go to local host 3000 too quickly before everything starts properly, the thing may not be fully loaded yet and you may see a page that says something like "this page isn't working", but if you wait for a seconds or so, everything should be loaded successfully and you don't need to take any action 
 - NOTE 2: if you have already did "docker compose build" before, you do not need to redo it every time. You can jump to "docker-compose up -d" step, or start the container directly in Docker desktop
 
 ## Running using npm command
@@ -57,7 +63,7 @@ If you want to have a try for each way of running it, please check the important
 
 # Instruction on viewing tests for this APP through HTML in browser
 ## Steps
-- Link to tests: Inside folder <u>test</u>, there is a file called <u>index.html</u> that you can open the file to view tests
+- Link to tests: Inside <b>Project-Groups-01-Lab-A</b> folder, there is a folder called <b>test</b>. Inside folder <b>test</b>, there is a file called <b>index.html</b> that you can click to open the file to view tests
 - Please make sure the backend and ollama is running (both docker and npm command ways of runing the application can work,  so please choose one from the two) when running the tests in browser.
 - For backend tests, there are six sections as presented on HTML: Extractor (test for the function that extract the generated code from ollama response), Answers (test for the API handling process when the frontend send to user results to the backend to trigger the process of calling ollama), Question (test for the getting the problem bank from the database),Test Get, Post, Patch to Database(test getting user id, adding new user, and adding new results at the backend), Test the test for generated code (test whether we evaluate the correctness of the generated code of ollama correctly), and Calculation Helpers (test the function that we used to calculate user scores and other data).
 - For the frontend, we did manual testing as listed in the HTML
@@ -71,12 +77,10 @@ If you want to have a try for each way of running it, please check the important
 
 # Instruction on viewing extra tests for this APP through npm command at the backend
 Using npm test, you will be able to see additional tests on "callOllama". This is the only test that is not included in the HTML test suite in index.html. This is because the HTML version of the test does not support export and import statement so we cannot present our tests for callOllama (this function is mostly provided by official Ollama documentation about how to make an API call to ollama). npm test can allow you to see the test on callOllama.
-- Please stop running docker
-- Please have ollama running locally and have model mistral pulled already to your local device
-- Please navigate to the backend folder and type "npm run dev" into the terminal to start the backend server
+- Please run the application either through docker or npm command as mentioned in previous instructions
 - At backend folder, please then type "npm test" at the terminal to run the tests
 - The tests result will be displayed in the terminal
-
+![alt text](<test ollama helper.png>)
 # Instruction on using the application
 - If this is the first time you are using this application, the first page you see is the page with a logo and a term of service button. Please click the terms of service button, read the term of service, and click the checkbox at the bottom. The login button will show up beside the checkbox. If you accidentally close the term and service form, you can just click term of service button again to see the checkbox and the login button. If this is not the first time you use the application and you have previously log in recently, the first page you see may be the home page and you are already logged in. You can click "Log out" button to log out if you want, and you will be able to follow the same procedure to log in as you did before.
 - After check the terms of service and click on "log in", please follow the instruction on the page to log in/sign-up. You can either do it through google account or email
@@ -95,9 +99,13 @@ Using npm test, you will be able to see additional tests on "callOllama". This i
 - NOTE: if you refresh or quit (click backward on the browser) at the middle of a quiz, no result is going to be recorded
 
 # Data in database
-- There are two collections: performance review and problem bank
-- Inside performance review, there is user data. Each user has field of userid, username, and results.
-- start time is the quiz start time 
+- Our project used MongoDB for data persistence
+- There are two databases we created: performance review and problem bank
+- Inside performance review, there is a collection called results that store users' data. Each user has
+user id, results, and username field. The "results" contains information for all quizzes the user has completed. For each question in a quiz, 
+question number, question, answer, reason of changing answer at 2nd attempt, pass or fail, attempt number, quiz start time, question end time, difficulty Level,
+generated code, failed test cases are all recorded
+- There are three collections in the problem bank database: easy, medium, hard
 
 # Important notes for troubleshooting
 - If you want to shift from running using Docker to running using npm command, please stop the Docker containers (i.e. all four relevant containers for this project need to be stopped) for the application before you run the npm command otherwise the port will not be freed for use. Also, after stopping the containers, please check that the ollama is running locally (not in Docker), and restart it if you somehow stopped it before.
