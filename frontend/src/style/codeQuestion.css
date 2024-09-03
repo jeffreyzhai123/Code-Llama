@@ -22,18 +22,39 @@
     padding: 20px;
     margin-top: 8rem;
     margin-right: 4rem;
+    margin-bottom: 8rem;
     color: rgb(255, 255, 255);
     background-color: rgb(31, 42, 66);
     border-radius: 20px;
   }
 
-  .levelTag {
-    background-color: rgb(248, 240, 94);
+  .easyLevelTag {
+    background-color: #9FE481;
     color:black;
-    border-radius: 20px;
+    border-radius: 1rem;
     float: left;
     margin-left: 10rem;
-    margin-top: -3.2rem;
+    margin-top: -3rem;
+    padding-inline: 1rem;
+  }
+
+  .modLevelTag {
+    background-color: #FEA655;
+    color:black;
+    border-radius: 1rem;
+    float: left;
+    margin-left: 10rem;
+    margin-top: -3rem;
+    padding-inline: 1rem;
+  }
+
+  .hardLevelTag {
+    background-color: #DA4239;
+    color:black;
+    border-radius: 1rem;
+    float: left;
+    margin-left: 10rem;
+    margin-top: -3rem;
     padding-inline: 1rem;
   }
 
@@ -42,7 +63,7 @@
     color:white;
     border-radius: 10px;
     float: right;
-    margin-right: 4rem;
+    margin-right: 1rem;
   }
   
   .skipButton{
@@ -50,7 +71,7 @@
     color:white;
     border-radius: 10px;
     float: right;
-    margin-right: 4rem;
+    margin-right: 1rem;
    
   }
   .skipBtnContainer{
@@ -87,18 +108,15 @@
   .codeContainer{
     background-color: black;
     border-radius: 10px;
+    padding: 20px;
     
   }
 
   .code {
-
-    background: none;
     white-space: pre;
-    -webkit-overflow-scrolling: touch;
     overflow-x: scroll;
     max-width: 100%;
     min-width: 100px;
-    margin-left: 10px;
     color: white;
  }
 
@@ -108,7 +126,7 @@
   
   .input{
     height: 2cm;
-    width: 15cm;
+    width: 16.5cm;
   }
 
   

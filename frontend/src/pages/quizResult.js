@@ -4,6 +4,7 @@ import { QuizContext } from '../context/QuizResultContext'
 import my_logo from '../components/CodeLlama_Academy.GIF'
 
 const QuizResult =()=>{
+    //use the data shared by codeQuestion 
     const { sharedResult } = useContext(QuizContext);
 
     const navigate = useNavigate();
@@ -11,6 +12,7 @@ const QuizResult =()=>{
         navigate("/");
     }
 
+    //caculate the score based on the quiz result
     let results = sharedResult;
     let score = 0;
     results.forEach((result) => {
@@ -45,8 +47,8 @@ const QuizResult =()=>{
                         <h2 className='QuestionNum'>Question {quizItem.questionNum}</h2>
                         <div className='ResultItems'>
                             <p>Question: {quizItem.question}</p>
-                            <p>Answer: {quizItem.answer}</p>
-                            <p>Reason of Change: {quizItem.reasonofchange}</p>
+                            <p>Answer: {quizItem.answer === "" ? "NA" : quizItem.answer}</p>
+                            <p>Reason of Change: {quizItem.reasonofchange === "" ? "NA" : quizItem.reasonofchange}</p>
                             <p>Pass/Fail: {quizItem.passfail ? "pass" : "fail"}</p>
                             <p>Attempt Number: {quizItem.attemptNum}</p>
                             <p>Level of Difficulty: {quizItem.difficultyLevel}</p>

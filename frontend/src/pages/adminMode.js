@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import my_logo from '../components/CodeLlama.png'
-import { calculateAllAvg, calculateAvgScore, calculateAllScaledAvg, calculateAvgScaledScore } from '../helpers/calculate.js';
+import { calculateScore, calculateAllAvg, calculateAvgScore, calculateAllScaledAvg, calculateAvgScaledScore } from '../helpers/calculate.js';
 import Plot from 'react-plotly.js'
 
 const AdminMode = () => {
 
+    //buttons help to navigate between pages
     const navigate = useNavigate();
     const mainButton = () => {
         navigate("/");
@@ -16,11 +17,15 @@ const AdminMode = () => {
         setdetailedVisible(false);
     }
 
+
     const [userArray, setUserArray] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
+    //Initially, the table of users is visible and detailed score graph for the user is invisible
     const [usertableVisible, setUsertableVisible] = useState(true);
     const [detailedVisible, setdetailedVisible] = useState(false);
 
+
+    //At the first render, fetch the user data from the database and set the user array (an array of users)
     useEffect( () => {
         const fetchResults = async () => {
             try {
@@ -43,14 +48,40 @@ const AdminMode = () => {
         
     }, [])
 
+    //when clicking on a row, the corresponding user is selected, and the table of users is invisible, and the detailed score graph is visible
     function handleRowClick(user) {
         setSelectedUser(user);
         setUsertableVisible(false);
         setdetailedVisible(true);
     }
 
-    let plot_x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    let plot_y = [0, 0, 0, 0, 50, 50, 60, 80, 100, 100]; 
+    //get the x data points, where each x corresponding to the x-th quiz that the user has completed
+    function getXDataPoints(user) {
+        let datapoint_x = [];
+        userArray.forEach((array) => {
+            if(array.userid === user) {
+                let max_x = array.results.length;
+                for (let i = 1; i <= max_x; i++) {
+                    datapoint_x.push(i);
+                }
+            }
+        })
+        return datapoint_x;
+    }
+
+    //get y data points where y is the user's score
+    function getYDataPoints(user) {
+        let datapoint_y = [];
+        userArray.forEach((array) => {
+            if(array.userid === user) {
+                array.results.forEach((quiz) => {
+                    let y = calculateScore(quiz) * 100;
+                    datapoint_y.push(y);
+                })
+            }
+        })
+        return datapoint_y;
+    }
 
     return (
         <div className='homeContainer'>
@@ -104,7 +135,7 @@ const AdminMode = () => {
                             </tbody>
                         </table>
 
-                        <table id="resultsTable">
+                        <table id="overallResultsTable">
                             <thead>
                                 <tr>
                                     <th>All Users Average</th>
@@ -130,15 +161,31 @@ const AdminMode = () => {
                             <Plot 
                                 data = {[
                                     {
-                                    x: plot_x,
-                                    y: plot_y,
-                                    mode: "lines",
-                                    type: "scatter",
+                                    x: getXDataPoints(selectedUser.userid),
+                                    y: getYDataPoints(selectedUser.userid),
+                                    type: "bar",
                                     marker: {color: 'blue'},
                                     },
                                 ]}
                                 layout = { 
-                                    {width: 800, height: 700, title: "Quiz Result"}
+                                    {width: 800, height: 700, 
+                                        title: "Quiz Result", 
+                                        showlegend: false,
+                                        xaxis: {
+                                            title: 'Quiz Number',
+                                            tickmode: 'linear',
+                                            zeroline: false,
+                                            tick0: 1,
+                                            dtick: 1
+                                        },
+                                        yaxis: {
+                                            title: 'Score in Percentage',
+                                            tickmode: 'linear',
+                                            tick0: 0,
+                                            dtick: 10,
+                                            range: [0, 100]
+                                        }
+                                    }
                                 }
                             />
                         </div>

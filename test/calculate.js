@@ -6,7 +6,7 @@ const HSCALE = 1;
 //unscaled version: all the question has the same weight despite of difference in difficulty
 
 //calculate the average score of average score of all users
-export function calculateAllAvg(userarr){
+function calculateAllAvg(userarr){
     let totalScore = 0;
 
     userarr.forEach(user => {
@@ -20,7 +20,7 @@ export function calculateAllAvg(userarr){
 
 
 //calculate the average score of all quizzes of a single user
-export function calculateAvgScore(loq) {
+function calculateAvgScore(loq) {
     let totalScore = 0;
     loq.forEach(quiz => {
         totalScore += calculateScore(quiz);
@@ -33,7 +33,7 @@ export function calculateAvgScore(loq) {
 
 
 //calulate the score of this quiz
-export function calculateScore(quiz){
+function calculateScore(quiz){
     let correct = 0;
     quiz.forEach(question => {
         if(question.passfail) {
@@ -48,7 +48,7 @@ export function calculateScore(quiz){
 //scaled version: max score is 7.4, with hard question to worth 1, medium question to worth 0.8, and easy question to worth 0.6
 
 //calculate the average score of average score of all users
-export function calculateAllScaledAvg(userarr){
+function calculateAllScaledAvg(userarr){
     let totalScore = 0;
 
     userarr.forEach(user => {
@@ -62,7 +62,7 @@ export function calculateAllScaledAvg(userarr){
 
 
 //calculate the average scaled score of all quizzes of a single user
-export function calculateAvgScaledScore(loq) {
+function calculateAvgScaledScore(loq) {
     let totalScore = 0;
     loq.forEach(quiz => {
         totalScore += calcultateScaledScore(quiz);

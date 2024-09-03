@@ -30,9 +30,13 @@ function App() {
             <Route path="/" element={<Home/>}/>
             {/* if url path is "/codeQuestion" render the codeQuestion component */}
             <Route path="/codeQuestion" element={<PrivateRoute element={CodeQuestion}/>}/>
+            {/* if url path is "/result" render the QuizResult component */}
             <Route path="/result" element={<PrivateRoute element={QuizResult}/>}/>
+            {/* if url path is "/performanceReview" render the PerformanceReview component */}
             <Route path="/performanceReview" element={<PrivateRoute element={PerformanceReview}/>}/>
+            {/* if url path is "/profile" render the Profile component */}
             <Route path="/profilePage" element={<PrivateRoute element={Profile}/>}/>
+            {/* if url path is "/adminMode" render the AdminMode component */}
             <Route path="/adminMode" element={<PrivateRoute element={AdminMode}/>}/>
           </Routes>
         </QuizResultProvider>

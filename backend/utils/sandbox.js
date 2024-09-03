@@ -72,7 +72,7 @@ async function hardTestSelect(question_num, code) {
         case 1:
             return "All tests passed";
         case 2: 
-            return testAnagram(code);
+            return testSumDigits(code);
         case 3:
             return testFactorial(code);
         case 4:
@@ -80,7 +80,7 @@ async function hardTestSelect(question_num, code) {
         case 5:
             return testIsPalindrome(code);
         case 6: 
-            return testLongestCommonPrefix(code);
+            return testSumFromN(code);
         case 7:
             return testDistinctNum(code);
         default:
@@ -92,6 +92,7 @@ async function hardTestSelect(question_num, code) {
 export function runTests(code, testCases) {
     return new Promise((resolve) => {
         const results = []; // Array to store the results of each test
+        let testCaseNum = 1;
   
         //for loop to run each test case with the arguments and function properly formatted 
         testCases.forEach(({ args, expected }) => {
@@ -117,7 +118,8 @@ export function runTests(code, testCases) {
               
                 
 
-                results.push({ args: formattedArgs, result, expected });
+                results.push({ args: formattedArgs, result, expected, num:testCaseNum});
+                testCaseNum++;
   
                 //check if all tests have been executed
                 if (results.length == testCases.length) {
@@ -129,12 +131,11 @@ export function runTests(code, testCases) {
                     } else {
                         //prints all failed tests by adding it to a new array and then printing each element on a new line using .join
                         const failureMessages = failedTests.map((test) => {
-                        return `Test failed: expected ${test.expected}, got ${test.result} for args: ${test.args}`;
+                        return `Test Case ${test.num} failed: expected ${test.expected}, got ${test.result} for args: ${test.args}`;
                     });
                         //.join used to concat all elements in array into a single string with <br> between each element
-                        //because this is going to be displayed on the frontend as html elements
-                        //need to use <br> to signal line breaks rather than /n
-                        resolve(failureMessages.join('<br>'));
+                        //join with \n and display inside a <pre> in html to separate them in lines
+                        resolve(failureMessages.join('\n'));
                     }
                 }
             });
@@ -312,12 +313,12 @@ function testFindMin(code) {
 //hard
 
 //Q3
-function testAnagram(code){
+function testSumDigits(code){
     const testCases = [
         
-        {args: ["a", "b"], expected: false},
-        {args: ["cat", "act"], expected: true},
-        {args: ["cat", ""], expected: false}
+        {args: [0], expected: 0},
+        {args: [12], expected: 3},
+        {args: [123], expected: 6}
     ]
     return runTests(code, testCases);
 }
@@ -353,20 +354,19 @@ function testIsPalindrome(code){
     const testCases = [
         {args: [""], expected: true},
         {args: [" "], expected: true},
-        {args: ["Too hot to hoot"], expected: true},
+        {args: ["too hot to hoot"], expected: true},
         {args: ["Hello World"], expected: false}
     ]
     return runTests(code, testCases);
 }
 
 //Q7
-function testLongestCommonPrefix(code){
+function testSumFromN(code){
     const testCases = [
-        {args: [[]], expected: 0},
-        {args: [["flower", "flow", "flight"]], expected: 2},
-        {args: [["flower", "", ""]], expected: 0},
-        {args: [["flower", "flow", ""]], expected: 0},
-        {args: [["flower", "car", "dog"]], expected: 0}
+        {args: [0], expected: 0},
+        {args: [1], expected: 1},
+        {args: [2], expected: 3},
+        {args: [10], expected: 55},
     ]
     return runTests(code, testCases);
 }

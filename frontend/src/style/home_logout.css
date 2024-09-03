@@ -13,20 +13,20 @@
 
 .logoContainer {
     margin-top: 5%;
-    padding-left: 5%;
+    padding-left: 10%;
     float: left;
     width: 60%;
     height: 65%;
   }
   
 .logo {
-max-width: 100%;
-max-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .introduction{
    
-  margin-top:10%;
+  margin-top:6%;
   float: right;
   height: 40%;
   width: 40%;
@@ -47,3 +47,19 @@ max-height: 100%;
   display: inline;
   margin-left: 20px;
 }
+
+.login{
+  margin-top: 10%;
+}
+
+.loginBtn {
+  position: relative;
+  top: -8px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 1rem;
+}
+
