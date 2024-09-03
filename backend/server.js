@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+
 // import dbClient from './config/db_connection.js';
 import { answerRouter } from './routes/answer.js'
 import { questionRouter } from './routes/question.js'
@@ -12,6 +13,7 @@ const port = 3080; //set port number
 
 app.use(cors()); //allows for cross origin resource sharing
 app.use(express.json()); //middleware used to parse incoming JSON requests
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/answer', answerRouter);
 app.use('/question', questionRouter);

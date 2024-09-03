@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import my_logo from '../components/CodeLlama_Academy.GIF'
-import { useUser } from '@clerk/clerk-react';
+import { useUser } from '@clerk/clerk-react'
+import { useDropzone } from 'react-dropzone'
 
 
 const Profile = () => {
@@ -12,6 +13,56 @@ const Profile = () => {
     const [warning, setWarning] = useState(false);
     const [success, setSuccess] = useState(false);
     const [currName, setCurrName] = useState("");
+    const [profilePicture, setProfilePicture] = useState();
+
+    const handleUpload = async (file) => {
+        try {
+            const response = await fetch(`http://localhost:3080/profile/picture/${user_id}`, {
+                method: 'POST',
+                body: file,
+            });
+            if (response.ok) {
+                const result = await response.json();
+                console.log('File upload successful');
+            } else {
+                console.error('Failed upload');
+            }
+        } catch (error) {
+            console.error('Server side error:', error);
+        }
+    }; 
+
+    const onDrop = useCallback((acceptedFiles) => {
+        //allows for multiple field stuff
+
+        console.log('Files dropped or selected:', acceptedFiles);
+        if (acceptedFiles.length === 0) {
+            //display something to user
+            console.log("Error, imagine upload failed");
+            setProfilePicture();
+        } else {
+            console.log('Files dropped or selected:', acceptedFiles);
+            const formData = new FormData();
+            setProfilePicture(URL.createObjectURL(acceptedFiles[0]));
+            formData.append('profile', acceptedFiles[0]);
+            handleUpload(formData);
+        }
+    }, []);
+
+    const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        accept: {
+            'image/png': ['.png'],
+            'image/jpeg': ['.jpg', '.jpeg'],
+        },
+        maxSize: 2 * 1024 * 1024,
+        multiple: false,
+    });
+
+    //only accept the first file
+    const selectedFile = acceptedFiles[0]
+    console.log(selectedFile);
+
     const {user} = useUser();
     const user_id = user.id;
 
@@ -131,6 +182,19 @@ const Profile = () => {
                     <button className='usernameChangeButton' type = "submit">Submit</button>
                 </form>  
             </div>
+            <div className='dropzone' {...getRootProps()}>
+                <input {...getInputProps()}></input>
+                <p className='profileMessage'>Drag and drop files here or click to select files</p>
+            </div>
+            <aside>
+                <ul className='fileInfo'>
+                    {acceptedFiles.map(file => (
+                        <li key={file.path}>
+                            {file.path} - {file.size} bytes
+                        </li>
+                    ))}
+                </ul>
+            </aside>
             </>
             )}
 

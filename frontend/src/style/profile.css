@@ -37,3 +37,36 @@
     text-align: center;
     cursor: pointer;
 }
+
+.dropzone {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: 2px solid aliceblue;
+    margin-left: 75px; 
+    width: 500px;
+    height: 200px;
+    padding: 10px;
+    text-align: left;
+}
+
+.uploadButton {
+    background-color: rgb(100, 149, 237);
+    color:white;
+    border-radius: 10px;
+    padding: 0.5rem 1rem; /* Adjust padding as needed for size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 75px;
+}
+
+.fileInfo {
+    font-weight: bold;
+    color: aliceblue; 
+    margin-left: 75px;
+}
