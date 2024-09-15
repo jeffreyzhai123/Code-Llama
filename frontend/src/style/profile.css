@@ -20,7 +20,15 @@
 
 .profileMessage {
     padding-left: 5rem;
-    padding-top: 2rem;
+    padding-top: 10rem;
+    font-weight: bold;
+    font-size: 16px;
+    color:aliceblue;
+}
+
+.confirmationMessage {
+    padding-left: 5rem;
+    padding-top: 3rem;
     font-weight: bold;
     font-size: 16px;
     color:aliceblue;
@@ -36,4 +44,60 @@
     align-items: center;
     text-align: center;
     cursor: pointer;
+    margin-top: 10px;
 }
+
+.dropzone {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: 2px solid aliceblue;
+    margin-left: 75px; 
+    width: 500px;
+    height: 200px;
+    padding: 10px;
+    text-align: left;
+}
+
+.uploadButton {
+    background-color: rgb(100, 149, 237);
+    color:white;
+    border-radius: 10px;
+    padding: 0.5rem 1rem; /* Adjust padding as needed for size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 75px;
+}
+
+.fileInfo {
+    font-weight: bold;
+    color: aliceblue; 
+    margin-left: 75px;
+}
+
+.profileContainer {
+    padding-top: 200px; /* To position the icon lower */
+    padding-left: 65px;
+    display: flex;
+    align-items: center; /* Vertically center the items */
+    gap: 10px; /* Optional: Space between items */
+  }
+  
+  .profilePicture {
+    width: 100px; /* Adjust size as needed */
+    height: 100px;
+    border-radius: 50%;
+    border-width: 20px;
+    border-color: aliceblue;
+  }
+  
+  .usernameParagraph {
+    font-weight: bold;
+    font-size: 16px;
+    color:aliceblue;
+  }

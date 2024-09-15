@@ -5,56 +5,56 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
 import { QuizContext } from '../context/QuizResultContext';
+import { convertLevelofDifficulty } from '../helpers/codeQuestionHelpers';
 
-const quizStart = new Date().toLocaleString();
+const QUIZ_START = new Date().toLocaleString();
 
 const CodeQuestion = () => {
 
+    //share the quiz result data with quiz result page
     const { setSharedResult } = useContext(QuizContext);
-    //get user info
-    const {user} = useUser();
-    //get user data 
-    const user_id = user.id;
+    //help to go to another page
+    let navigate = useNavigate();
 
+    //get user data (from clerk)
+    const {user} = useUser();
+    const user_id = user.id;
     //can be used to identify users when storing to database
     const userEmail = user.primaryEmailAddress.emailAddress;
-
-    //quiz result
-    const [quizResult, setQuizResult] = useState([]);
-    const [currDifficulty, setCurrentDifficulty] = useState(1);
-
-    //go to other page
-    let navigate = useNavigate();
-    //diable the double submission while waiting
-    const [submitDisabled, setSubmitDisabled] = useState(false);
     const [userExistence, setUserExistence] = useState(false);
 
-    //const problem_bank = null;
+    const [quizResult, setQuizResult] = useState([]);
+
+    const [currDifficulty, setCurrentDifficulty] = useState(1);
     const [easyQuestionBank, setEasyQuestionBank] = useState([]);
     const [mediumQuestionBank, setMediumQuestionBank] = useState([]);
     const [hardQuestionBank, setHardQuestionBank] = useState([]);
     const [loading, setLoading] = useState(true); //to prevent app from running before questions are pulled
 
-    //get first question and question number; initialize attempt number to 1st attempt
+    //question number
     const [question_num, setQuestionNumber] = useState(1);
+    //question content
     const [question, setQuestion] = useState("");
+    //attempt number
     const [attempt_num, setAttemptNum] = useState(1);
     //user answer
     const [answer, setAns] = useState("");
-    //element for second attempt
+    //elements for second attempt
     const [generatedCode, setGC] = useState("");
     const [failedTestCase, setTestCase] = useState("");
     const [reasonOfChange, setReason] = useState("");
 
     //all users
     const [userArray, setUserArray] = useState([]);
-    //quiz start time
-    
 
+    //disable the double submission while waiting
+    const [submitDisabled, setSubmitDisabled] = useState(false);
+
+    
+    //when render, get all problems into three arrays based on difficulty level; decide whether the user has done quiz or not (exist or not in our result database)
+    //and get all users (for later use to determine how many users are already in database to setup default username)
     useEffect( () => {
         
-        //could be refactored more by passing in the setter function 
-        //but my head hurts already
         const fetchQuestions = async (type) => {
 
             try {
@@ -72,8 +72,8 @@ const CodeQuestion = () => {
                         setHardQuestionBank(questions);
                     }
                 }
-            } catch (err) {
-                console.error("Error: ", err);
+            } catch (error) {
+                console.error("Error: ", error);
             }
         };
 
@@ -113,24 +113,26 @@ const CodeQuestion = () => {
         fetchQuestions('hard');
         setLoading(false);
 
-    }, [user_id, userExistence]); //empty dependency array to make sure question bank is only fetched once 
+    }, [userExistence]); 
 
+    //create a user with their first quiz result in the database
     const createResult = async () => {
         try {
 
-            const payload = {
+            const newUser = {
                 userid: user.id,
                 username: "llama" + String(userArray.length + 1),
-                quizResult: quizResult
+                quizResult: quizResult,
+                pfpID: "66e66edfdbc53c84e91332ec"
             };
-            console.log('Payload:', payload);
+            console.log('New user:', newUser);
 
             const response = await fetch('http://localhost:3080/results', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(newUser)
             });
     
             if (!response.ok) {
@@ -145,6 +147,7 @@ const CodeQuestion = () => {
         }
     };
     
+    //add new quiz results for an existing user
     const updateResult = async () => {
         try {
             const response = await fetch(`http://localhost:3080/results/${user_id}`, {
@@ -180,9 +183,9 @@ const CodeQuestion = () => {
         let newDifficulty = currDifficulty;
         
         if(correctness) {
-            newDifficulty = Math.min(currDifficulty + 1, 3);
+            newDifficulty = currDifficulty === 3 ? 3 : currDifficulty + 1;
         } else {
-            newDifficulty = Math.max(currDifficulty - 1, 1);
+            newDifficulty = currDifficulty === 1 ? 1 : currDifficulty - 1;
         }
 
         switch (newDifficulty) {
@@ -202,16 +205,11 @@ const CodeQuestion = () => {
         return nextQuestion;
     };
 
-    const convertLevelofDifficulty = (currDifficulty) => {
-        if (currDifficulty === 1) return "Easy"
-        else if (currDifficulty === 2) return "Moderate"
-        else return "Hard"
-    };
-
+ 
     
 
 
-    //function that handle submit=> ask backend right or wrong and decide what to do next
+    //function that can be triggered by clicking submit or skip; ask backend right or wrong and decide what to do next
     //correct + first attempt: update the question variable + update question number + attemp_num stay at 1
     //incorrect + first attempt: update attemp_num to 2 + display additional component related to the second attempt
     //correct/incorrect + second attempt: update the question variable + reset attemp_num to 1 + update question number
@@ -219,7 +217,6 @@ const CodeQuestion = () => {
     //correct + first attempt (last question) & correct/incorrect + second attempt (last question): redirect to the quiz result page
     async function handleAnsSubmit(event, skip) {
         event.preventDefault();
-
         //disable submit while waiting for answers
         setSubmitDisabled(true);
 
@@ -229,8 +226,7 @@ const CodeQuestion = () => {
         let answerObject;
         console.log(currDifficulty);
         try {
-            console.log("Inside try block");
-            //sending API request to the backend
+            //handle skip differently from normal case
             if (skip) {
                 answerObject = {ans: "", no: question_num, diff: currDifficulty};
             } else {
@@ -238,7 +234,7 @@ const CodeQuestion = () => {
             }
             console.log("ready to fetch");
             console.log("frontend: ", answerObject);
-            const res = await fetch('http://localhost:3080/answer', {
+            const backendResponse = await fetch('http://localhost:3080/answer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -246,29 +242,30 @@ const CodeQuestion = () => {
                 body: JSON.stringify(answerObject)
             });
 
-            //check the result giving back from the backend
-            if (res.ok) {
-                const data = await res.json();
-                console.log(data.message);
-                console.log(data.correctness);
-                console.log(data.failedTests);
-                console.log(data.generatedCode);
-                correctness = data.correctness;
-                setTestCase(data.failedTests)
-                failedTests = data.failedTests;
-                code = data.generatedCode;
-                setGC(data.generatedCode);
+            //recieve and check the result giving back from the backend
+            if (backendResponse.ok) {
+                const resultData = await backendResponse.json();
+                console.log(resultData.message);
+                console.log(resultData.correctness);
+                console.log(resultData.failedTests);
+                console.log(resultData.generatedCode);
+
+                correctness = resultData.correctness;
+                setTestCase(resultData.failedTests)
+                failedTests = resultData.failedTests;
+                code = resultData.generatedCode;
+                setGC(resultData.generatedCode);
 
             } else {
                 console.error('Failed to get response from backend');
             }
 
         } catch (error) {
-            //handle network error or other errors 
+            
             console.error('ERROR: ', error);
         }
 
-        //update current quiz results and view them in the console
+        //create Json object to hold question info in the quiz, update current quiz results and view them in the console
         const quizJSon = {
             questionNum : question_num, 
             question: question,
@@ -276,31 +273,26 @@ const CodeQuestion = () => {
             reasonofchange: reasonOfChange,
             passfail: correctness,
             attemptNum: attempt_num,
-            startTime: quizStart,
+            startTime: QUIZ_START,
             endTime: new Date().toLocaleString(),
             difficultyLevel: convertLevelofDifficulty(currDifficulty),
             generatedCode: code,
             failedTestCases: failedTests
         };
-        console.log(quizJSon)
-
+        console.log(quizJSon);
         const temporaryArray = quizResult;
         temporaryArray.push(quizJSon);
         console.log(temporaryArray);
-        console.log(generatedCode)
+        console.log(generatedCode);
         setQuizResult(temporaryArray);
         
-        //set limit to 6 as there are only 6 questions thus far
-        //if skip is true just jump to next question lol?
+        //set limit to 8 as there are 8 questions thus far
         if(question_num < 8) {
             if(attempt_num === 2 || correctness || skip){
 
                 setQuestionNumber(question_num+1);
                 setAttemptNum(1);
                 setQuestion(getNextQuestion(correctness));
-
-                //default
-                //setQuestion(easyQuestionBank[question_num].question);
                 
             } else {
                 setAttemptNum(2);
@@ -310,11 +302,10 @@ const CodeQuestion = () => {
             if(!correctness && attempt_num === 1 && !skip){
                 setAttemptNum(2);
             } else {
-                //end of the quiz
-                //TODO: send the quizResult to page that needs it and store the result in database 
+                //end of the quiz and storing data
                 setSharedResult(quizResult);
                 console.log(quizResult.length);
-                alert("navigate!" + userEmail);
+                alert("Congratulations " + userEmail + "! You have finished the quiz. Please click Ok to see the result.");
                 console.log("before conditional " + userExistence);
                 if (!userExistence) {
                     console.log("create user");
@@ -342,6 +333,7 @@ const CodeQuestion = () => {
 
     return (
         <div className="homeContainer">
+
             <header className='siteHeader'>
                 <div className='headerLeft'>
                     <div className='smalllogoContainer'>
@@ -350,18 +342,34 @@ const CodeQuestion = () => {
                     </div>
                 </div>
             </header>
+
             <div className='mainCodeQuestion'>
-                
-            
+                {/*  question and information section  */}
                 {loading ? (
                     <p>Loading...</p>
                 ) : ( 
                     <>
                     <div className='question'>
                         <h2>Question {question_num} </h2>
-                        <div className='levelTag'>
-                            <h2>{convertLevelofDifficulty(currDifficulty)}</h2>
+                        
+                        {convertLevelofDifficulty(currDifficulty) === "Easy" &&
+                        <div className='easyLevelTag'>
+                            <span>{convertLevelofDifficulty(currDifficulty)}</span>
                         </div>
+                        }
+
+                        {convertLevelofDifficulty(currDifficulty) === "Moderate" &&
+                        <div className='modLevelTag'>
+                            <span>{convertLevelofDifficulty(currDifficulty)}</span>
+                        </div>
+                        }
+
+                        {convertLevelofDifficulty(currDifficulty) === "Hard" &&
+                        <div className='hardLevelTag'>
+                            <span>{convertLevelofDifficulty(currDifficulty)}</span>
+                        </div>
+                        }
+                        
                         <p>Please describe the following code in plain English: </p>
                         <br></br>
                                                 
@@ -371,8 +379,6 @@ const CodeQuestion = () => {
                             </code>
                         </pre>
                             
-                        
-
                         {(attempt_num === 2) && 
                             <div className='secondAttempt'>
                                 <br></br>
@@ -380,11 +386,12 @@ const CodeQuestion = () => {
                                 <br></br>
                                 <p id='generatedCode'>{generatedCode}</p>
                                 <br></br>
-                                <p>{failedTestCase}</p>
+                                <pre>{failedTestCase}</pre>
                             </div>
                         }                        
                     </div>
 
+                    {/*  user inputs section  */}
                     <div className='answer'>
                         <div className='skipBtnContainer'>
                             <button className='skipButton' type = "button" disabled={submitDisabled} onClick = {handleSkip}>Skip</button>
@@ -426,17 +433,11 @@ const CodeQuestion = () => {
                                 </input>
                             </label>
                             }
-
                             <br></br>
                             <br></br>
-                                <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
+                            <button className='submitButton' type = "submit" disabled = {submitDisabled}>Submit</button>
                         </form>
-                        
-                       
-                    
                     </div>
-
-                    
                     </>
                 )}
             </div>

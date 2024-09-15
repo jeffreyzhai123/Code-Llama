@@ -1,5 +1,5 @@
 import React from 'react'
-import { SignedIn, SignedOut, SignInButton, SignOutButton, useUser } from '@clerk/clerk-react'
+import { SignedIn, SignedOut, SignOutButton, useUser } from '@clerk/clerk-react'
 import ConsentForm from '../components/consent_form'
 import my_logo from '../components/CodeLlama_Academy.GIF'
 import { useState } from 'react';
@@ -29,7 +29,7 @@ const Home = (props) => {
       const response = prompt("Please enter the admin password:");
       if (response === "codeLlama") {
         navigate("/adminMode");
-      } else {
+      } else if(response != null){
         alert("Wrong password. Please try again.");
       }
     }
@@ -61,18 +61,15 @@ const Home = (props) => {
                 The application uses Ollama to generate code based on users' description and eventually evaluate whether users' descriptions
                 can generate a code piece that is functionally equivalent as the given code piece in the question. 
                 </p>
-              </div>
+              
               <div className='login'>
               
-              <ConsentForm checked={isChecked} onCheckboxChange={onCheckboxChange} />
+                <ConsentForm checked={isChecked} onCheckboxChange={onCheckboxChange} />
               
-              {isChecked &&
-              <div className='loginContainer'>
-                <SignInButton className="btn btn-warning">
-                    <input type="button" value="Log in"  />
-                </SignInButton>
+                {isChecked &&
+                  <div className='loginContainer'>
+                  </div>}
               </div>
-              }
               </div>
               {/* You can also check if a user is logged in or not using the 'user' object from the useUser hook. In this case, a non-undefined user object will render the user's email on the page */}
           {user ? <div>Your email address is {user.primaryEmailAddress.emailAddress}</div> : null}
@@ -92,8 +89,8 @@ const Home = (props) => {
                 <div className="mainBtnContainer">
                   <input type="button" onClick={codeQuestionButton} value="Exercise" className='btn btn-info' />
                   <input type="button" onClick={performanceReview} value="Performance Review" className='btn btn-success' />
-                  <input type="button" onClick={adminMode} value="Admin Mode" className='btn btn-primary' />
-                  <input type="button" onClick={profilePage} value="Profile Page" className='btn btn-primary' />
+                  <input type="button" onClick={adminMode} value="Admin Mode" className='btn btn-secondary' />
+                  <input type="button" onClick={profilePage} value="Change Username" className='btn btn-primary' />
 
                   <SignOutButton>
                     <input type="button" value="Log out" className="btn btn-warning" />
@@ -107,17 +104,17 @@ const Home = (props) => {
                 <div className={'descriptionColumn'}>
                   <p className='emphasizeDescription'>In Exercise</p> 
                   <li>There are eight questions in total per exercise.</li>
-                  <li>User must complete all of them to save the results.</li>
-                  <li>User cannot go back to the previous questions.</li>
-                  <li>User gets two chances to pass each question.</li>
-                  <li>User can skip the question which will be considered as failed question.</li>
+                  <li>Users must complete all of them to save the results.</li>
+                  <li>Users cannot go back to the previous questions.</li>
+                  <li>Users gets two chances to pass each question.</li>
+                  <li>Users can skip a question, which will be considered as a failed question.</li>
                 </div>
 
                 <div className={'descriptionColumn'}>
                   <p className='emphasizeDescription'>In Performance Review</p> 
-                  <li>All user's completed quiz attemps are listed.</li>
-                  <li>User can click on each quiz to view detailed performance review.</li>
-                  <li>User can click on each question to view further details.</li>
+                  <li>All of the user's completed quiz attemps are listed.</li>
+                  <li>Users can click on each quiz to view a detailed performance review.</li>
+                  <li>Users can click on each question to view further details.</li>
                 </div>
               </section>
             
