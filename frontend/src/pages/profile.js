@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import my_logo from '../components/CodeLlama_Academy.GIF'
+import defaultPic from '../assets/default-pfp.png'
 import { useUser } from '@clerk/clerk-react'
 import { useDropzone } from 'react-dropzone'
-
 
 const Profile = () => {
 
@@ -13,7 +13,10 @@ const Profile = () => {
     const [warning, setWarning] = useState(false);
     const [success, setSuccess] = useState(false);
     const [currName, setCurrName] = useState("");
-    const [profilePicture, setProfilePicture] = useState();
+    const [profilePicture, setProfilePicture] = useState(defaultPic);
+    const [currProfilePictureID, setCurrProfilePictureID] = useState("66e66edfdbc53c84e91332ec");
+
+    const defaultPictureID = "66e66edfdbc53c84e91332ec";
 
     const handleUpload = async (file) => {
         try {
@@ -23,7 +26,8 @@ const Profile = () => {
             });
             if (response.ok) {
                 const result = await response.json();
-                console.log('File upload successful');
+                console.log("just uploaded new pfp, old pfp id is", currProfilePictureID);
+                return result.message;
             } else {
                 console.error('Failed upload');
             }
@@ -32,22 +36,90 @@ const Profile = () => {
         }
     }; 
 
-    const onDrop = useCallback((acceptedFiles) => {
-        //allows for multiple field stuff
+    //debugging components
+    useEffect(() => {
+        console.log("Updated currProfilePictureID:", currProfilePictureID);
+    }, [currProfilePictureID]);
 
-        console.log('Files dropped or selected:', acceptedFiles);
+    useEffect(() => {
+        console.log("Component mounted");
+        return () => {
+            console.log("Component unmounted");
+        };
+    }, []);
+    
+
+    //something about deleting current 
+    const handleDelete = async (toBeDeletedID) => {
+        console.log("called ", toBeDeletedID);
+        
+        if (toBeDeletedID === defaultPictureID) {
+            console.log("Cannot delete default profile picture.");
+            return;
+        }
+    
+        try {
+            const response = await fetch(`http://localhost:3080/profile/picture/${toBeDeletedID}`, {
+                method: 'DELETE',
+            });
+    
+            if (response.ok) {
+                console.log("Profile picture deleted successfully");
+            } else {
+                console.error("Failed to delete profile picture, Status:", response.status);
+            }
+        } catch (error) {
+            console.error("Error occurred during profile picture deletion:", error);
+        }
+    };
+    
+
+    const onDrop = useCallback(async (acceptedFiles) => {
+        //allows for multiple field stuff
         if (acceptedFiles.length === 0) {
             //display something to user
             console.log("Error, imagine upload failed");
-            setProfilePicture();
+            //setProfilePicture();
         } else {
-            console.log('Files dropped or selected:', acceptedFiles);
             const formData = new FormData();
             setProfilePicture(URL.createObjectURL(acceptedFiles[0]));
             formData.append('profile', acceptedFiles[0]);
-            handleUpload(formData);
+
+            const newProfilePictureID = await handleUpload(formData);
+
+            if (newProfilePictureID) {
+                await updateUserProfilePic(newProfilePictureID);
+                setCurrProfilePictureID(prevID => {
+                    // Ensure the ID for deletion is set based on the previous ID
+                    handleDelete(prevID); 
+                    return newProfilePictureID;
+                });
+            }
         }
     }, []);
+
+    const updateUserProfilePic = async (profileID) => {
+        try {
+            const response = await fetch(`http://localhost:3080/profile/picture/${user_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    pfpID: profileID, // Make sure profileID is correctly passed
+                }),
+            });
+    
+            if (response.ok) {
+                console.log("Profile picture updated successfully");
+            } else {
+                console.error("Failed to update profile picture, Status:", response.status);
+            }
+        } catch (error) {
+            console.error("Error occurred during profile picture update:", error);
+        }
+    };
+    
 
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
         onDrop,
@@ -59,9 +131,9 @@ const Profile = () => {
         multiple: false,
     });
 
-    //only accept the first file
-    const selectedFile = acceptedFiles[0]
-    console.log(selectedFile);
+    // only accept the first file
+    // const selectedFile = acceptedFiles[0]
+    // console.log(selectedFile);
 
     const {user} = useUser();
     const user_id = user.id;
@@ -72,7 +144,7 @@ const Profile = () => {
     };
 
     useEffect(  () => {
-        // fetch current user's username
+        // fetch current user's username and pfp
         const fetchUser = async () => {
             try {
                 const response = await fetch(`http://localhost:3080/profile/${user_id}`)
@@ -80,6 +152,15 @@ const Profile = () => {
                     let data = await response.json();
                     setUserExistence(true);
                     setCurrName(data.username);
+
+                    //possible area of bug
+                    console.log("fetchUser: pfpID", data.pfpID);
+
+                    if (!currProfilePictureID || currProfilePictureID !== data.pfpID) {
+                        console.log("fetchUser: pfpID", data.pfpID);
+                        setCurrProfilePictureID(data.pfpID);
+                    }
+
                 } else {
                     throw new Error('Failed to fetch userid');
                 }
@@ -104,13 +185,24 @@ const Profile = () => {
             }
         };
 
+        const fetchProfilePicture = async() => {
+            try {
+                const response = await fetch(`http://localhost:3080/profile/picture/${user_id}`)
+                if (response.ok) {
+                    const imageData = await response.blob();
+                    const imageUrl = URL.createObjectURL(imageData);
+                    setProfilePicture(imageUrl);
+                    console.log("pfp updated");
+                }
+            } catch (error) {
+                console.log("something is wrong obviously")
+            }
+        };
+
         fetchUser();
         fetchAllUsers();
-    }, [user_id, currName]);
-    //only when updateName is called does the currName change
-    //when currName change, need to fetch all names from database again to make a new Map
-    //because I am unable to update the map due to username being the key and id being the value
-    //this is needed for quick look up
+        fetchProfilePicture();
+    }, [user_id]);
 
     const updateName = async () => {
         try {
@@ -166,6 +258,7 @@ const Profile = () => {
                 </div>
             </header>
 
+
             {!userExistence && (
                 <div className='profileMessage'>
                     <p>Please complete at least one quiz set to change your username.</p>
@@ -173,7 +266,12 @@ const Profile = () => {
             )}
             {userExistence && (
             <>
-            <p className='profileMessage'>Current username is: {currName}</p>
+
+            <div className='profileContainer'>
+                <img src={profilePicture} alt="Profile" className='profilePicture' />
+                <p className='usernameParagraph'>Current username is: {currName}</p>
+            </div>
+
             <div className="usernameForm">
                 <form onSubmit={handleSubmit}>
                     <label className='usernameFormLabel'>

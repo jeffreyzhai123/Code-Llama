@@ -79,3 +79,25 @@
     color: aliceblue; 
     margin-left: 75px;
 }
+
+.profileContainer {
+    padding-top: 200px; /* To position the icon lower */
+    padding-left: 65px;
+    display: flex;
+    align-items: center; /* Vertically center the items */
+    gap: 10px; /* Optional: Space between items */
+  }
+  
+  .profilePicture {
+    width: 100px; /* Adjust size as needed */
+    height: 100px;
+    border-radius: 50%;
+    border-width: 20px;
+    border-color: aliceblue;
+  }
+  
+  .usernameParagraph {
+    font-weight: bold;
+    font-size: 16px;
+    color:aliceblue;
+  }

@@ -122,7 +122,8 @@ const CodeQuestion = () => {
             const newUser = {
                 userid: user.id,
                 username: "llama" + String(userArray.length + 1),
-                quizResult: quizResult
+                quizResult: quizResult,
+                pfpID: "66e66edfdbc53c84e91332ec"
             };
             console.log('New user:', newUser);
 
